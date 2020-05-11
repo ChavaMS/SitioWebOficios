@@ -158,7 +158,7 @@ function comprobar_correo($email, $conexion){
 }
 
 function crear_empleado($nombre, $correo, $pass1,$phone_number,$birthdate,$address,$photo, $conexion){
-    
+
     $statement = $conexion->prepare("INSERT INTO employees (id,name,email,password,phone_number,birthdate, address, register_date, photo, active) VALUES (NULL,:nombre,:email,:pass,:phone_number,:birthdate,:direccion,NOW(),:photo,1)");
 
     $statement->execute(array(':nombre' => $nombre, ':email' => $correo , ':pass' => $pass1,':phone_number' => $phone_number, ':birthdate' => $birthdate, ':direccion' => $address, ':photo' => $photo));
@@ -173,19 +173,13 @@ function crear_empleado($nombre, $correo, $pass1,$phone_number,$birthdate,$addre
 }
 
 
-function asignar_oficios($oficios, $id, $conexion){
+function asignar_oficios($id_oficios, $desc_oficios,$usu_id, $conexion){
     
-    $statement = $conexion->prepare("INSERT INTO employee_job (emp_id,job_id,descripcion) VALUES (:emp_id,:job:id,)");
+    for($i = 0; $i < count($id_oficios); $i++){
+        $statement = $conexion->prepare("INSERT INTO employee_job (emp_id,job_id,descripcion) VALUES (:emp_id,:job_id,:descr)");
 
-    /*$statement->execute(array(':nombre' => $nombre, ':email' => $correo , ':pass' => $pass1,':phone_number' => $phone_number, ':birthdate' => $birthdate, ':direccion' => $address, ':photo' => $photo));
-
-
-
-    if(!empty($usuario)){
-        return $usuario;
-    }else{
-        return false;
-    }*/
+        $statement->execute(array(':emp_id' => $usu_id,':job_id' => $id_oficios[$i],':descr' => $desc_oficios[$i] ));
+    }
 }
 
 

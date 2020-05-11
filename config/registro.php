@@ -10,7 +10,7 @@ $pass1;
 $pass2;
 $cp;
 $direccion;
-$oficios = array();
+$desc_oficios = array();
 $id_oficios = array();
 $correo;
 $tel;
@@ -26,10 +26,7 @@ if (isset($_FILES['file']['name']) && isset($_FILES['file']['tmp_name'])) {
     $destino = '../' . $blog_config['carpeta_imagenes'] . $nombreImg;
 
     foreach ($_POST as $campo => $valor) {
-        echo $campo;
         if($campo == strval($id)){
-            //echo $campo;
-            //echo strval($id);
             array_push($id_oficios, limpiarDatos($valor));
             $id++;
         }else if ($campo == 'nombre') {
@@ -43,7 +40,7 @@ if (isset($_FILES['file']['name']) && isset($_FILES['file']['tmp_name'])) {
         } else if ($campo == 'direccion') {
             $direccion = limpiarDatos($valor);
         } else if ($campo != 'nombre' && $campo != 'contrasena1' && $campo != 'contrasena2' && $campo != 'CP' && $campo != 'direccion' && $campo != 'tel' && $campo != 'correo' && $campo != 'fechaNac' && $campo != 'genero' && $campo != strval($id)) {
-            array_push($oficios, limpiarDatos($valor));
+            array_push($desc_oficios, limpiarDatos($valor));
         } else if ($campo == 'fechaNac') {
             $fechaNac = limpiarDatos($valor);
         } else if ($campo == 'genero') {
@@ -55,16 +52,16 @@ if (isset($_FILES['file']['name']) && isset($_FILES['file']['tmp_name'])) {
         }
     }
 
-    /*if (copy($ruta, $destino)) {
+    if (copy($ruta, $destino)) {
         $usuario = crear_empleado($nombre, $correo, $pass1, $tel, $fechaNac, $direccion, $nombreImg, $conexion);
-        asignar_oficios($oficios,$usuario[1],$conexion);
+        asignar_oficios($id_oficios,$desc_oficios,$usuario[1],$conexion);
+
     }
 
     if(!$usuario){
         echo 'Error';
-    }*/
+    }
     //print_r($oficios);
-    print_r($id_oficios);
 
 } else {
     echo '<script type="text/javascript"> alert("Faltan datos");';
