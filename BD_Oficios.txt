@@ -1,0 +1,111 @@
+CREATE DATABASE pagweb;
+USE pagweb;
+
+
+CREATE TABLE employees (
+	id 	 INT NOT NULL AUTO_INCREMENT,
+	name     VARCHAR(50) NOT NULL,
+	email    VARCHAR(30) NOT NULL,
+	password VARCHAR(20) NOT NULL,
+	phone_number	 INT NOT NULL,
+	birthdate	 DATE,
+	address  VARCHAR (70),
+	register_date DATETIME NOT NULL,
+	photo    varchar(255) NOT NULL,
+	active   TINYINT(1) NOT NULL,
+	PRIMARY KEY (id)
+);
+
+INSERT INTO employees (name,email,password,phone_number,birthdate, address, register_date,photo ,active) VALUES
+("Salvador Medina Santos","chava678ics@gmail.com","12345","8712342811","1998-01-01","25°30 46.1 N 103°23'31.9 W",NOW(),"1.jpg",1);
+
+INSERT INTO employees (name,email,password,phone_number,birthdate, address, register_date, photo,active) VALUES
+("Pedor Perez","pedro@gmail.com","23456","123456783","1998-01-01","25°30 46.1 N 103°23'31.9 W",NOW(),"1.jpg",1);
+
+INSERT INTO employees (name,email,password,phone_number,birthdate, address, register_date,photo ,active) VALUES
+("Sofia Nava","sofia@gmail.com","34567","8711083434","1998-01-01","25°30 46.1 N 103°23'31.9 W",NOW(),"1.jpg",1);
+
+INSERT INTO employees (name,email,password,phone_number,birthdate, address, register_date,photo ,active) VALUES
+("Humberto Medina","humberto@gmail.com","45678","8712343431","1998-01-01","25°30 46.1 N 103°23'31.9 W",NOW(),"1.jpg",1);
+
+INSERT INTO employees (name,email,password,phone_number,birthdate, address, register_date,photo ,active) VALUES
+("Josue Romero","josue@gmail.com","56789","87343434","1998-01-01","25°30 46.1 N 103°23'31.9 W",NOW(),"1.jpg",1);
+
+INSERT INTO employees (name,email,password,phone_number,birthdate, address, register_date,photo ,active) VALUES
+("Guadalpue Nury Galvan","nury@gmail.com","123456789","87343434","1998-01-01","25°30 46.1 N 103°23'31.9 W",NOW(),"1.jpg",1);
+
+
+
+CREATE TABLE  job (
+	id	INT NOT NULL AUTO_INCREMENT,
+	nombre 	VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id)	
+);
+
+INSERT INTO job (nombre) VALUE ("Carpintero");
+INSERT INTO job (nombre) VALUE ("Albañil");
+INSERT INTO job (nombre) VALUE ("Ama de casa");
+INSERT INTO job (nombre) VALUE ("Plomero");
+INSERT INTO job (nombre) VALUE ("Zapatero");
+INSERT INTO job (nombre) VALUE ("Costurero");
+
+CREATE TABLE employee_job (
+	emp_id INT NOT NULL,
+	job_id INT NOT NULL,
+	descripcion TEXT,
+	PRIMARY KEY (emp_id, job_id),
+	FOREIGN KEY (emp_id) references employees(id)
+);
+
+INSERT INTO employee_job VALUES(1,1,"Realizo cualquier tipo de carpinteria");
+INSERT INTO employee_job VALUES(2,2,"Cualquier arreglo de su casa lo puedo hacer sin problemas");
+INSERT INTO employee_job VALUES(3,3,"Puedo cuidar niño, lavar, hacer de comer, limpiar y me adapto rapido");
+INSERT INTO employee_job VALUES(4,4,"Si tienes un problema con tu cañeria yo lo puedo solucionar");
+INSERT INTO employee_job VALUES(5,5,"Arreglo todo tipo de calzado");
+INSERT INTO employee_job VALUES(6,5,"Arreglo todo tipo de calzado y lo dejo mejor");
+
+CREATE TABLE employers (
+	id 	 INT NOT NULL AUTO_INCREMENT,
+	name     VARCHAR(50) NOT NULL,
+	email    VARCHAR(30) NOT NULL,
+	password VARCHAR(20) NOT NULL,
+	register_date DATETIME NOT NULL,
+	active   TINYINT(1) NOT NULL,
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE ratings (
+	rat_id 	INT NOT NULL AUTO_INCREMENT, 
+	emp_id INT NOT NULL,
+	aprobacion INT,
+	PRIMARY KEY (rat_id,emp_id),
+	FOREIGN KEY (emp_id) references employees (id)
+);
+
+INSERT INTO ratings (emp_id,aprobacion) VALUES (1,1);
+INSERT INTO ratings (emp_id,aprobacion) VALUES (1,5);
+INSERT INTO ratings (emp_id,aprobacion) VALUES (1,3);
+INSERT INTO ratings (emp_id,aprobacion) VALUES (1,4);
+
+INSERT INTO ratings (emp_id,aprobacion) VALUES (2,1);
+INSERT INTO ratings (emp_id,aprobacion) VALUES (2,0);
+
+INSERT INTO ratings (emp_id,aprobacion) VALUES (3,5);
+INSERT INTO ratings (emp_id,aprobacion) VALUES (3,5);
+INSERT INTO ratings (emp_id,aprobacion) VALUES (3,5);
+
+INSERT INTO ratings (emp_id,aprobacion) VALUES (4,0);
+
+INSERT INTO ratings (emp_id,aprobacion) VALUES (5,1);
+
+INSERT INTO ratings (emp_id,aprobacion) VALUES (6,5);
+
+CREATE TABLE comment (
+	id	 INT NOT NULL AUTO_INCREMENT,
+	emp_id	 INT NOT NULL,
+	emy_id	 INT NOT NULL,
+	comments TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY (emp_id) references employers (id),
+	FOREIGN KEY (emy_id) references employees (id)
+);

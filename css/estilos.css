@@ -1,0 +1,22 @@
+.navBarColor{
+    background: #d63447;
+}
+
+.navColor{
+    /*background: #f6eedf;*/
+}
+
+#particles-js {
+    height: 100vh; 
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+}
+
+.fondoAzul{
+    background: #000000; /*rgb(211, 207, 207);*/
+}
+
+.fondo{
+    background-color:/*#7d7d7d;*/ #FFFFFF;
+}
