@@ -31,7 +31,7 @@ function obtener_rating($id, $conexion){
     $sentencia->execute();
     $response = $sentencia->fetchAll();
 
-    return floor($response[0][0]);
+    return ($response[0][0]);
 }
 
 function obtener_empleados($post_por_pagina, $conexion)
@@ -60,20 +60,22 @@ function numero_paginas($post_por_pagina, $conexion)
     return $numero_paginas;
 }
 
-/*function obtener_post_por_id($id, $conexion)
-{
-    $resultado = $conexion->query("SELECT * FROM post WHERE post_id = $id LIMIT 1");
-    $resultado = $resultado->fetchAll();
+function crear_empleador($nombre, $correo, $pass1, $fechaNac, $conexion){
+    $statement = $conexion->prepare("INSERT INTO employers (id,name,email,password,register_date, active) VALUES (NULL,:nombre,:email,:pass,NOW(),1)");
 
-    return ($resultado) ? $resultado : false;
-}*/
+    $statement->execute(array(':nombre' => $nombre, ':email' => $correo , ':pass' => $pass1));
 
-/*function obtener_empleados($conexion){
-    $sentencia = $conexion->prepare("SELECT id,name, address FROM employees");
+    $usuario = comprobar_usuario_empleador($correo, $pass1, $conexion);
 
-    $sentencia->execute();
-    return $sentencia->fetchAll();
-}*/
+    $user[0] = ISSET($usuario[0]) ? $usuario[0] : null;
+    $user[1] = ISSET($usuario[1]) ? $usuario[1] : null;
+
+    if(!empty($user[0])){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 function obtener_empleos($id, $conexion){
     $sentencia = $conexion->prepare("SELECT nombre FROM job as j INNER JOIN employee_job as ej ON (j.id = ej.job_id) WHERE ej.emp_id = $id");
@@ -129,7 +131,7 @@ function comprobar_usuario_empleado($email,$pass,$conexion){
         return false;
     }
 }
-
+ 
 function comprobar_usuario_empleador($email,$pass,$conexion){
     $sentencia = $conexion->prepare("SELECT name,id FROM employers WHERE email LIKE '$email' AND password LIKE '$pass'");
     $sentencia->execute();
@@ -163,10 +165,13 @@ function crear_empleado($nombre, $correo, $pass1,$phone_number,$birthdate,$addre
 
     $statement->execute(array(':nombre' => $nombre, ':email' => $correo , ':pass' => $pass1,':phone_number' => $phone_number, ':birthdate' => $birthdate, ':direccion' => $address, ':photo' => $photo));
 
-    $usuario = comprobar_usuario_empleador($correo, $pass1, $conexion);
+    $usuario = comprobar_usuario_empleado($correo, $pass1, $conexion);
 
-    if(!empty($usuario)){
-        return $usuario;
+    $user[0] = ISSET($usuario[0]) ? $usuario[0] : null;
+    $user[1] = ISSET($usuario[1]) ? $usuario[1] : null;
+
+    if(!empty($user[0])){
+        return $user;
     }else{
         return false;
     }
@@ -223,6 +228,3 @@ function tiempo_transcurrido($tiempo)
     }
     
 }
-
-
-?>

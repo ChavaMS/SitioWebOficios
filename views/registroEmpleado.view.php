@@ -65,7 +65,7 @@
       <div class="col-md-6 px-0 h-100">
         <div class="my-5 justify-content-center border d-flex align-items-center">
           <div class="d-block my-4">
-            <form id="regiration_form" action="http://localhost/SitioWebOficios/config/registro.php" enctype="multipart/form-data" method="POST">
+            <form id="regiration_form" action="http://localhost/SitioWebOficios/config/registro1.php" enctype="multipart/form-data" method="POST">
               <!-----------------------novalidate-------------------PARTE 1------------------------------->
               <fieldset>
                 <div class="text-center display-4 mb-3">

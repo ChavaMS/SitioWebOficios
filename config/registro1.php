@@ -54,38 +54,14 @@ if (isset($_FILES['file']['name']) && isset($_FILES['file']['tmp_name'])) {
 
     if (copy($ruta, $destino)) {
         $usuario = crear_empleado($nombre, $correo, $pass1, $tel, $fechaNac, $direccion, $nombreImg, $conexion);
-        asignar_oficios($id_oficios,$desc_oficios,$usuario[1],$conexion);
-
+        if(!$usuario){
+            echo 'Error';
+        }else{
+            asignar_oficios($id_oficios,$desc_oficios,$usuario[1],$conexion);
+            header('Location: ' . RUTA . 'index.php');
+        }
     }
-
-    if(!$usuario){
-        echo 'Error';
-    }
-    //print_r($oficios);
 
 } else {
     echo '<script type="text/javascript"> alert("Faltan datos");';
 } 
-
-
-  //crear_empleado($nombre,$pass1,$);
-
-  /*echo $pass1;
-  echo '-';
-  echo $pass2;
-  echo '-';
-  echo $cp;
-  echo '-';
-  echo $direccion;
-  echo '-';
-  print_r($oficios);
-  echo '-';
-  echo $genero;
-  echo '-';
-  echo $fechaNac;
-  echo '-';
-  echo $nombre;
-  echo '-';
-  echo $tel;
-  echo '-';
-  echo $correo;*/
