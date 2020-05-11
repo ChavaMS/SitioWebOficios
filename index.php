@@ -21,7 +21,6 @@ $oficios = array();
 $puntuacion = array();
 $i = 0;
 
-
 //PROCESOS
 $usuarios = obtener_empleados($blog_config['post_por_pagina'],$conexion);
 
