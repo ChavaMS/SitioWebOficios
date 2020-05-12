@@ -23,7 +23,6 @@ function rating() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             respuesta = JSON.parse(xhr.responseText);
-            console.log(respuesta);
             var rating = new Array();
             respuesta.valor0 != null ? rating[0] = respuesta.valor0 : '';
             respuesta.valor1 != null ? rating[1] = respuesta.valor1 : '';

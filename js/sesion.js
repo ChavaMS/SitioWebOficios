@@ -9,14 +9,16 @@ function crearSesion() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var respuesta = JSON.parse(xhr.responseText); 
+            console.log(respuesta);
             if (respuesta.tipo == 'empleado') {
-                //console.log(respuesta);
                 console.log('empleado');
                 
                 localStorage.setItem('user', respuesta.nombre);
                 window.location="http://localhost/SitioWebOficios/index.php";
             }else if(respuesta.tipo == 'empleador'){
                 console.log("empleador");
+                localStorage.setItem('user', respuesta.nombre);
+                window.location="http://localhost/SitioWebOficios/index.php";
             }else{
                 console.log('no entra');
                 

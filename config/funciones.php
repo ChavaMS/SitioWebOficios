@@ -27,7 +27,7 @@ function obtener_id_empleados($inicio,$post_por_pagina,$conexion){
 }
 
 function obtener_rating($id, $conexion){
-    $sentencia = $conexion->prepare("SELECT AVG(aprobacion) FROM ratings WHERE emp_id = $id");
+    $sentencia = $conexion->prepare("SELECT AVG(aprobacion) FROM ratings WHERE employee_id = $id");
     $sentencia->execute();
     $response = $sentencia->fetchAll();
 
