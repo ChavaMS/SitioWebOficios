@@ -7,7 +7,7 @@ function empleador(){
 }
 
 
-if (!(window.location.href.includes('iniciarSesion.php') || window.location.href.includes('registroOpcion.php') || window.location.href.includes('registroEmpleado.php') || window.location.href.includes('registroEmpleador.php'))) {
+if (!(window.location.href.includes('registroOpcion.php') || window.location.href.includes('registroEmpleado.php') || window.location.href.includes('registroEmpleador.php'))) {
     var cerrSesion = document.getElementById('cerrarSesion');
 
     if (window.location.href.includes('perfil.php')) {

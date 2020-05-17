@@ -42,17 +42,17 @@
 <body>
   <!--NAVBAR-->
   <nav class="navbar navbar-expand-lg navbar-light navBarColor">
-    <a class="navbar-brand" href="#">LOGO</a>
+    <a class="navbar-brand" href="index.php">LOGO</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Iniciar sesión</a>
+          <a class="nav-link" href="inicarSesion.php">Iniciar sesión</a>
         </li>
       </ul>
     </div>
@@ -65,7 +65,7 @@
       <div class="col-md-6 px-0 h-100">
         <div class="my-5 justify-content-center border d-flex align-items-center">
           <div class="d-block my-4">
-            <form id="regiration_form" action="http://localhost/SitioWebOficios/config/registro1.php" enctype="multipart/form-data" method="POST">
+            <form id="regiration_form" action="<?php echo RUTA . 'config/registro1.php'; ?>" enctype="multipart/form-data" method="POST">
               <!-----------------------novalidate-------------------PARTE 1------------------------------->
               <fieldset>
                 <div class="text-center display-4 mb-3">
