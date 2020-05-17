@@ -88,13 +88,13 @@
                 <div class="row form-group">
                   <label for="contraseña1" class="col-form-label col-md-4">Contraseña:</label>
                   <div class="col-md-8">
-                    <input type="text" name="contrasena1" id="pass1" class="form-control" required>
+                    <input type="password" name="contrasena1" id="pass1" class="form-control" required>
                   </div>
                 </div>
                 <div class="row form-group">
                   <label for="contraseña2" class="col-form-label col-md-4">Confirmar contraseña:</label>
                   <div class="col-md-8">
-                    <input type="text" name="contrasena2" id="pass2" class="form-control" required>
+                    <input type="password" name="contrasena2" id="pass2" class="form-control" required>
                   </div>
                 </div>
                 <!--CONTRASEÑA-->
