@@ -28,18 +28,17 @@
                                     <h4>Oficios que realiza</h4>
                                 </div>
                                 <div class="col-6 text-right p-4">
-                                    <span>1</span>
-                                    <i class="far fa-thumbs-up"></i>
-                                    <span>1</span>
-                                    <i class="far fa-thumbs-down"></i>
+                                    <div id="rate10" class="d-md-flex justify-content-center">
+                                        <span class="mt-3 mx-2">Calificación:</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <?php 
-                            for($i = 0; $i < sizeof($oficios_nombre)-1;$i++){
+                            <?php
+                            for ($i = 0; $i < sizeof($oficios_nombre) - 1; $i++) {
                                 echo '<h4>' . $oficios_nombre[$i] . '</h4>';
-                                echo '<p>'. $oficios_desc[$i] .'</p>';
+                                echo '<p>' . $oficios_desc[$i] . '</p>';
                             }
                             ?>
                         </div>

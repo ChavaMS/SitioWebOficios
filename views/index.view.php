@@ -133,17 +133,8 @@
                                     <?php echo $usuario['address'] ?>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <!--<div class="starrr" id="starrr">
-                                    <span><?php //echo $puntuacion_filtrada[$j][0]; 
-                                            ?></span>
-                                    <i class="far fa-thumbs-down"></i>
-                                    <span><?php //echo $puntuacion_filtrada[$j++][1]; 
-                                            ?></span>
-                                    <i class="far fa-thumbs-up"></i>
-                                </div>-->
                                     <div id="rate<?php echo $j++; ?>" class="d-md-flex justify-content-center">
                                         <span class="mt-3 mx-2">Calificación:</span>
-                                        <!--<div class="rate mt-3"></div>-->
                                     </div>
                                 </div>
                             </div>
