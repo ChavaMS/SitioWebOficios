@@ -1,11 +1,33 @@
-function empleado(){
+function empleado() {
     window.location = ruta + "registroEmpleado.php";
 }
 
-function empleador(){
+function empleador() {
     window.location = ruta + "registroEmpleador.php";
 }
 
+if (window.location.href.includes('perfil.php')) {
+    var desc = new Array();
+    var numOficios = document.getElementById('numOficios').value;
+    
+    for (let i = 0; i < numOficios; i++) {
+        desc[i] = document.getElementById('#' + (i + 1));
+        document.getElementById(i + 1).addEventListener('click', function () {
+            cargarDescripcion(i + 1);
+        });
+    }
+
+    function cargarDescripcion(id) {
+        if (desc[id - 1].className.includes('d-none')) {
+            for (let i = 0; i < numOficios; i++) {
+                desc[i].classList.add('d-none');
+            }
+            desc[id - 1].classList.remove('d-none');
+        }
+
+    }
+
+}
 
 if (!(window.location.href.includes('registroOpcion.php') || window.location.href.includes('registroEmpleado.php') || window.location.href.includes('registroEmpleador.php'))) {
     var cerrSesion = document.getElementById('cerrarSesion');

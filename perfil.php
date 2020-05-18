@@ -15,10 +15,9 @@ if(ISSET($_SESSION['id'])){
     $datosUser = $datosUser[0];
 
     $oficios_nombre = obtener_empleos($idUser,$conexion);
-    $oficios_nombre = $oficios_nombre[0];
     $oficios_desc = obtener_oficios_descripcion($idUser,$conexion);
-    $oficios_desc = $oficios_desc[0];
-    $i = 0;
+
+    $numOficios = sizeof($oficios_desc);
 
 }else{
     header('Location: index.php');

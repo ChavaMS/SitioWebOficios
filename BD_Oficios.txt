@@ -58,6 +58,8 @@ CREATE TABLE employee_job (
 );
 
 INSERT INTO employee_job VALUES(1,1,"Realizo cualquier tipo de carpinteria");
+INSERT INTO employee_job VALUES(1,2,"Arreglo la casa");
+INSERT INTO employee_job VALUES(1,3,"Cuido la casa de ser necesario");
 INSERT INTO employee_job VALUES(2,2,"Cualquier arreglo de su casa lo puedo hacer sin problemas");
 INSERT INTO employee_job VALUES(3,3,"Puedo cuidar niño, lavar, hacer de comer, limpiar y me adapto rapido");
 INSERT INTO employee_job VALUES(4,4,"Si tienes un problema con tu cañeria yo lo puedo solucionar");

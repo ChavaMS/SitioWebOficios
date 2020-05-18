@@ -13,7 +13,7 @@
                             <p class="card-title">Edad</p>
                             <p class="card-text">Dirección</p>
                             <div class="text-center">
-                                <button href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Contactar</button>
+                                <button href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-secondary">Contactar</button>
                             </div>
                         </div>
                     </div>
@@ -35,12 +35,22 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <?php
-                            for ($i = 0; $i < sizeof($oficios_nombre) - 1; $i++) {
-                                echo '<h4>' . $oficios_nombre[$i] . '</h4>';
-                                echo '<p>' . $oficios_desc[$i] . '</p>';
-                            }
-                            ?>
+                            <button id="numOficios" class="d-none" value="<?php echo $numOficios; ?>"></button>
+                            <div>
+                                <?php for ($i = 0; $i < ($numOficios); $i++) {
+                                    echo '<button id="' . ($i + 1) . '" class="btn btn-secondary mr-1">' . $oficios_nombre[$i][0] . '</button>';
+                                } ?>
+                            </div>
+                            <div>
+                                <?php for ($i = 0; $i < ($numOficios); $i++) {
+                                    if($i == 0){
+                                        echo '<p id="#' . ($i + 1) . '" class="mt-3">' . $oficios_desc[$i][0] . '</p>';
+                                    }else{
+                                        echo '<p id="#' . ($i + 1) . '" class="d-none mt-3">' . $oficios_desc[$i][0] . '</p>';
+                                    }
+                                    
+                                } ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,7 +80,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -85,20 +95,20 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <p>
-                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#oficio1" aria-expanded="false" aria-controls="collapseExample">
+                            <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#oficio1" aria-expanded="false" aria-controls="collapseExample">
                                 Oficio 1
                             </button>
-                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#oficio2" aria-expanded="false" aria-controls="collapseExample">
+                            <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#oficio2" aria-expanded="false" aria-controls="collapseExample">
                                 Oficio 2
                             </button>
-                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#oficio3" aria-expanded="false" aria-controls="collapseExample">
+                            <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#oficio3" aria-expanded="false" aria-controls="collapseExample">
                                 Oficio 3
                             </button>
                         </p>
                     </div>
 
                     <div>
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#comentario" aria-expanded="false" aria-controls="collapseExample">
+                        <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#comentario" aria-expanded="false" aria-controls="collapseExample">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
@@ -126,7 +136,7 @@
                     <div class="card card-body">
                         <div class="form-group">
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            <button class="btn btn-primary mt-2" type="button" data-toggle="collapse" data-target="#comentario" aria-expanded="false" aria-controls="collapseExample">
+                            <button class="btn btn-secondary mt-2" type="button" data-toggle="collapse" data-target="#comentario" aria-expanded="false" aria-controls="collapseExample">
                                 Agregar
                             </button>
                         </div>
