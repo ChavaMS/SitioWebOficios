@@ -1,5 +1,8 @@
 window.onload = function () {
 
+    //GLOBAL
+    var ruta = "http://localhost/SitioWebOficios/";
+
     if(window.location.href.includes('index.php')){
         rating();
     }
@@ -18,7 +21,7 @@ function rating() {
     var parametros = 'inicio=' + inicio;
 
 
-    xhr.open("POST", "http://localhost/SitioWebOficios/config/rating.php", true);
+    xhr.open("POST", ruta+"config/rating.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {

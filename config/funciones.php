@@ -84,6 +84,13 @@ function obtener_empleos($id, $conexion){
     return $sentencia->fetchAll();
 }
 
+function obtener_oficios_descripcion($id, $conexion){
+    $sentencia = $conexion->prepare("SELECT descripcion FROM employee_job WHERE emp_id = $id");
+
+    $sentencia->execute();
+    return $sentencia->fetchAll();
+}
+
 function obtener_puntuacion($id, $conexion){
     $sentencia = $conexion->prepare("SELECT aprobacion from ratings as r INNER JOIN employees as em ON (em.id = r.emp_id) WHERE r.emp_id = $id");
 
@@ -112,7 +119,7 @@ function obtener_comentarios_por_id($id,$conexion)
 }
 
 function obtener_datos_usuario($id,$conexion){
-    $sentencia = $conexion->prepare("SELECT name from employees WHERE id = $id");
+    $sentencia = $conexion->prepare("SELECT name, email, phone_number, birthdate, photo from employees WHERE id = $id");
 
     $sentencia->execute();
     return $sentencia->fetchAll();

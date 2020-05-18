@@ -4,7 +4,7 @@ function crearSesion() {
     
     var xhr = new XMLHttpRequest();
     var parametros = 'email=' + email + '&pass=' + passw;
-    xhr.open("POST", "http://localhost/SitioWebOficios/config/sesion.php", true);
+    xhr.open("POST", ruta+"config/sesion.php", true);
     xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
@@ -14,11 +14,11 @@ function crearSesion() {
                 console.log('empleado');
                 
                 localStorage.setItem('user', respuesta.nombre);
-                window.location="http://localhost/SitioWebOficios/index.php";
+                window.location = ruta+"index.php";
             }else if(respuesta.tipo == 'empleador'){
                 console.log("empleador");
                 localStorage.setItem('user', respuesta.nombre);
-                window.location="http://localhost/SitioWebOficios/index.php";
+                window.location = ruta + "index.php";
             }else{
                 console.log('no entra');
                 
@@ -32,7 +32,7 @@ function crearSesion() {
 function cerrarSesion(){
     var xhr = new XMLHttpRequest();
     var parametro = 'cerrar=true';
-    xhr.open("POST", "http://localhost/SitioWebOficios/config/sesion.php", true);
+    xhr.open("POST", ruta + "config/sesion.php", true);
     xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
@@ -40,7 +40,7 @@ function cerrarSesion(){
             if (respuesta) {
                 localStorage.clear();
                 console.log('Si borro la sesion');
-                window.location="http://localhost/SitioWebOficios/index.php";
+                window.location = ruta + "index.php";
             }else{    
                 console.log("error");
             }

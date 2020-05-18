@@ -8,7 +8,7 @@
                 <div class="col-4">
 
                     <div class="card my-3" style="width: 18rem;">
-                        <img src="img/El ojo de Dios.jpg" class="card-img-top" alt="...">
+                        <img src="<?php echo $blog_config['carpeta_imagenes'] . $datosUser['photo']; ?>" class="card-img-top" alt="...">
                         <div class="card-body">
                             <p class="card-title">Edad</p>
                             <p class="card-text">Dirección</p>
@@ -34,10 +34,14 @@
                                     <i class="far fa-thumbs-down"></i>
                                 </div>
                             </div>
-
                         </div>
                         <div class="card-body">
-                            <p class="border p-3" style="height: 100%;">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <?php 
+                            for($i = 0; $i < sizeof($oficios_nombre)-1;$i++){
+                                echo '<h4>' . $oficios_nombre[$i] . '</h4>';
+                                echo '<p>'. $oficios_desc[$i] .'</p>';
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -54,9 +58,9 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Nombre empleador</p>
-                            <p>Correo: Correo@gmail.com</p>
-                            <p>Teléfono: 982242424</p>
+                            <p>Nombre: <?php echo $datosUser['name']; ?></p>
+                            <p>Correo: <?php echo $datosUser['email']; ?></p>
+                            <p>Tel: <?php echo $datosUser['phone_number']; ?></p>
                             <div class="d-inline">
                                 <a class="text-dark" href="#">
                                     <i class="fab fa-facebook"></i>

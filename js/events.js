@@ -1,9 +1,9 @@
 function empleado(){
-    window.location="http://localhost/SitioWebOficios/registroEmpleado.php";
+    window.location = ruta + "registroEmpleado.php";
 }
 
 function empleador(){
-    window.location="http://localhost/SitioWebOficios/registroEmpleador.php";
+    window.location = ruta + "registroEmpleador.php";
 }
 
 
