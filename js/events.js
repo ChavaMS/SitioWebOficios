@@ -9,7 +9,7 @@ function empleador() {
 if (window.location.href.includes('perfil.php')) {
     var desc = new Array();
     var numOficios = document.getElementById('numOficios').value;
-    
+
     for (let i = 0; i < numOficios; i++) {
         desc[i] = document.getElementById('#' + (i + 1));
         document.getElementById(i + 1).addEventListener('click', function () {
@@ -23,6 +23,24 @@ if (window.location.href.includes('perfil.php')) {
                 desc[i].classList.add('d-none');
             }
             desc[id - 1].classList.remove('d-none');
+        }
+
+    }
+
+    var coments = new Array();
+    for (let i = 0; i < 2; i++) {
+        coments[i] = document.getElementById('###' + (i + 1));
+        document.getElementById('##' + (i + 1)).addEventListener('click', function () {
+            comentarios(i + 1);
+        });
+    }
+
+    function comentarios(id) {
+        if (coments[id - 1].className.includes('d-none')) {
+            for (let i = 0; i < 3; i++) {
+                coments[i].classList.add('d-none');
+            }
+            coments[id - 1].classList.remove('d-none');
         }
 
     }

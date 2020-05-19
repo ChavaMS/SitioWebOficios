@@ -43,12 +43,11 @@
                             </div>
                             <div>
                                 <?php for ($i = 0; $i < ($numOficios); $i++) {
-                                    if($i == 0){
+                                    if ($i == 0) {
                                         echo '<p id="#' . ($i + 1) . '" class="mt-3">' . $oficios_desc[$i][0] . '</p>';
-                                    }else{
+                                    } else {
                                         echo '<p id="#' . ($i + 1) . '" class="d-none mt-3">' . $oficios_desc[$i][0] . '</p>';
                                     }
-                                    
                                 } ?>
                             </div>
                         </div>
@@ -95,13 +94,13 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <p>
-                            <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#oficio1" aria-expanded="false" aria-controls="collapseExample">
+                            <button id="##1" class="btn btn-secondary" type="button">
                                 Oficio 1
                             </button>
-                            <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#oficio2" aria-expanded="false" aria-controls="collapseExample">
+                            <button id="##2" class="btn btn-secondary" type="button">
                                 Oficio 2
                             </button>
-                            <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#oficio3" aria-expanded="false" aria-controls="collapseExample">
+                            <button id="##3" class="btn btn-secondary" type="button">
                                 Oficio 3
                             </button>
                         </p>
@@ -113,25 +112,6 @@
                         </button>
                     </div>
                 </div>
-
-                <div class="collapse" id="oficio1">
-                    <div class="card card-body">
-                        <p>Lorem ipsum dolor sit amet.</p>
-                    </div>
-                </div>
-
-                <div class="collapse" id="oficio2">
-                    <div class="card card-body">
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia, magnam.</p>
-                    </div>
-                </div>
-
-                <div class="collapse" id="oficio3">
-                    <div class="card card-body">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam blanditiis perspiciatis rem quia adipisci enim magnam iure nam, aspernatur nulla!</p>
-                    </div>
-                </div>
-
                 <div class="collapse" id="comentario">
                     <div class="card card-body">
                         <div class="form-group">
@@ -142,6 +122,21 @@
                         </div>
                     </div>
                 </div>
+                <?php
+
+                for ($i = 0; $i < sizeof($comments); $i++) {
+                    echo '<div id="###"' . ($i + 1) . ' >';
+                    for ($j = 0; $j < sizeof($comments[$i]); $j++) {
+                        if($i == 0){
+                            echo '<div class="card card-body mb-3" >' . '<p>' . $comments[$i][$j][1] . '</p>' . '</div>';
+                        }else{
+                            echo '<div class="card card-body mb-3 d-none" >' . '<p>' . $comments[$i][$j][1] . '</p>' . '</div>';
+                        }
+                        
+                    }
+                    echo '</div>';
+                }
+                ?>
             </div>
 
         </div>

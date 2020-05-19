@@ -91,6 +91,21 @@ function obtener_oficios_descripcion($id, $conexion){
     return $sentencia->fetchAll();
 }
 
+function obtener_comentarios($id_emp, $id_trabajo, $conexion){
+    $sentencia = $conexion->prepare("SELECT emp_id,comments FROM comment WHERE emy_id = $id_emp AND job_id = $id_trabajo");
+
+    $sentencia->execute();
+    return $sentencia->fetchAll();
+}
+
+function obtener_id_trabajos($id,$conexion){
+    $sentencia = $conexion->prepare("SELECT id FROM job AS j INNER JOIN employee_job AS emp_jo ON (j.id = emp_jo.job_id) WHERE emp_jo.emp_id = $id");
+
+    $sentencia->execute();
+    return $sentencia->fetchAll();
+}
+
+
 function obtener_puntuacion($id, $conexion){
     $sentencia = $conexion->prepare("SELECT aprobacion from ratings as r INNER JOIN employees as em ON (em.id = r.emp_id) WHERE r.emp_id = $id");
 
