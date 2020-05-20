@@ -28,9 +28,8 @@ if(ISSET($_SESSION['id'])){
         $comments[$i] = obtener_comentarios($idUser,$id_trabajos[$i][0],$conexion);
     }
     
-    print_r($comments[0][1][1]);
-
-
+}else if(ISSET($_POST['id'])){
+    
 }else{
     header('Location: index.php');
 }

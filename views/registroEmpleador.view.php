@@ -68,7 +68,7 @@
                             <span>Información personal</span>
                             <img class="d-block mb-2 w-50" src="img/linea.jpg" alt="">
                         </div>
-                        <form action="http://localhost/SitioWebOficios/config/registro2.php" enctype="multipart/form-data" method="POST" id="formulario" novalidate>
+                        <form action="<?php echo RUTA . 'config/registro2.php'; ?>" enctype="multipart/form-data" method="POST" id="formulario" novalidate>
                             <!--NOMBRE-->
                             <div class="row form-group">
                                 <label for="nombre" class="col-form-label col-md-4">Nombre:</label>

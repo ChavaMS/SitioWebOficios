@@ -94,15 +94,9 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <p>
-                            <button id="##1" class="btn btn-secondary" type="button">
-                                Oficio 1
-                            </button>
-                            <button id="##2" class="btn btn-secondary" type="button">
-                                Oficio 2
-                            </button>
-                            <button id="##3" class="btn btn-secondary" type="button">
-                                Oficio 3
-                            </button>
+                            <?php for ($i = 0; $i < ($numOficios); $i++) {
+                                echo '<button id="##' . ($i + 1) . '" class="btn btn-secondary mr-1">' . $oficios_nombre[$i][0] . '</button>';
+                            } ?>
                         </p>
                     </div>
 
@@ -124,15 +118,16 @@
                 </div>
                 <?php
 
-                for ($i = 0; $i < sizeof($comments); $i++) {
-                    echo '<div id="###"' . ($i + 1) . ' >';
+                for ($i = 0; $i < ($numOficios); $i++) {
+                    if ($i == 0) {
+                        echo '<input type="text" class="d-none" value="' . $id_trabajos[$i][0] . '">';
+                        echo '<div class="" id="###' . ($i + 1) . '" >';
+                    } else {
+                        echo '<input type="text" class="d-none" value="' . $id_trabajos[$i][0] . '">';
+                        echo '<div class="d-none" id="###' . ($i + 1) . '" >';
+                    }
                     for ($j = 0; $j < sizeof($comments[$i]); $j++) {
-                        if($i == 0){
-                            echo '<div class="card card-body mb-3" >' . '<p>' . $comments[$i][$j][1] . '</p>' . '</div>';
-                        }else{
-                            echo '<div class="card card-body mb-3 d-none" >' . '<p>' . $comments[$i][$j][1] . '</p>' . '</div>';
-                        }
-                        
+                        echo '<div class="card card-body mb-3" >' . '<p>' . $comments[$i][$j][1] . '</p>' . '</div>';
                     }
                     echo '</div>';
                 }

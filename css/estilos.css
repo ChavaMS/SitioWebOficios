@@ -20,3 +20,7 @@
 .fondo{
     background-color:/*#7d7d7d;*/ #FFFFFF;
 }
+
+.click{
+    cursor: pointer;
+}

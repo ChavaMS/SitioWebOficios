@@ -112,7 +112,7 @@ function obtener_puntuacion($id, $conexion){
     $sentencia->execute();
     return $sentencia->fetchAll();
 }
-
+ 
 function filtrar_puntuacion($puntuacion){
     $puntuacion_filtrada = array();
     $puntuacion_filtrada[0] = 0;

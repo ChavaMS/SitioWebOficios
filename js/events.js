@@ -6,6 +6,23 @@ function empleador() {
     window.location = ruta + "registroEmpleador.php";
 }
 
+if (window.location.href.includes('index.php')) {
+    var numUsusarios = document.getElementById('numUsuarios');
+    for (let i = 0; i < numUsusarios; i++) {
+        let usuario = document.getElementById('_' + i);
+        usuario.addEventListener("click", function () {
+            verPerfil(usuario.firstElementChild.value);
+        });
+    }
+
+
+    function verPerfil(id) {
+        window.location = ruta + 'perfil.php?id=' + id;
+    }
+
+
+}
+
 if (window.location.href.includes('perfil.php')) {
     var desc = new Array();
     var numOficios = document.getElementById('numOficios').value;
@@ -28,19 +45,25 @@ if (window.location.href.includes('perfil.php')) {
     }
 
     var coments = new Array();
-    for (let i = 0; i < 2; i++) {
+    var boton = new Array();
+    for (let i = 0; i < numOficios; i++) {
         coments[i] = document.getElementById('###' + (i + 1));
+        boton[i] = document.getElementById('##' + (i + 1));
         document.getElementById('##' + (i + 1)).addEventListener('click', function () {
-            comentarios(i + 1);
+            comentarios(i);
         });
     }
 
+
+
     function comentarios(id) {
-        if (coments[id - 1].className.includes('d-none')) {
-            for (let i = 0; i < 3; i++) {
+        console.log("click");
+
+        if (coments[id].className.includes('d-none')) {
+            for (let i = 0; i < numOficios; i++) {
                 coments[i].classList.add('d-none');
             }
-            coments[id - 1].classList.remove('d-none');
+            coments[id].classList.remove('d-none');
         }
 
     }

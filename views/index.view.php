@@ -113,8 +113,10 @@
 
 
             <div class="border p-2" style="width: 100%;">
+                <input class="d-none" type="text" value="<?php echo sizeof($usuarios); ?>" id="numUsuarios">
                 <?php foreach ($usuarios as $usuario) : ?>
-                    <div class="card border-dark my-2" style="width: 100%;">
+                    <div class="card border-dark my-2" style="width: 100%; cursor: pointer;" id="<?php echo '_' . $id++; ?>">
+                        <input type="text" class="d-none" value="<?php echo $usuario['id']; ?>">
                         <div class="card-header"><?php echo $usuario['name'] ?></div>
                         <div class="card-body text-dark">
                             <div class="row text-center">
