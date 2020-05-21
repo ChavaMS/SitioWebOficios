@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-2">
+        <div class="col-md-2">
 
         </div>
-        <div class="col-8 border fondo">
+        <div class="col-12 col-md-8 border fondo">
             <div class="row">
-                <div class="col-4">
+                <div class="col-md-4 col-12">
 
-                    <div class="card my-3" style="width: 18rem;">
+                    <div class="card my-3" style="width: 100%;">
                         <img src="<?php echo $blog_config['carpeta_imagenes'] . $datosUser['photo']; ?>" class="card-img-top" alt="...">
                         <div class="card-body">
                             <p class="card-title">Edad</p>
@@ -18,9 +18,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-8 ">
+                <div class="col-12 col-md-8 ">
 
-                    <div class="card border-light mb-3" style="width: 100%; height: 100%;">
+                    <div class="card border-light mt-3" style="width: 100%; height: 91.3%;">
                         <div class="m-3">
                             <div class="row">
                                 <div class="col-6">
@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div class="collapse" id="comentario">
-                    <div class="card card-body">
+                    <div class="card card-body mb-3">
                         <div class="form-group">
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                             <button class="btn btn-secondary mt-2" type="button" data-toggle="collapse" data-target="#comentario" aria-expanded="false" aria-controls="collapseExample">
@@ -135,7 +135,7 @@
             </div>
 
         </div>
-        <div class="col-2">
+        <div class="col-md-2">
 
         </div>
     </div>

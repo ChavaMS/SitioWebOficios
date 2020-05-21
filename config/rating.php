@@ -23,11 +23,12 @@ if(ISSET($_POST['inicio'])){
         $rating['valor'] = obtener_rating($_SESSION['id'],$conexion);
 
         echo json_encode($rating);
+    }else if(ISSET($_POST['id'])){
+        $rating['valor'] = obtener_rating($_POST['id'],$conexion);
+        
+        echo json_encode($rating);
     }else{
         echo 'error';
     }
 }
-
-
-
 ?>

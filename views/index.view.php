@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-2">
+        <div class="col-md-2">
 
         </div>
-        <div class="col-8 fondo">
+        <div class="col-12 col-md-8 fondo">
             <!--NAV-->
             <nav class="navbar navbar-expand-lg navbar-light border">
                 <div class="row" style="width: 100%;">
-                    <div class="col-6 d-flex justify-content-end">
+                    <div class="col-12 col-md-4 my-1 d-flex justify-content-center">
                         <div class="dropdown">
 
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -84,26 +84,22 @@
                                         <span class="">Calificacón</span>
                                         <span class="">Contactos</span>
                                     </div>
-                                    <!--<div class="text-center">
-                                        <i class="fas fa-sort-amount-up-alt mr-1"></i>
-                                        <span>Calificacón</span>
-                                    </div>
-                                    <div class="text-center">
-                                        <i class="fas fa-sort-amount-up-alt mr-1"></i>
-                                        <span>Contactos</span>
-                                    </div>-->
                                 </div>
                                 <!--SECCION 3-->
                             </div>
 
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="d-flex justify-content-start">
-                            <form class="form-inline">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                            </form>
+                    <div class="col-12 col-md-4">
+                        <div class="d-flex justify-content-center my-1">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 my-1">
+                        <div class="d-md-flex justify-content-start">
+                            <div class="form-inline d-sm-flex justify-content-center">
+                                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                            </div>
                         </div>
 
                     </div>
@@ -115,8 +111,11 @@
             <div class="border p-2" style="width: 100%;">
                 <input class="d-none" type="text" value="<?php echo sizeof($usuarios); ?>" id="numUsuarios">
                 <?php foreach ($usuarios as $usuario) : ?>
-                    <div class="card border-dark my-2" style="width: 100%; cursor: pointer;" id="<?php echo '_' . $id++; ?>">
+                    <div class="card border-dark my-2 cardMod" id="<?php echo '_' . $id++; ?>">
                         <input type="text" class="d-none" value="<?php echo $usuario['id']; ?>">
+                        <div class="progress">
+                            <div class="progress-bar <?php echo $color[rand(0, 3)]; ?>" role="progressbar" style="width:<?php echo $tamano[rand(0, 9)] . "%;"; ?>" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
                         <div class="card-header"><?php echo $usuario['name'] ?></div>
                         <div class="card-body text-dark">
                             <div class="row text-center">
@@ -144,14 +143,14 @@
                     </div>
                 <?php endforeach; ?>
                 <!-- PAGINACION -->
-                <div class="mt-3 d-md-flex justify-content-center">
+                <div class="mt-3 d-flex justify-content-center">
                     <?php require 'paginacion.php'; ?>
                 </div>
             </div>
 
         </div>
 
-        <div class="col-2">
+        <div class="col-12 col-md-2">
 
         </div>
     </div>

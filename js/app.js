@@ -1,4 +1,4 @@
-if ((window.location.href.includes('index.php') || window.location.href.includes('iniciarSesion.php'))) {
+/*if ((window.location.href.includes('index.php') || window.location.href.includes('iniciarSesion.php'))) {
   particlesJS(
     {
       "particles": {

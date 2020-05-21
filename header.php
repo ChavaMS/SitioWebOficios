@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
- 
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/estilos.css" type="text/css">
 
     <!--FONTAWESOME-->
     <link rel="stylesheet" href="Utilidades/fontawesome/css/all.css">
@@ -17,8 +17,9 @@
     <title>Nombre de empresa</title>
 </head>
 
-<body class="fondoAzul">
-    <div id="particles-js"></div>
+<!--<body class="fondoAzul"-->
+<body style="background-color: #343a40">
+    <!--<div id="particles-js"></div>-->
 
     <!--NAVBAR-->
     <nav class="navbar navbar-expand-lg navbar-light navBarColor">
@@ -32,11 +33,22 @@
                     <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link d-none" id="usuario" href="perfil.php?id=<?php echo $_SESSION['id']?>">Usuario</a>
+                    <div class="dropdown">
+                        <button class="btn btn-danger dropdown-toggle" type="button" id="usuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuario
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="usuario">
+                            <a class="dropdown-item" href="perfil.php?id=<?php echo $_SESSION['id'] ?>">Ver perfil</a>
+                            <a class="dropdown-item" href="datosEmpleado.php?id=<?php echo $_SESSION['id'] ?>">Mis datos</a>
+                        </div>
+                    </div>
+                </li>
+                <!--<li class="nav-item">
+                    <a class="nav-link d-none" id="usuario" href="perfil.php?id=<?php //echo $_SESSION['id'] ?>">Usuario</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="initSesion" href="iniciarSesion.php">Iniciar sesión</a>
-                </li>
+                </li>-->
                 <li class="nav-item">
                     <a class="nav-link" id="cerrarSesion" onclick="cerrarSesion()" href="">Cerrar sesión</a>
                 </li>

@@ -21,6 +21,18 @@ $oficios = array();
 $puntuacion = array();
 $i = 0;
 $id = 0;
+$tamano = array();
+$color = array();
+
+
+$color[0] = "bg-success";
+$color[1] = "bg-info";
+$color[2] = "bg-warning";
+$color[3] = "bg-danger";
+
+for($x = 1; $x < 11; $x++){
+    $tamano[$x-1] = 10*($x);
+}
 
 //PROCESOS
 $usuarios = obtener_empleados($blog_config['post_por_pagina'],$conexion);

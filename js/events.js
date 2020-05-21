@@ -7,9 +7,12 @@ function empleador() {
 }
 
 if (window.location.href.includes('index.php')) {
-    var numUsusarios = document.getElementById('numUsuarios');
+    console.log('si');
+    
+    var numUsusarios = document.getElementById('numUsuarios').value;    
+    
     for (let i = 0; i < numUsusarios; i++) {
-        let usuario = document.getElementById('_' + i);
+        let usuario = document.getElementById('_' + i);      
         usuario.addEventListener("click", function () {
             verPerfil(usuario.firstElementChild.value);
         });
@@ -17,10 +20,9 @@ if (window.location.href.includes('index.php')) {
 
 
     function verPerfil(id) {
+        localStorage.setItem("idUsu",id);
         window.location = ruta + 'perfil.php?id=' + id;
     }
-
-
 }
 
 if (window.location.href.includes('perfil.php')) {
@@ -75,7 +77,7 @@ if (!(window.location.href.includes('registroOpcion.php') || window.location.hre
 
     if (window.location.href.includes('perfil.php')) {
         cerrSesion.classList.remove("d-none");
-        document.getElementById('initSesion').classList.add('d-none');
+        //document.getElementById('initSesion').classList.add('d-none');
     } else {
         if (!cerrSesion.className.includes('d-none')) {
             cerrSesion.classList.add('d-none');
