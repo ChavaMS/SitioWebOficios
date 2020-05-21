@@ -18,11 +18,12 @@
 </head>
 
 <!--<body class="fondoAzul"-->
+
 <body style="background-color: #343a40">
     <!--<div id="particles-js"></div>-->
 
     <!--NAVBAR-->
-    <nav class="navbar navbar-expand-lg navbar-light navBarColor">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="index.php">LOGO</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -32,25 +33,20 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <div class="dropdown">
-                        <button class="btn btn-danger dropdown-toggle" type="button" id="usuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Usuario
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="usuario">
-                            <a class="dropdown-item" href="perfil.php?id=<?php echo $_SESSION['id'] ?>">Ver perfil</a>
-                            <a class="dropdown-item" href="datosEmpleado.php?id=<?php echo $_SESSION['id'] ?>">Mis datos</a>
-                        </div>
+                <li class="nav-item dropdown d-none" id="usuario">
+                    <a class="nav-link dropdown-toggle" href="#" id="nombreUsuario" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Usuarios
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="nombreUsuario">
+                        <a class="dropdown-item" href="perfil.php?id=<?php echo $_SESSION['id'] ?>">Ver perfil</a>
+                        <a class="dropdown-item" href="datosEmpleado.php?id=<?php echo $_SESSION['id'] ?>">Mis datos</a>
                     </div>
                 </li>
-                <!--<li class="nav-item">
-                    <a class="nav-link d-none" id="usuario" href="perfil.php?id=<?php //echo $_SESSION['id'] ?>">Usuario</a>
+                <li class="nav-item" id="initSesion">
+                    <a class="nav-link" href="iniciarSesion.php">Iniciar sesión</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="initSesion" href="iniciarSesion.php">Iniciar sesión</a>
-                </li>-->
-                <li class="nav-item">
-                    <a class="nav-link" id="cerrarSesion" onclick="cerrarSesion()" href="">Cerrar sesión</a>
+                <li class="nav-item" id="cerrarSesion">
+                    <a class="nav-link" onclick="cerrarSesion()" href="#">Cerrar sesión</a>
                 </li>
             </ul>
         </div>

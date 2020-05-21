@@ -6,9 +6,7 @@ function empleador() {
     window.location = ruta + "registroEmpleador.php";
 }
 
-if (window.location.href.includes('index.php')) {
-    console.log('si');
-    
+if (window.location.href.includes('index.php')) {    
     var numUsusarios = document.getElementById('numUsuarios').value;    
     
     for (let i = 0; i < numUsusarios; i++) {
@@ -75,9 +73,9 @@ if (window.location.href.includes('perfil.php')) {
 if (!(window.location.href.includes('registroOpcion.php') || window.location.href.includes('registroEmpleado.php') || window.location.href.includes('registroEmpleador.php'))) {
     var cerrSesion = document.getElementById('cerrarSesion');
 
-    if (window.location.href.includes('perfil.php')) {
+    if (window.location.href.includes('perfil.php') && localStorage.getItem('user') != null) {
         cerrSesion.classList.remove("d-none");
-        //document.getElementById('initSesion').classList.add('d-none');
+        document.getElementById('initSesion').classList.add('d-none');
     } else {
         if (!cerrSesion.className.includes('d-none')) {
             cerrSesion.classList.add('d-none');
@@ -88,14 +86,17 @@ if (!(window.location.href.includes('registroOpcion.php') || window.location.hre
 if (window.location.href.includes('index.php')) {
 
     if (localStorage.getItem('user') != null) {
-        var usuario = document.getElementById('usuario');
-        //var cerrSesion = document.getElementById('cerrarSesion');
+        var usuario = document.getElementById('nombreUsuario');
+        var cerrSesion = document.getElementById('cerrarSesion');
+        var usuarioDrop = document.getElementById('usuario');
 
         usuario.innerHTML = localStorage.getItem('user');
         usuario.classList.remove("d-none");
 
+        usuarioDrop.classList.remove('d-none');
+
         document.getElementById('initSesion').classList.add("d-none");
-        //cerrSesion.classList.remove("d-none");
+        cerrSesion.classList.remove("d-none");
     }
 }
 
