@@ -6,7 +6,7 @@ function empleador() {
     window.location = ruta + "registroEmpleador.php";
 }
 
-if (window.location.href.includes('index.php')) {    
+if (window.location.href.includes('inicio.php')) {    
     var numUsusarios = document.getElementById('numUsuarios').value;    
     
     for (let i = 0; i < numUsusarios; i++) {
@@ -83,7 +83,13 @@ if (!(window.location.href.includes('registroOpcion.php') || window.location.hre
     }
 }
 
-if (window.location.href.includes('index.php')) {
+
+if(window.location.href.includes('registroOpcion.php') || window.location.href.includes('registroEmpleado.php') || window.location.href.includes('registroEmpleador.php') || window.location.href.includes('iniciarSesion.php')){
+    document.getElementById('initSesion').classList.add('d-none');
+}
+
+
+if (window.location.href.includes('inicio.php')) {
 
     if (localStorage.getItem('user') != null) {
         var usuario = document.getElementById('nombreUsuario');
@@ -98,5 +104,11 @@ if (window.location.href.includes('index.php')) {
         document.getElementById('initSesion').classList.add("d-none");
         cerrSesion.classList.remove("d-none");
     }
+    document.getElementById('home').classList.remove('d-none');
+}
+
+//Quitamos HOME en index
+if(window.location.href.includes('index.php')){
+    document.getElementById('home').classList.add('d-none');
 }
 

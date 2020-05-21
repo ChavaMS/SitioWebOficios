@@ -2,7 +2,7 @@
 var ruta = "http://localhost/SitioWebOficios/";
 window.onload = function () {
 
-    if (window.location.href.includes('index.php')) {
+    if (window.location.href.includes('inicio.php')) {
         rating();
     }
     if (window.location.href.includes('perfil.php')) {
@@ -13,7 +13,6 @@ window.onload = function () {
 function ratinIndividual() {
     var div = document.getElementById('rate10');
     var id = localStorage.getItem("idUsu");
-    //localStorage.removeItem("idUsu");
     var xhr = new XMLHttpRequest();
     console.log(id);
     

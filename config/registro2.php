@@ -13,7 +13,7 @@ $conexion = conexion($bd_config);
 
 if(ISSET($nombre) && ISSET($correo) && ISSET($contraseña1) && ISSET($contraseña2) && ISSET($fechaNac)){
     if(($contraseña1 == $contraseña2) && crear_empleador($nombre, $correo,$contraseña1,$fechaNac,$conexion)){
-        header('Location: ' . RUTA . 'index.php');
+        header('Location: ' . RUTA . 'inicio.php');
     }else{
         echo 'Error';
     }

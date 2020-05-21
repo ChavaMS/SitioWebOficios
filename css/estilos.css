@@ -45,6 +45,18 @@
     border-color: #6c757d;
 }
 
-/**.navbar-light .navbar-nav .nav-link{
-    color: white;
-}**/
+.fondoIndex{
+    background-image: url("../img/1.jpg");
+    background-size: cover;
+    height: 40em;
+    width: 100%;
+}
+
+.fondoNegro{
+    background-color: #343a40;
+}
+
+.fondoBlanco{
+    background-color: #f8f9fa;
+}
+

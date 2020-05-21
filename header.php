@@ -30,8 +30,8 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item active" id="home">
+                    <a class="nav-link" href="inicio.php">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown d-none" id="usuario">
                     <a class="nav-link dropdown-toggle" href="#" id="nombreUsuario" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

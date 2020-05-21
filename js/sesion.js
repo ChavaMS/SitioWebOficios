@@ -14,11 +14,11 @@ function crearSesion() {
                 console.log('empleado');
                 
                 localStorage.setItem('user', respuesta.nombre);
-                window.location = ruta+"index.php";
+                window.location = ruta+"inicio.php";
             }else if(respuesta.tipo == 'empleador'){
                 console.log("empleador");
                 localStorage.setItem('user', respuesta.nombre);
-                window.location = ruta + "index.php";
+                window.location = ruta + "inicio.php";
             }else{
                 console.log('no entra');
                 
