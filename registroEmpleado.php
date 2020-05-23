@@ -14,7 +14,7 @@ if(!$conexion){
 
 $oficios = obtener_oficios($conexion);
 
-
+require 'header.php';
 require 'views/registroEmpleado.view.php';
 require 'footer.php';
 

@@ -1,6 +1,6 @@
 <div class="fondoIndex d-flex align-content-center justify-content-center">
     <div class="align-self-center">
-        <div class="card" style="background-color: #f8f9fa ;">
+        <div class="card rounded" style="background-color: #f8f9fa ;">
             <div class="card-body">
                 <div class="text-center display-4">
                     <p>Ingresa los datos para continuar</p>
@@ -43,7 +43,7 @@
 </div>
 
 <div class="container-fluid my-3">
-    <div class="card text-center" style="background-color: #f8f9fa;">
+    <div class="card text-center rounded" style="background-color: #f8f9fa;">
         <div class="card-body">
             <h5 class="card-title display-3">¿Buscas un servicio o quieres ofrecerlo?</h5>
             <hr>
@@ -55,8 +55,8 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 col-md-4 my-3  d-flex justify-content-center text-center">
-            <div class="card border-0" style="width: 18rem;">
-                <img src="img/4.jpg" class="card-img-top" alt="...">
+            <div class="card border-0 rounded" style="width: 18rem;">
+                <img src="img/mision.jpg" class="card-img-top img-fluid" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Misión</h5>
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#mision">Ver</button>
@@ -64,8 +64,8 @@
             </div>
         </div>
         <div class="col-12 col-md-4 my-3  d-flex justify-content-center text-center">
-            <div class="card border-0" style="width: 18rem;">
-                <img src="img/4.jpg" class="card-img-top" alt="...">
+            <div class="card border-0 rounded" style="width: 18rem;">
+                <img src="img/quienes-somos.jpg" class="card-img-top img-fluid" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">¿Quienes somos?</h5>
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#quienesSomos">Ver</button>
@@ -73,8 +73,8 @@
             </div>
         </div>
         <div class="col-12 col-md-4 my-3  d-flex justify-content-center text-center">
-            <div class="card border-0" style="width: 18rem;">
-                <img src="img/3.jpg" class="card-img-top" alt="...">
+            <div class="card border-0 rounded" style="width: 18rem;">
+                <img src="img/oficio3.jpg" class="card-img-top img-fluid" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Revisa nuestros oficios</h5>
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#oficios">Ver</button>
