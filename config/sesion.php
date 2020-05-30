@@ -19,7 +19,7 @@ if (!isset($_POST['cerrar'])) {
             session_start();
             $_SESSION['user'] = $usuario[0];
             $_SESSION['id'] = $usuario[1];
-
+            $_SESSION['tipo'] = 'empleado';
 
             $user['nombre'] = $usuario[0];
             $user['tipo'] = 'empleado';
@@ -31,7 +31,7 @@ if (!isset($_POST['cerrar'])) {
                 session_start();
                 $_SESSION['user'] = $usuario[0];
                 $_SESSION['id'] = $usuario[1];
-
+                $_SESSION['tipo'] = 'empleador';
 
                 $user['nombre'] = $usuario[0];
                 $user['tipo'] = 'empleador';
@@ -48,6 +48,7 @@ if (!isset($_POST['cerrar'])) {
     session_start();
     $_SESSION['user'] = null;
     $_SESSION['id'] = null;
+    $_SESSION['tipo'] = null;
     $_SESSION = array();
     session_destroy();
     echo 'true';

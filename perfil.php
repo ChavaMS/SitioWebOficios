@@ -7,7 +7,7 @@ require 'config/funciones.php';
 
 $conexion = conexion($bd_config);
 
-if(ISSET($_SESSION['id'])){
+if(ISSET($_SESSION['id']) && ISSET($_SESSION['session'])){
 
     $idUser = $_SESSION['id'];
 
@@ -23,7 +23,6 @@ if(ISSET($_SESSION['id'])){
 
     //COMENTARIOS
     $id_trabajos = obtener_id_trabajos($idUser,$conexion);
-
     for($i = 0; $i < sizeof($id_trabajos); $i++){
         $comments[$i] = obtener_comentarios($idUser,$id_trabajos[$i][0],$conexion);
     }

@@ -1,62 +1,67 @@
-.navBarColor{
+.navBarColor {
     background: #d63447;
 }
 
-.btn-danger{
+.btn-danger {
     background-color: #d63447;
     border-color: #d63447;
 }
 
-
 #particles-js {
-    height: 100vh; 
+    height: 100vh;
     width: 100%;
     position: fixed;
     z-index: -1;
 }
 
-.fondoAzul{
-    background: #000000; /*rgb(211, 207, 207);*/
+.fondoAzul {
+    background: #000000;
+    /*rgb(211, 207, 207);*/
 }
 
-.fondo{
+.fondo {
     background-color: #dee2e6;
 }
 
-.cardMod{
+.fondoWeb {
+    background-image: url('../img/fondo.jpg');
+}
+
+.cardMod {
     cursor: pointer;
     width: 100%;
 }
 
-.progress{
+.progress {
     height: 3px;
 }
 
-.card, .progress{
+.card,
+.progress {
     border-radius: .5rem 0 0 0;
 }
 
-.page-link{
+.page-link {
     color: #6c757d;
 }
 
-.page-item.active .page-link{
+.page-item.active .page-link {
     background-color: #6c757d;
     border-color: #6c757d;
 }
 
-.fondoIndex{
+.fondoIndex {
     background-image: url("../img/oficio2.jpg");
     background-size: cover;
     height: 40em;
     width: 100%;
 }
 
-.fondoNegro{
+.fondoNegro {
     background-color: #343a40;
 }
 
-.fondoBlanco{
+.fondoBlanco {
     background-color: #f8f9fa;
 }
 
@@ -64,16 +69,41 @@
     display: none;
 }
 
-.redondear{
+.redondear {
     border-radius: 4px;
 }
 
-.redondearOpcionIzquierda{
+.redondearOpcionIzquierda {
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
 }
 
-.redondearOpcionDerecha{
+.redondearOpcionDerecha {
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
+}
+
+html,
+body {
+    height: 100%;
+    background-color: #343a40;
+}
+
+.clic {
+    cursor: pointer;
+}
+
+.clic :hover {
+    background: #D8D8D8;
+    transition: 100ms;
+}
+
+.letra1 {
+    font-size: 1.5em;
+}
+
+.pestana:hover {
+    background-color: gray;
+    color: black;
+    cursor: pointer;
 }

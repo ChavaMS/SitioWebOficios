@@ -1,7 +1,7 @@
-<div class="container-fluid">
+<div class="container-fluid fondoWeb">
     <div class="row">
         <div class="col-md-2">
-
+        <input class="d-none" id="usuaID" type="text" value="<?php echo $idUser; ?>">
         </div>
         <div class="col-12 col-md-8 border fondo">
             <div class="row">
@@ -96,6 +96,7 @@
                         <p>
                             <?php for ($i = 0; $i < ($numOficios); $i++) {
                                 echo '<button id="##' . ($i + 1) . '" class="btn btn-secondary mr-1">' . $oficios_nombre[$i][0] . '</button>';
+                                echo '<input class="d-none" id="####'.($i + 1).'" type="text" value="'.$id_trabajos[$i][0].'" >';
                             } ?>
                         </p>
                     </div>
@@ -109,8 +110,14 @@
                 <div class="collapse" id="comentario">
                     <div class="card card-body mb-3">
                         <div class="form-group">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            <button class="btn btn-secondary mt-2" type="button" data-toggle="collapse" data-target="#comentario" aria-expanded="false" aria-controls="collapseExample">
+                            <div id="error1" class="bg-danger text-light d-none">
+                                <p class="ml-2">Inicie sesión primero</p>
+                            </div>
+                            <div id="error2" class="bg-danger text-light d-none">
+                                <p class="ml-2">Un empleado no puede comentar sobre otro empleado</p>
+                            </div>
+                            <textarea class="form-control" id="mensaje" rows="3"></textarea>
+                            <button onclick="agregarComentarios()" class="btn btn-secondary mt-2" type="button" data-toggle="collapse" data-target="#comentario" aria-expanded="false" aria-controls="collapseExample">
                                 Agregar
                             </button>
                         </div>

@@ -6,19 +6,49 @@ function empleador() {
     window.location = ruta + "registroEmpleador.php";
 }
 
-if (window.location.href.includes('inicio.php')) {    
-    var numUsusarios = document.getElementById('numUsuarios').value;    
-    
+function cambiar(id) {
+    var pestana = new Array();
+    pestana[0] = document.getElementById('1e');
+    pestana[1] = document.getElementById('2e');
+    pestana[2] = document.getElementById('3e');
+    pestana[3] = document.getElementById('4e');
+    if (id == '1e') {
+        pestana[0].classList.remove('d-none');
+        pestana[1].classList.add('d-none');
+        pestana[2].classList.add('d-none');
+        pestana[3].classList.add('d-none');
+
+    } else if (id == '2e') {
+        pestana[0].classList.add('d-none');
+        pestana[1].classList.remove('d-none');
+        pestana[2].classList.add('d-none');
+        pestana[3].classList.add('d-none');
+    } else if (id == '3e') {
+        pestana[0].classList.add('d-none');
+        pestana[1].classList.add('d-none');
+        pestana[2].classList.remove('d-none');
+        pestana[3].classList.add('d-none');
+    } else if (id == '4e') {
+        pestana[0].classList.add('d-none');
+        pestana[1].classList.add('d-none');
+        pestana[2].classList.add('d-none');
+        pestana[3].classList.remove('d-none');
+    }
+}
+
+if (window.location.href.includes('inicio.php')) {
+    var numUsusarios = document.getElementById('numUsuarios').value;
+
     for (let i = 0; i < numUsusarios; i++) {
-        let usuario = document.getElementById('_' + i);      
-        usuario.addEventListener("click", function () {
+        let usuario = document.getElementById('_' + i);
+        usuario.addEventListener("click", function() {
             verPerfil(usuario.firstElementChild.value);
         });
     }
 
 
     function verPerfil(id) {
-        localStorage.setItem("idUsu",id);
+        localStorage.setItem("idUsu", id);
         window.location = ruta + 'perfil.php?id=' + id;
     }
 }
@@ -29,7 +59,7 @@ if (window.location.href.includes('perfil.php')) {
 
     for (let i = 0; i < numOficios; i++) {
         desc[i] = document.getElementById('#' + (i + 1));
-        document.getElementById(i + 1).addEventListener('click', function () {
+        document.getElementById(i + 1).addEventListener('click', function() {
             cargarDescripcion(i + 1);
         });
     }
@@ -46,24 +76,54 @@ if (window.location.href.includes('perfil.php')) {
 
     var coments = new Array();
     var boton = new Array();
+    var idTrabajos = new Array();
+    var trabajoSeleccionado;
     for (let i = 0; i < numOficios; i++) {
         coments[i] = document.getElementById('###' + (i + 1));
         boton[i] = document.getElementById('##' + (i + 1));
-        document.getElementById('##' + (i + 1)).addEventListener('click', function () {
+        idTrabajos[i] = document.getElementById('####' + (i + 1)).value;
+        document.getElementById('##' + (i + 1)).addEventListener('click', function() {
             comentarios(i);
         });
     }
-
-
+    trabajoSeleccionado = idTrabajos[0];
 
     function comentarios(id) {
         console.log("click");
+        trabajoSeleccionado = idTrabajos[id];
+        console.log(trabajoSeleccionado);
 
         if (coments[id].className.includes('d-none')) {
             for (let i = 0; i < numOficios; i++) {
                 coments[i].classList.add('d-none');
             }
             coments[id].classList.remove('d-none');
+        }
+
+    }
+
+    function agregarComentarios() {
+        console.log(localStorage.getItem('tipo'));
+
+        if (localStorage.getItem('tipo') == 'empleador') {
+            var usuaID = document.getElementById('usuaID').value;
+            var mensaje = document.getElementById('mensaje').value;
+
+            var xhr = new XMLHttpRequest();
+            var parametro = 'idTrabajo=' + trabajoSeleccionado + "&usuaID=" + usuaID + "&mensaje=" + mensaje;
+            xhr.open("POST", ruta + "config/comentarios.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    window.location = window.location.href;
+                }
+            }
+            xhr.send(parametro);
+        } else if (localStorage.getItem('tipo') == 'empleado') {
+            document.getElementById('error2').classList.remove('d-none');
+        } else {
+            document.getElementById('error1').classList.remove('d-none');
+
         }
 
     }
@@ -84,7 +144,7 @@ if (!(window.location.href.includes('registroOpcion.php') || window.location.hre
 }
 
 
-if(window.location.href.includes('registroOpcion.php') || window.location.href.includes('registroEmpleado.php') || window.location.href.includes('registroEmpleador.php') || window.location.href.includes('iniciarSesion.php')){
+if (window.location.href.includes('registroOpcion.php') || window.location.href.includes('registroEmpleado.php') || window.location.href.includes('registroEmpleador.php') || window.location.href.includes('iniciarSesion.php')) {
     document.getElementById('initSesion').classList.add('d-none');
 }
 
@@ -108,7 +168,6 @@ if (window.location.href.includes('inicio.php')) {
 }
 
 //Quitamos HOME en index
-if(window.location.href.includes('index.php')){
+if (window.location.href.includes('index.php')) {
     document.getElementById('home').classList.add('d-none');
 }
-

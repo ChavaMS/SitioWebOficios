@@ -1,6 +1,6 @@
 //GLOBAL
 var ruta = "http://localhost/SitioWebOficios/";
-window.onload = function () {
+window.onload = function() {
 
     if (window.location.href.includes('inicio.php')) {
         rating();
@@ -14,15 +14,15 @@ function ratinIndividual() {
     var div = document.getElementById('rate10');
     var id = localStorage.getItem("idUsu");
     var xhr = new XMLHttpRequest();
-    console.log(id);
-    
+    //console.log(id);
+
 
     xhr.open("POST", ruta + "config/rating.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             respuesta = JSON.parse(xhr.responseText);
-            
+
             var options = {
                 max_value: 5,
                 step_size: 1,
@@ -36,11 +36,11 @@ function ratinIndividual() {
             var element = '<span class="mt-3 mx-2">Calificación:</span><div class="rate mt-3"></div>';
             div.innerHTML = element;
             $(".rate").rate(options);
-            
-            
+
+
         }
     }
-    xhr.send("id="+id);
+    xhr.send("id=" + id);
 }
 
 
@@ -59,7 +59,7 @@ function rating() {
 
     xhr.open("POST", ruta + "config/rating.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             respuesta = JSON.parse(xhr.responseText);
             var rating = new Array();

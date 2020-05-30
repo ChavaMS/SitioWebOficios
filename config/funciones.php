@@ -19,14 +19,16 @@ function limpiarDatos($datos)
     return $datos;
 }
 
-function obtener_id_empleados($inicio,$post_por_pagina,$conexion){
+function obtener_id_empleados($inicio, $post_por_pagina, $conexion)
+{
     $sentencia = $conexion->prepare("SELECT id FROM employees LIMIT $inicio, $post_por_pagina");
     $sentencia->execute();
 
     return $sentencia->fetchAll();;
 }
 
-function obtener_rating($id, $conexion){
+function obtener_rating($id, $conexion)
+{
     $sentencia = $conexion->prepare("SELECT AVG(aprobacion) FROM ratings WHERE employee_id = $id");
     $sentencia->execute();
     $response = $sentencia->fetchAll();
@@ -60,45 +62,65 @@ function numero_paginas($post_por_pagina, $conexion)
     return $numero_paginas;
 }
 
-function crear_empleador($nombre, $correo, $pass1, $fechaNac, $conexion){
+function obtener_empleado_completo($id, $conexion)
+{
+    $sentencia = $conexion->prepare("SELECT * from employees WHERE id = $id");
+
+    $sentencia->execute();
+    return $sentencia->fetchAll();
+}
+
+function crear_empleador($nombre, $correo, $pass1, $fechaNac, $conexion)
+{
     $statement = $conexion->prepare("INSERT INTO employers (id,name,email,password,register_date, active) VALUES (NULL,:nombre,:email,:pass,NOW(),1)");
 
-    $statement->execute(array(':nombre' => $nombre, ':email' => $correo , ':pass' => $pass1));
+    $statement->execute(array(':nombre' => $nombre, ':email' => $correo, ':pass' => $pass1));
 
     $usuario = comprobar_usuario_empleador($correo, $pass1, $conexion);
 
-    $user[0] = ISSET($usuario[0]) ? $usuario[0] : null;
-    $user[1] = ISSET($usuario[1]) ? $usuario[1] : null;
+    $user[0] = isset($usuario[0]) ? $usuario[0] : null;
+    $user[1] = isset($usuario[1]) ? $usuario[1] : null;
 
-    if(!empty($user[0])){
+    if (!empty($user[0])) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
-function obtener_empleos($id, $conexion){
+function insertar_comentario($idEmpleador, $idEmpleado, $idTrabajo, $mensaje, $conexion)
+{
+    $statement = $conexion->prepare("INSERT INTO comment (id,emp_id,emy_id,job_id,comments) VALUES (NULL,:emp_id,:emy_id,:job_id,:comments)");
+
+    $statement->execute(array(':emp_id' => $idEmpleador, ':emy_id' => $idEmpleado, ':job_id' => $idTrabajo, ':comments' => $mensaje));
+}
+
+function obtener_empleos($id, $conexion)
+{
     $sentencia = $conexion->prepare("SELECT nombre FROM job as j INNER JOIN employee_job as ej ON (j.id = ej.job_id) WHERE ej.emp_id = $id");
 
     $sentencia->execute();
     return $sentencia->fetchAll();
 }
 
-function obtener_oficios_descripcion($id, $conexion){
+function obtener_oficios_descripcion($id, $conexion)
+{
     $sentencia = $conexion->prepare("SELECT descripcion FROM employee_job WHERE emp_id = $id");
 
     $sentencia->execute();
     return $sentencia->fetchAll();
 }
 
-function obtener_comentarios($id_emp, $id_trabajo, $conexion){
+function obtener_comentarios($id_emp, $id_trabajo, $conexion)
+{
     $sentencia = $conexion->prepare("SELECT emp_id,comments FROM comment WHERE emy_id = $id_emp AND job_id = $id_trabajo");
 
     $sentencia->execute();
     return $sentencia->fetchAll();
 }
 
-function obtener_id_trabajos($id,$conexion){
+function obtener_id_trabajos($id, $conexion)
+{
     $sentencia = $conexion->prepare("SELECT id FROM job AS j INNER JOIN employee_job AS emp_jo ON (j.id = emp_jo.job_id) WHERE emp_jo.emp_id = $id");
 
     $sentencia->execute();
@@ -106,111 +128,119 @@ function obtener_id_trabajos($id,$conexion){
 }
 
 
-function obtener_puntuacion($id, $conexion){
+function obtener_puntuacion($id, $conexion)
+{
     $sentencia = $conexion->prepare("SELECT aprobacion from ratings as r INNER JOIN employees as em ON (em.id = r.emp_id) WHERE r.emp_id = $id");
 
     $sentencia->execute();
     return $sentencia->fetchAll();
 }
- 
-function filtrar_puntuacion($puntuacion){
+
+function filtrar_puntuacion($puntuacion)
+{
     $puntuacion_filtrada = array();
     $puntuacion_filtrada[0] = 0;
     $puntuacion_filtrada[1] = 0;
-    for($i = 0; $i < sizeof($puntuacion); $i++){
-        $puntuacion[$i][0] == 0 ? $puntuacion_filtrada[0] += 1 : $puntuacion_filtrada[1] += 1;  
+    for ($i = 0; $i < sizeof($puntuacion); $i++) {
+        $puntuacion[$i][0] == 0 ? $puntuacion_filtrada[0] += 1 : $puntuacion_filtrada[1] += 1;
     }
 
     return $puntuacion_filtrada;
 }
 
-function obtener_comentarios_por_id($id,$conexion)
+function obtener_comentarios_por_id($id, $conexion)
 {
     $sentencia = $conexion->prepare("SELECT c.*, u.usu_nombre FROM comentarios as c INNER JOIN usuario as u ON (c.usu_id = u.usu_id) WHERE post_id = $id");
 
     $sentencia->execute();
     return $sentencia->fetchAll();
-
 }
 
-function obtener_datos_usuario($id,$conexion){
+function obtener_datos_usuario($id, $conexion)
+{
     $sentencia = $conexion->prepare("SELECT name, email, phone_number, birthdate, photo from employees WHERE id = $id");
 
     $sentencia->execute();
     return $sentencia->fetchAll();
 }
 
-function comprobar_usuario_empleado($email,$pass,$conexion){
+function comprobar_usuario_empleado($email, $pass, $conexion)
+{
     $sentencia = $conexion->prepare("SELECT name,id FROM employees WHERE email LIKE '$email' AND password LIKE '$pass'");
     $sentencia->execute();
     $sentencia = $sentencia->fetchAll();
 
-    $user[0] = ISSET($sentencia[0]['name']) ? $sentencia[0]['name'] : null;
-    $user[1] = ISSET($sentencia[0]['id']) ? $sentencia[0]['id'] : null;
-    if(!empty($user[0])){
+    $user[0] = isset($sentencia[0]['name']) ? $sentencia[0]['name'] : null;
+    $user[1] = isset($sentencia[0]['id']) ? $sentencia[0]['id'] : null;
+    if (!empty($user[0])) {
         return $user;
-    }else{
+    } else {
         return false;
     }
 }
- 
-function comprobar_usuario_empleador($email,$pass,$conexion){
+
+function comprobar_usuario_empleador($email, $pass, $conexion)
+{
     $sentencia = $conexion->prepare("SELECT name,id FROM employers WHERE email LIKE '$email' AND password LIKE '$pass'");
     $sentencia->execute();
     $sentencia = $sentencia->fetchAll();
 
-    $user[0] = ISSET($sentencia[0]['name']) ? $sentencia[0]['name'] : null;
-    $user[1] = ISSET($sentencia[0]['id']) ? $sentencia[0]['id'] : null;
-    if(!empty($user[0])){
+    $user[0] = isset($sentencia[0]['name']) ? $sentencia[0]['name'] : null;
+    $user[1] = isset($sentencia[0]['id']) ? $sentencia[0]['id'] : null;
+    if (!empty($user[0])) {
         return $user;
-    }else{
+    } else {
         return false;
     }
 }
 
-function comprobar_correo($email, $conexion){
+function comprobar_correo($email, $conexion)
+{
     $sentencia = $conexion->prepare("SELECT usu_correo FROM usuario WHERE usu_correo LIKE '$email'");
     $sentencia->execute();
     $sentencia = $sentencia->fetchAll();
 
-    $correo =  ISSET($sentencia[0]['usu_correo']) ? $sentencia[0]['usu_correo'] : null;
-    if($correo != null){
+    $correo =  isset($sentencia[0]['usu_correo']) ? $sentencia[0]['usu_correo'] : null;
+    if ($correo != null) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
-function crear_empleado($nombre, $correo, $pass1,$phone_number,$birthdate,$address,$photo, $conexion){
+function crear_empleado($nombre, $correo, $pass1, $phone_number, $birthdate, $address, $photo, $conexion)
+{
 
     $statement = $conexion->prepare("INSERT INTO employees (id,name,email,password,phone_number,birthdate, address, register_date, photo, active) VALUES (NULL,:nombre,:email,:pass,:phone_number,:birthdate,:direccion,NOW(),:photo,1)");
 
-    $statement->execute(array(':nombre' => $nombre, ':email' => $correo , ':pass' => $pass1,':phone_number' => $phone_number, ':birthdate' => $birthdate, ':direccion' => $address, ':photo' => $photo));
+    $statement->execute(array(':nombre' => $nombre, ':email' => $correo, ':pass' => $pass1, ':phone_number' => $phone_number, ':birthdate' => $birthdate, ':direccion' => $address, ':photo' => $photo));
 
     $usuario = comprobar_usuario_empleado($correo, $pass1, $conexion);
 
-    $user[0] = ISSET($usuario[0]) ? $usuario[0] : null;
-    $user[1] = ISSET($usuario[1]) ? $usuario[1] : null;
+    $user[0] = isset($usuario[0]) ? $usuario[0] : null;
+    $user[1] = isset($usuario[1]) ? $usuario[1] : null;
 
-    if(!empty($user[0])){
+    if (!empty($user[0])) {
         return $user;
-    }else{
+    } else {
         return false;
     }
 }
 
 
-function asignar_oficios($id_oficios, $desc_oficios,$usu_id, $conexion){
-    
-    for($i = 0; $i < count($id_oficios); $i++){
+function asignar_oficios($id_oficios, $desc_oficios, $usu_id, $conexion)
+{
+
+    for ($i = 0; $i < count($id_oficios); $i++) {
         $statement = $conexion->prepare("INSERT INTO employee_job (emp_id,job_id,descripcion) VALUES (:emp_id,:job_id,:descr)");
 
-        $statement->execute(array(':emp_id' => $usu_id,':job_id' => $id_oficios[$i],':descr' => $desc_oficios[$i] ));
+        $statement->execute(array(':emp_id' => $usu_id, ':job_id' => $id_oficios[$i], ':descr' => $desc_oficios[$i]));
     }
 }
 
 
-function obtener_oficios($conexion){
+function obtener_oficios($conexion)
+{
     $statement = $conexion->prepare("SELECT * FROM job");
 
     $statement->execute();
@@ -225,28 +255,27 @@ function tiempo_transcurrido($tiempo)
     $date2 = new DateTime("now");
     $diff = $date1->diff($date2);
 
-    if($diff->y != 0){
-        return $diff->y > 1 ? 'Publicado hace '. $diff->y .' años' : 'Publicado hace '. $diff->y .' año';
+    if ($diff->y != 0) {
+        return $diff->y > 1 ? 'Publicado hace ' . $diff->y . ' años' : 'Publicado hace ' . $diff->y . ' año';
     }
 
-    if($diff->m != 0){
-        return $diff->m > 1 ? 'Publicado hace '. $diff->m .' meses' : 'Publicado hace '. $diff->m .' mes';
+    if ($diff->m != 0) {
+        return $diff->m > 1 ? 'Publicado hace ' . $diff->m . ' meses' : 'Publicado hace ' . $diff->m . ' mes';
     }
 
-    if($diff->d != 0){
-        return $diff->d > 1 ? 'Publicado hace '. $diff->d .' dias' : 'Publicado hace '. $diff->d .' día';
+    if ($diff->d != 0) {
+        return $diff->d > 1 ? 'Publicado hace ' . $diff->d . ' dias' : 'Publicado hace ' . $diff->d . ' día';
     }
 
-    if($diff->h != 0){
-        return $diff->h > 1 ? 'Publicado hace '. $diff->h .' horas' : 'Publicado hace '. $diff->h .' hora';
+    if ($diff->h != 0) {
+        return $diff->h > 1 ? 'Publicado hace ' . $diff->h . ' horas' : 'Publicado hace ' . $diff->h . ' hora';
     }
 
-    if($diff->i != 0){
-        return $diff->i > 1 ? 'Publicado hace '. $diff->i .' minutos' : 'Publicado hace '. $diff->i .' minuto';
+    if ($diff->i != 0) {
+        return $diff->i > 1 ? 'Publicado hace ' . $diff->i . ' minutos' : 'Publicado hace ' . $diff->i . ' minuto';
     }
 
-    if($diff->s != 0){
-        return $diff->s > 1 ? 'Publicado hace '. $diff->s .' segundos' : 'Publicado hace '. $diff->s .' segundo';
+    if ($diff->s != 0) {
+        return $diff->s > 1 ? 'Publicado hace ' . $diff->s . ' segundos' : 'Publicado hace ' . $diff->s . ' segundo';
     }
-    
 }
