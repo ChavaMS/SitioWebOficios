@@ -41,7 +41,7 @@
                     <div class="row form-group">
                         <label for="contraseña2" class="col-form-label col-md-4">Confirmar contraseña:</label>
                         <div class="col-md-8">
-                            <input type="password" name="contrasena2" id="pass2" class="form-control" value="<?php echo $empleado[0]['password'];?>" required>
+                            <input type="password" name="contrasena2" id="pass2" class="form-control" value="<?php echo $empleado[0]['password']; ?>" required>
                         </div>
                     </div>
                     <!--CONTRASEÑA-->
@@ -77,27 +77,126 @@
                         <img class="d-block mb-2 w-50 mb-2" src="img/linea.jpg" alt="">
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-12">
                             <div class="mb-2">
-                                <select id="nombreOficios" class="form-control">
-                                    <?php foreach ($oficios as $oficio) : ?>
-                                        <option value="<?php echo $oficio[0]; ?>"><?php echo $oficio[1]; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <?php
+                                for ($y = 0; $y < sizeof($oficios_empleado); $y++) {
+                                    echo '
+                                    <div class="row my-4" id="${id}">
+                                        <div class="col-md-6" id="izquierda">
+                                            <label disabled for="" class="col-form-label">' . $oficios_nombre[$y][0][0] . '</label>
+                                        </div>
+                                        <div class="col-md-6" id="derecha">
+                                            <textarea disabled name="" cols="30" rows="2" class="form-control">' . $oficios_empleado[$y][2] . '</textarea>
+                                        </div>
+                                    </div>';
+                                }
+                                ?>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <input type="button" class="btn btn-primary form-control mx-2" onclick="agregar()" value="+">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="button" class="btn btn-primary form-control mx-1" onclick="borrar()" value="-">
-                        </div>
                     </div>
-                    <div id="padre">
-                        <!--OPCIONES DE OFICIOS-->
-                    </div>
-                    <input class="btn btn-info" type="submit" value="Guardar">
+                    <!--                     <div id="padre">
+                        OPCIONES DE OFICIOS
+                    </div> -->
+                    <input class="btn btn-secondary" data-toggle="modal" data-target="#editar" type="submit" value="Editar">
+                    <input class="btn btn-secondary" data-toggle="modal" data-target="#eliminar" type="submit" value="Eliminar">
+                    <input class="btn btn-secondary" data-toggle="modal" data-target="#agregar" type="submit" value="Agregar nuevo oficio">
+                    <!-- MODALES -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="config/editarPerfil.php" method="POST">
+                                        <?php
+                                        echo '<input type="text" value="true" class="d-none" name="editar" >';
 
+                                        for ($y = 0; $y < sizeof($oficios_empleado); $y++) {
+                                            echo '
+                                    <div class="row my-4">
+                                        <div class="col-md-6" id="izquierda">
+                                        <input type="text" name="' . ($y + 50) . '" class="d-none" value="' . $oficios_empleado[$y][1] . '">
+                                            <label for="" class="col-form-label">' . $oficios_nombre[$y][0][0] . '</label>
+                                        </div>
+                                        <div class="col-md-6" id="derecha">
+                                            <textarea name="' . ($y + 100) . '" cols="30" rows="2" class="form-control">' . $oficios_empleado[$y][2] . '</textarea>
+                                        </div>
+                                    </div>';
+                                        }
+                                        ?>
+                                        <input class="btn btn-secondary" data-toggle="modal" data-target="#editar" type="submit" value="Guardar">
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <?php
+                                    for ($y = 0; $y < sizeof($oficios_empleado); $y++) {
+                                        echo '
+                                    <div class="row my-4" id="${id}">
+                                        <div class="col-md-6" id="izquierda">
+                                            <label for="" class="col-form-label">' . $oficios_nombre[$y][0][0] . '</label>
+                                        </div>
+                                        <div class="col-md-6" id="derecha">
+                                            <input onclick="eliminar(' . $oficios_empleado[$y][1] . ')" type="text" class="btn btn-danger" value="Eliminar" >
+                                        </div>
+                                    </div>';
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="agregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-2">
+                                                <select id="nombreOficios" class="form-control">
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="button" class="btn btn-primary form-control mx-2" onclick="agregar()" value="+">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="button" class="btn btn-primary form-control mx-1" onclick="borrar()" value="-">
+                                        </div>
+                                    </div>
+                                    <div id="padre">
+                                        <!--OPCIONES DE OFICIOS-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- MODALES -->
                 </div>
                 <div id="4e" class="p-0 d-none">
                     <div class="text-left mx-3">

@@ -248,6 +248,48 @@ function obtener_oficios($conexion)
     return $statement->fetchAll();
 }
 
+function obtener_oficios_empleado($id, $conexion)
+{
+    $statement = $conexion->prepare("SELECT * FROM employee_job  WHERE emp_id = $id");
+
+    $statement->execute();
+
+    return $statement->fetchAll();
+}
+
+function obtener_nombre_oficio($id_oficio, $conexion)
+{
+    $statement = $conexion->prepare("SELECT nombre FROM job WHERE id = $id_oficio");
+
+    $statement->execute();
+
+    return $statement->fetchAll();
+}
+
+function obtener_oficios_disponibles($id,$conexion){
+    $statement = $conexion->prepare("SELECT j.id, j.nombre FROM job AS j WHERE j.id NOT IN (SELECT job_id FROM employee_job WHERE emp_id = :empId); ");
+
+    $statement->execute(array(':empId' => $id));
+
+    return $statement->fetchAll();
+}
+
+//UPDATES
+function actualizar_oficios($descripcion, $oficio, $idEmpleado, $conexion)
+{
+    $statement = $conexion->prepare("UPDATE employee_job SET descripcion = :descr WHERE emp_id = :idEmp AND job_id = :jobId");
+
+    $statement->execute(array(':idEmp' => $idEmpleado, ':jobId' => $oficio, ':descr' => $descripcion));
+}
+
+//ELIMINAR
+function eliminar_oficio($oficio, $id, $conexion)
+{
+    $statement = $conexion->prepare("DELETE FROM employee_job WHERE emp_id = :idEmp AND job_id = :jobID");
+
+    $statement->execute(array(':idEmp' => $id, ':jobID' => $oficio));
+}
+
 function tiempo_transcurrido($tiempo)
 {
     date_default_timezone_set('America/Mexico_City');

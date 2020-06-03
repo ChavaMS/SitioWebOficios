@@ -9,6 +9,12 @@ if($_SESSION['id'] =! null){
     $empleado = obtener_empleado_completo($_SESSION['id'],$conexion);
 
     $oficios = obtener_oficios($conexion);
+
+    $oficios_empleado = obtener_oficios_empleado($_SESSION['id'],$conexion);
+    $oficios_nombre = array();
+    for($x = 0; $x < sizeof($oficios_empleado); $x++){
+        $oficios_nombre[$x] = obtener_nombre_oficio($oficios_empleado[$x][1],$conexion);
+    }
 }
 
 

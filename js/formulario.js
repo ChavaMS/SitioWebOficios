@@ -3,11 +3,9 @@ if (window.location.href.includes('datosPerfilEmpleado.php')) {
     var padre = document.getElementById("padre");
     var oficios = new Array();
     var existe = false;
+    var indice = 0;
 
     //Cargamos los oficios que ya existen
-
-
-
     function agregar() {
         var seleccion = document.getElementById("nombreOficios").value;
         var combo = document.getElementById("nombreOficios");
@@ -20,13 +18,13 @@ if (window.location.href.includes('datosPerfilEmpleado.php')) {
 
         if (!existe) {
             oficios.push(seleccion);
-            var elemento = `<div class="row my-4" id="${id}">
+            var elemento = `<div class="row my-4">
                       <div class="col-md-6" id="izquierda">
-                        <input type="text" name="${id}" class="d-none" value="${seleccion}" >
+                        <input type="text" name="${(indice)}" class="d-none" value="${seleccion}" >
                         <label for="oficio${id}" class="col-form-label">${selected}:</label>
                       </div>
                       <div class="col-md-6" id="derecha">
-                        <textarea name="oficio${id}" id="oficio${id++}" cols="30" rows="2" class="form-control"></textarea>
+                        <textarea name="" id="oficio${id++}" cols="30" rows="2" class="form-control"></textarea>
                       </div>
                   </div>`;
             padre.innerHTML += elemento;

@@ -8,6 +8,7 @@
   <script src="js/rating.js"></script>
   <script src="js/sesion.js"></script>
   <script src="js/events.js"></script>
+  <script src="js/editarEmpleado.js"></script>
   <script src="js/formulario.js"></script>
 
   </body>
