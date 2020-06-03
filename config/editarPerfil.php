@@ -11,7 +11,7 @@ if ($_POST) {
         $descripciones = array();
         $idsOf = array();
         
-        
+         
         foreach ($_POST as $clave => $valor) {
             if ($clave >= 100) {
                 array_push($descripciones, $valor);

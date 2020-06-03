@@ -19,7 +19,7 @@ if (window.location.href.includes("datosPerfilEmpleado.php")) {
         }
     }
     xhr.send(parametro);
-
+ 
 
     function eliminar(idTrabajo) {
         var xhr = new XMLHttpRequest();
