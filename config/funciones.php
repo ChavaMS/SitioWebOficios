@@ -228,16 +228,6 @@ function crear_empleado($nombre, $correo, $pass1, $phone_number, $birthdate, $ad
 }
 
 
-function asignar_oficios($id_oficios, $desc_oficios, $usu_id, $conexion)
-{
-
-    for ($i = 0; $i < count($id_oficios); $i++) {
-        $statement = $conexion->prepare("INSERT INTO employee_job (emp_id,job_id,descripcion) VALUES (:emp_id,:job_id,:descr)");
-
-        $statement->execute(array(':emp_id' => $usu_id, ':job_id' => $id_oficios[$i], ':descr' => $desc_oficios[$i]));
-    }
-}
-
 
 function obtener_oficios($conexion)
 {
@@ -266,10 +256,20 @@ function obtener_nombre_oficio($id_oficio, $conexion)
     return $statement->fetchAll();
 }
 
-function obtener_oficios_disponibles($id,$conexion){
+function obtener_oficios_disponibles($id, $conexion)
+{
     $statement = $conexion->prepare("SELECT j.id, j.nombre FROM job AS j WHERE j.id NOT IN (SELECT job_id FROM employee_job WHERE emp_id = :empId); ");
 
     $statement->execute(array(':empId' => $id));
+
+    return $statement->fetchAll();
+}
+
+//INFO_EMPLEADOR
+function obtener_info_empleador($id, $conexion)
+{
+    $statement = $conexion->prepare("SELECT name, email, password FROM employers WHERE id = :id");
+    $statement->execute(array(':id' => $id));
 
     return $statement->fetchAll();
 }
@@ -282,12 +282,55 @@ function actualizar_oficios($descripcion, $oficio, $idEmpleado, $conexion)
     $statement->execute(array(':idEmp' => $idEmpleado, ':jobId' => $oficio, ':descr' => $descripcion));
 }
 
+function actualizar_info_personal($nombre, $pass, $idEmp, $conexion)
+{
+    $statement = $conexion->prepare("UPDATE employees SET name = :nombre, password = :pass  WHERE id = :idEmp");
+
+    $statement->execute(array(':idEmp' => $idEmp, ':pass' => $pass, ':nombre' => $nombre));
+}
+
+function actualizar_datos_contacto($tel, $correo, $idEmp, $conexion)
+{
+    $statement = $conexion->prepare("UPDATE employees SET email = :correo, phone_number = :tel  WHERE id = :idEmp");
+
+    $statement->execute(array(':idEmp' => $idEmp, ':tel' => $tel, ':correo' => $correo));
+}
+
+function actualiza_imagen($imagen, $idEmp, $conexion)
+{
+    $statement = $conexion->prepare("UPDATE employees SET photo = :foto WHERE id = :idEmp");
+
+    $statement->execute(array(':idEmp' => $idEmp, ':foto' => $imagen));
+}
+
+function actualizar_empleador($nombre, $correo, $pass,$idEmp, $conexion)
+{
+    $statement = $conexion->prepare("UPDATE employers SET name = :nombre, password = :pass, email = :email  WHERE id = :idEmp");
+
+    $statement->execute(array(':idEmp' => $idEmp, ':pass' => $pass, ':nombre' => $nombre,':email' => $correo));
+}
+
 //ELIMINAR
 function eliminar_oficio($oficio, $id, $conexion)
 {
     $statement = $conexion->prepare("DELETE FROM employee_job WHERE emp_id = :idEmp AND job_id = :jobID");
-
     $statement->execute(array(':idEmp' => $id, ':jobID' => $oficio));
+
+
+    //Borramos sus comentarios
+    $statement = $conexion->prepare("DELETE FROM comment WHERE emp_id = :idEmp AND job_id = :jobID");
+    $statement->execute(array(':idEmp' => $id, ':jobID' => $oficio));
+}
+
+//INSERTAR
+function asignar_oficios($id_oficios, $desc_oficios, $usu_id, $conexion)
+{
+
+    for ($i = 0; $i < count($id_oficios); $i++) {
+        $statement = $conexion->prepare("INSERT INTO employee_job (emp_id,job_id,descripcion) VALUES (:emp_id,:job_id,:descr)");
+
+        $statement->execute(array(':emp_id' => $usu_id, ':job_id' => $id_oficios[$i], ':descr' => $desc_oficios[$i]));
+    }
 }
 
 function tiempo_transcurrido($tiempo)

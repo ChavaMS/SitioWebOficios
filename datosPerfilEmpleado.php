@@ -15,6 +15,8 @@ if($_SESSION['id'] =! null){
     for($x = 0; $x < sizeof($oficios_empleado); $x++){
         $oficios_nombre[$x] = obtener_nombre_oficio($oficios_empleado[$x][1],$conexion);
     }
+}else{
+    header('Location: index.php');
 }
 
 

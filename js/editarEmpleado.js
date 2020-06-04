@@ -8,7 +8,7 @@ if (window.location.href.includes("datosPerfilEmpleado.php")) {
     var parametro = 'cargarOficios=true';
     xhr.open("POST", ruta + "config/editarPerfil.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var respuesta = JSON.parse(xhr.responseText);
             respuesta.forEach(element => {
@@ -19,18 +19,17 @@ if (window.location.href.includes("datosPerfilEmpleado.php")) {
         }
     }
     xhr.send(parametro);
- 
 
-    function eliminar(idTrabajo) {
+
+    function eliminar(idTrabajo,ren) {
         var xhr = new XMLHttpRequest();
-
+        
         var parametro = 'idTrabajo=' + idTrabajo + "&eliminar=true";
         xhr.open("POST", ruta + "config/editarPerfil.php", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
-
-                //window.location = window.location.href;
+                //ren.classList.add("d-none");
             }
         }
         xhr.send(parametro);

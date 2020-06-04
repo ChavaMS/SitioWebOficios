@@ -19,33 +19,36 @@
         <div class="col-12  col-md-5 p-0 d-flex align-items-center">
             <div class="h-75 w-100 bg-light d-flex align-items-center redondearOpcionDerecha">
                 <div id="1e" class="p-4">
-                    <div class="text-left">
-                        <span>Información personal</span>
-                        <img class="d-block mb-2 w-50" src="img/linea.jpg" alt="">
-                    </div>
-                    <div class="row form-group">
-                        <label for="nombre" class="col-form-label col-md-4">Nombre:</label>
-                        <div class="col-md-8">
-                            <input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo $empleado[0]['name']; ?>" required>
+                    <form action="config/editarPerfil.php" method="POST">
+                        <div class="text-left">
+                            <input type="text" value="true" name="infoPers" class="d-none">
+                            <span>Información personal</span>
+                            <img class="d-block mb-2 w-50" src="img/linea.jpg" alt="">
                         </div>
-                    </div>
-                    <!--NOMBRE-->
+                        <div class="row form-group">
+                            <label for="nombre" class="col-form-label col-md-4">Nombre:</label>
+                            <div class="col-md-8">
+                                <input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo $empleado[0]['name']; ?>" required>
+                            </div>
+                        </div>
+                        <!--NOMBRE-->
 
-                    <!--CONTRASEÑA-->
-                    <div class="row form-group">
-                        <label for="contraseña1" class="col-form-label col-md-4">Contraseña:</label>
-                        <div class="col-md-8">
-                            <input type="password" name="contrasena1" id="pass1" class="form-control" value="<?php echo $empleado[0]['password']; ?>" required>
+                        <!--CONTRASEÑA-->
+                        <div class="row form-group">
+                            <label for="contraseña1" class="col-form-label col-md-4">Contraseña:</label>
+                            <div class="col-md-8">
+                                <input type="password" name="contrasena1" id="pass1" class="form-control" value="<?php echo $empleado[0]['password']; ?>" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row form-group">
-                        <label for="contraseña2" class="col-form-label col-md-4">Confirmar contraseña:</label>
-                        <div class="col-md-8">
-                            <input type="password" name="contrasena2" id="pass2" class="form-control" value="<?php echo $empleado[0]['password']; ?>" required>
+                        <div class="row form-group">
+                            <label for="contraseña2" class="col-form-label col-md-4">Confirmar contraseña:</label>
+                            <div class="col-md-8">
+                                <input type="password" name="contrasena2" id="pass2" class="form-control" value="<?php echo $empleado[0]['password']; ?>" required>
+                            </div>
                         </div>
-                    </div>
-                    <!--CONTRASEÑA-->
-                    <input class="btn btn-secondary" type="submit" value="Guardar">
+                        <!--CONTRASEÑA-->
+                        <input class="btn btn-secondary" type="submit" value="Guardar">
+                    </form>
                 </div>
                 <div id="2e" class="p-4 d-none">
                     <div class="text-left">
@@ -148,14 +151,16 @@
                                 </div>
                                 <div class="modal-body">
                                     <?php
+
                                     for ($y = 0; $y < sizeof($oficios_empleado); $y++) {
+                                        $iden = "ren" . $y;
                                         echo '
-                                    <div class="row my-4" id="${id}">
+                                    <div class="row my-4" id="' . $iden . '">
                                         <div class="col-md-6" id="izquierda">
                                             <label for="" class="col-form-label">' . $oficios_nombre[$y][0][0] . '</label>
                                         </div>
                                         <div class="col-md-6" id="derecha">
-                                            <input onclick="eliminar(' . $oficios_empleado[$y][1] . ')" type="text" class="btn btn-danger" value="Eliminar" >
+                                            <input onclick="eliminar(' . $oficios_empleado[$y][1] . ',' . $iden . ')" type="button" class="btn btn-danger" value="Eliminar" >
                                         </div>
                                     </div>';
                                     }
@@ -174,24 +179,30 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-2">
-                                                <select id="nombreOficios" class="form-control">
-                                                    
-                                                </select>
+                                    <form action="config/editarPerfil.php" method="POST">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mt-1">
+                                                    <input type="text" class="d-none" name="agregarNuevo" value="true">
+                                                    <select id="nombreOficios" class="form-control">
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 p-1">
+                                                <input type="button" class="btn btn-primary form-control mx-2" onclick="agregar()" value="+">
+                                            </div>
+                                            <div class="col-md-2 p-1">
+                                                <input type="button" class="btn btn-primary form-control mx-1" onclick="borrar()" value="-">
+                                            </div>
+                                            <div class="col-md-2 p-1">
+                                                <input type="submit" class="btn btn-primary form-control mx-0 p-0" value="Guardar">
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <input type="button" class="btn btn-primary form-control mx-2" onclick="agregar()" value="+">
+                                        <div id="padre">
+                                            <!--OPCIONES DE OFICIOS-->
                                         </div>
-                                        <div class="col-md-3">
-                                            <input type="button" class="btn btn-primary form-control mx-1" onclick="borrar()" value="-">
-                                        </div>
-                                    </div>
-                                    <div id="padre">
-                                        <!--OPCIONES DE OFICIOS-->
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -199,30 +210,32 @@
                     <!-- MODALES -->
                 </div>
                 <div id="4e" class="p-0 d-none">
-                    <div class="text-left mx-3">
-                        <span>Contacto</span>
-                        <img class="d-block mb-2 w-50" src="img/linea.jpg" alt="">
-                    </div>
-                    <div class="row form-group mx-3">
-                        <label for="tel" class="col-form-label col-md-4 my-2">Teléfono:</label>
-                        <div class="col-md-8 my-2">
-                            <input type="tel" name="tel" id="tel" value="<?php echo $empleado[0]['phone_number']; ?>" class="form-control" required>
+                    <form action="config/editarPerfil.php" method="POST" enctype="multipart/form-data">
+                        <div class="text-left mx-3">
+                            <span>Contacto</span>
+                            <img class="d-block mb-2 w-50" src="img/linea.jpg" alt="">
                         </div>
-                        <label for="correo" class="col-form-label col-md-4 my-2">Correo:</label>
-                        <div class="col-md-8 my-2">
-                            <input type="email" name="correo" id="correo" value="<?php echo $empleado[0]['email']; ?>" class="form-control" required>
+                        <div class="row form-group mx-3">
+                            <input type="text" value="true" name="contacto" class="d-none">
+                            <label for="tel" class="col-form-label col-md-4 my-2">Teléfono:</label>
+                            <div class="col-md-8 my-2">
+                                <input type="tel" name="tel" id="tel" value="<?php echo $empleado[0]['phone_number']; ?>" class="form-control" required>
+                            </div>
+                            <label for="correo" class="col-form-label col-md-4 my-2">Correo:</label>
+                            <div class="col-md-8 my-2">
+                                <input type="email" name="correo" id="correo" value="<?php echo $empleado[0]['email']; ?>" class="form-control" required>
+                            </div>
+                            <label for="file" class="col-form-label col-md-4 my-2">Imagen de perfil:</label>
+                            <div class="col-md-8 my-2">
+                                <input type="file" name="file" id="file" class="form-control-file">
+                            </div>
+                            <div class="col-md-4"></div>
+                            <div class="col-md-8 my-2" id="preview">
+                                <!-- Se coloca la imagen momentaneamente -->
+                            </div>
+                            <input class="btn btn-info" type="submit" value="Guardar">
                         </div>
-                        <label for="file" class="col-form-label col-md-4 my-2">Imagen de perfil:</label>
-                        <div class="col-md-8 my-2">
-                            <input type="file" name="file" id="file" class="form-control-file" required>
-                        </div>
-                        <div class="col-md-4"></div>
-                        <div class="col-md-8 my-2" id="preview">
-                            <!-- Se coloca la imagen momentaneamente -->
-                        </div>
-                        <input class="btn btn-info" type="submit" value="Guardar">
-                    </div>
-
+                    </form>
                 </div>
 
             </div>

@@ -18,15 +18,17 @@ if (window.location.href.includes('datosPerfilEmpleado.php')) {
 
         if (!existe) {
             oficios.push(seleccion);
-            var elemento = `<div class="row my-4">
+            var elemento = `<div class="row my-4" id="${id}">
                       <div class="col-md-6" id="izquierda">
-                        <input type="text" name="${(indice)}" class="d-none" value="${seleccion}" >
-                        <label for="oficio${id}" class="col-form-label">${selected}:</label>
+                        <input type="text" name="${(indice+50)}" class="d-none" value="${seleccion}" >
+                        <label for="${(indice+100)}" class="col-form-label">${selected}:</label>
                       </div>
                       <div class="col-md-6" id="derecha">
-                        <textarea name="" id="oficio${id++}" cols="30" rows="2" class="form-control"></textarea>
+                        <textarea name="${(indice+100)}" id="desc${(indice+100)}" cols="30" rows="2" class="form-control" required></textarea>
                       </div>
                   </div>`;
+            indice++;
+            id++;
             padre.innerHTML += elemento;
         }
         existe = false;
@@ -38,7 +40,8 @@ if (window.location.href.includes('datosPerfilEmpleado.php')) {
             var child = document.getElementById(id - 1);
             var parent = child.parentNode;
             parent.removeChild(child);
-            id--;
+            id--
+            indice--;
             oficios.pop();
 
         }
