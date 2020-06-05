@@ -41,8 +41,9 @@ if (window.location.href.includes('inicio.php')) {
 
     for (let i = 0; i < numUsusarios; i++) {
         let usuario = document.getElementById('_' + i);
-        usuario.addEventListener("click", function() {
-            verPerfil(usuario.firstElementChild.value);
+        let id = document.getElementById("." + i);
+        usuario.addEventListener("click", function () {
+            verPerfil(id.firstElementChild.value);
         });
     }
 
@@ -59,7 +60,7 @@ if (window.location.href.includes('perfil.php')) {
 
     for (let i = 0; i < numOficios; i++) {
         desc[i] = document.getElementById('#' + (i + 1));
-        document.getElementById(i + 1).addEventListener('click', function() {
+        document.getElementById(i + 1).addEventListener('click', function () {
             cargarDescripcion(i + 1);
         });
     }
@@ -82,7 +83,7 @@ if (window.location.href.includes('perfil.php')) {
         coments[i] = document.getElementById('###' + (i + 1));
         boton[i] = document.getElementById('##' + (i + 1));
         idTrabajos[i] = document.getElementById('####' + (i + 1)).value;
-        document.getElementById('##' + (i + 1)).addEventListener('click', function() {
+        document.getElementById('##' + (i + 1)).addEventListener('click', function () {
             comentarios(i);
         });
     }
@@ -113,7 +114,7 @@ if (window.location.href.includes('perfil.php')) {
             var parametro = 'idTrabajo=' + trabajoSeleccionado + "&usuaID=" + usuaID + "&mensaje=" + mensaje;
             xhr.open("POST", ruta + "config/comentarios.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     window.location = window.location.href;
                 }

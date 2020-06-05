@@ -81,6 +81,9 @@ function rating() {
                 }
 
                 var element = '<span class="mt-3 mx-2">Calificación:</span><div class="rate' + i + ' mt-3"></div>';
+                if(divs[i] == null)
+                    break;
+                
                 divs[i].innerHTML = element;
             }
 

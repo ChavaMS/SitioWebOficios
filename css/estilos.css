@@ -89,6 +89,8 @@ body {
     background-color: #343a40;
 }
 
+
+
 .clic {
     cursor: pointer;
 }
@@ -106,4 +108,9 @@ body {
     background-color: gray;
     color: black;
     cursor: pointer;
+}
+
+.map {
+    height: 170px;
+    width: 100%;
 }

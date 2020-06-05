@@ -1,7 +1,7 @@
 <div class="container-fluid fondoWeb">
     <div class="row">
         <div class="col-md-2">
-        <input class="d-none" id="usuaID" type="text" value="<?php echo $idUser; ?>">
+            <input class="d-none" id="usuaID" type="text" value="<?php echo $idUser; ?>">
         </div>
         <div class="col-12 col-md-8 border fondo">
             <div class="row">
@@ -10,10 +10,9 @@
                     <div class="card my-3" style="width: 100%;">
                         <img src="<?php echo $blog_config['carpeta_imagenes'] . $datosUser['photo']; ?>" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <p class="card-title">Edad</p>
-                            <p class="card-text">Dirección</p>
                             <div class="text-center">
-                                <button href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-secondary">Contactar</button>
+                                <button href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-secondary mb-2">Contactar</button>
+                                <button href="#" data-toggle="modal" data-target="#ubicacion" class="btn btn-secondary mb-2">Ver ubicación</button>
                             </div>
                         </div>
                     </div>
@@ -55,7 +54,7 @@
                 </div>
             </div>
 
-            <!--MODAL-->
+            <!--MODAL CONTACTAR-->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -84,8 +83,31 @@
                     </div>
                 </div>
             </div>
-            <!--MODAL-->
-
+            <!--MODAL CONTACTAR-->
+            <!-- MODAL UBICACION -->
+            <div class="modal fade" id="ubicacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Contacto</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="map" id="mapa"></div>
+                            <div class="tex-left">
+                                <p class="m-0" style="font-size: .7rem;">*La marca solo representa el centro del area donde se puede encontrar ubicado el empleado.</p>
+                                <p class="m-0" style="font-size: .7rem;">*No representa su posición exacta.</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- MODAL UBICACION -->
             <div class="text-left">
                 <h2>Comentarios</h2>
             </div>
@@ -96,7 +118,7 @@
                         <p>
                             <?php for ($i = 0; $i < ($numOficios); $i++) {
                                 echo '<button id="##' . ($i + 1) . '" class="btn btn-secondary mr-1">' . $oficios_nombre[$i][0] . '</button>';
-                                echo '<input class="d-none" id="####'.($i + 1).'" type="text" value="'.$id_trabajos[$i][0].'" >';
+                                echo '<input class="d-none" id="####' . ($i + 1) . '" type="text" value="' . $id_trabajos[$i][0] . '" >';
                             } ?>
                         </p>
                     </div>

@@ -9,30 +9,38 @@ CREATE TABLE employees (
 	password VARCHAR(20) NOT NULL,
 	phone_number	 INT NOT NULL,
 	birthdate	 DATE,
-	address  VARCHAR (70),
+	lat  VARCHAR (255),
+	lon VARCHAR(255),
+	city VARCHAR(50),
+	state VARCHAR(50),
+	country VARCHAR(50),
+	schedule VARCHAR(3),
 	register_date DATETIME NOT NULL,
 	photo    varchar(255) NOT NULL,
 	active   TINYINT(1) NOT NULL,
 	PRIMARY KEY (id)
 );
 
-INSERT INTO employees (name,email,password,phone_number,birthdate, address, register_date,photo ,active) VALUES
-("Salvador Medina Santos","chava678ics@gmail.com","12345","8712342811","1998-01-01","25°30 46.1 N 103°23'31.9 W",NOW(),"1.jpg",1);
+INSERT INTO employees (name,email,password,phone_number,birthdate, lat, lon, city, state, country, schedule, register_date,photo ,active) VALUES
+("Salvador Medina Santos","chava678ics@gmail.com","12345","8712342811","1998-01-01","25.5129463","-103.3913115","Torreon","Coahuila","Mexico", "M",NOW(),"1.jpg",1);
 
-INSERT INTO employees (name,email,password,phone_number,birthdate, address, register_date, photo,active) VALUES
-("Pedor Perez","pedro@gmail.com","23456","123456783","1998-01-01","25°30 46.1 N 103°23'31.9 W",NOW(),"1.jpg",1);
+INSERT INTO employees (name,email,password,phone_number,birthdate, lat, lon, city, state, country, schedule, register_date, photo,active) VALUES
+("Pedor Perez","pedro@gmail.com","23456","123456783","1998-01-01","25.5129922","-103.4150564","Torreon","Coahuila","Mexico", "MVN",NOW(),"1.jpg",1);
 
-INSERT INTO employees (name,email,password,phone_number,birthdate, address, register_date,photo ,active) VALUES
-("Sofia Nava","sofia@gmail.com","34567","8711083434","1998-01-01","25°30 46.1 N 103°23'31.9 W",NOW(),"1.jpg",1);
+INSERT INTO employees (name,email,password,phone_number,birthdate, lat, lon, city, state, country, schedule, register_date,photo ,active) VALUES
+("Sofia Nava","sofia@gmail.com","34567","8711083434","1998-01-01","25.5072221","-103.3832788","Torreon","Coahuila","Mexico", "V",NOW(),"1.jpg",1);
 
-INSERT INTO employees (name,email,password,phone_number,birthdate, address, register_date,photo ,active) VALUES
-("Humberto Medina","humberto@gmail.com","45678","8712343431","1998-01-01","25°30 46.1 N 103°23'31.9 W",NOW(),"1.jpg",1);
+INSERT INTO employees (name,email,password,phone_number,birthdate, lat, lon, city, state, country, schedule, register_date,photo ,active) VALUES
+("Humberto Medina","humberto@gmail.com","45678","8712343431","1998-01-01","25.5161888","-103.3923057","Torreon","Coahuila","Mexico", "N",NOW(),"1.jpg",1);
 
-INSERT INTO employees (name,email,password,phone_number,birthdate, address, register_date,photo ,active) VALUES
-("Josue Romero","josue@gmail.com","56789","87343434","1998-01-01","25°30 46.1 N 103°23'31.9 W",NOW(),"1.jpg",1);
+INSERT INTO employees (name,email,password,phone_number,birthdate, lat, lon, city, state, country, schedule, register_date,photo ,active) VALUES
+("Josue Romero","josue@gmail.com","56789","87343434","1998-01-01","25.5029816","-103.3977222","Torreon","Coahuila","Mexico", "MN",NOW(),"1.jpg",1);
 
-INSERT INTO employees (name,email,password,phone_number,birthdate, address, register_date,photo ,active) VALUES
-("Guadalpue Nury Galvan","nury@gmail.com","123456789","87343434","1998-01-01","25°30 46.1 N 103°23'31.9 W",NOW(),"1.jpg",1);
+INSERT INTO employees (name,email,password,phone_number,birthdate, lat, lon, city, state, country, schedule, register_date,photo ,active) VALUES
+("Regina Noriega","regina@gmail.com","56789","87343434","1998-01-01","25.5029816","-103.3977222","Torreon","Coahuila","Mexico", "M",NOW(),"1.jpg",1);
+
+INSERT INTO employees (name,email,password,phone_number,birthdate, lat, lon, city, state, country, schedule, register_date,photo ,active) VALUES
+("Guadalpue Nury Galvan","nury@gmail.com","123456789","87343434","1998-01-01","25.5685447","-103.4748611","Gomez palacio","Durango","Mexico","MVN",NOW(),"1.jpg",1);
 
 
 

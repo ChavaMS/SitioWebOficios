@@ -36,25 +36,25 @@ function obtener_rating($id, $conexion)
     return ($response[0][0]);
 }
 
-function obtener_empleados($post_por_pagina, $conexion)
+function obtener_empleados($post_por_pagina,$ciudad,$estado, $conexion)
 {
     $inicio = (pagina_actual() > 1) ? pagina_actual() * $post_por_pagina - $post_por_pagina : 0;
 
-    $sentencia = $conexion->prepare("SELECT SQL_CALC_FOUND_ROWS id,name, address FROM employees LIMIT $inicio,$post_por_pagina");
-    $sentencia->execute();
+    $sentencia = $conexion->prepare("SELECT SQL_CALC_FOUND_ROWS id,name, lat,lon FROM employees WHERE city = :ciudad AND state = :estado LIMIT $inicio,$post_por_pagina");
+    $sentencia->execute(array(':ciudad' => $ciudad, ':estado' => $estado));
     return $sentencia->fetchAll();
 }
 
 function pagina_actual()
-{
-    return isset($_GET['p']) ? (int) $_GET['p'] : 1;
+{  
+    return isset($_GET['p']) ? (int)$_GET['p'] : 1;
 }
 
 
-function numero_paginas($post_por_pagina, $conexion)
+function numero_paginas($post_por_pagina,$ciudad, $estado, $conexion)
 {
-    $total_post = $conexion->prepare('SELECT count(FOUND_ROWS()) as total FROM employees');
-    $total_post->execute();
+    $total_post = $conexion->prepare('SELECT count(FOUND_ROWS()) as total FROM employees WHERE city = :ciudad AND state = :estado');
+    $total_post->execute(array(':ciudad' => $ciudad, ':estado' => $estado));
     $total_post = $total_post->fetch()['total'];
 
     $numero_paginas = ceil($total_post / $post_por_pagina);
@@ -264,6 +264,51 @@ function obtener_oficios_disponibles($id, $conexion)
 
     return $statement->fetchAll();
 }
+
+function obtener_empleados_por_busqueda($post_por_pagina, $nombre_oficio, $turnos_string ,$ciudad, $estado, $conexion){
+    $inicio = (pagina_actual() > 1) ? pagina_actual() * $post_por_pagina - $post_por_pagina : 0;
+
+    $sentencia = $conexion->prepare("SELECT DISTINCT SQL_CALC_FOUND_ROWS emp.id, emp.name, emp.lat, emp.lon, emp.schedule FROM employees AS emp INNER JOIN employee_job AS ej ON (emp.id = ej.emp_id) INNER JOIN job AS j ON (j.id = ej.job_id) WHERE emp.city = '$ciudad' AND emp.state = '$estado' AND emp.schedule LIKE '%$turnos_string%' AND j.nombre LIKE '%$nombre_oficio%' LIMIT $inicio, $post_por_pagina;");
+    $sentencia->execute();
+
+    return $sentencia->fetchAll();
+}
+
+//UBICACION
+function obtener_coordenadas($id, $conexion){
+    $statement = $conexion->prepare("SELECT lat, lon FROM employees WHERE id = :empId ");
+
+    $statement->execute(array(':empId' => $id));
+
+    return $statement->fetchAll()[0];
+}
+
+function obtener_coordenada_unica($id, $conexion){
+    $statement = $conexion->prepare("SELECT lat, lon FROM employees WHERE id = :empId ");
+
+    $statement->execute(array(':empId' => $id));
+
+    return $statement->fetchAll();
+}
+
+//CALCULOS
+function obtener_distancia($theta,$latFrom,$latTo){
+    $theta = floatval($theta);
+    $latFrom = floatval($latFrom);
+    $latTo = floatval($latTo);
+    /*echo $theta;
+    echo $latFrom;
+    echo $latTo;
+*/
+    $dist = sin(deg2rad($latFrom)) * sin(deg2rad($latTo)) + cos(deg2rad($latFrom)) * cos(deg2rad($latTo)) * cos(deg2rad($theta));
+    $dist = acos($dist);
+    $dist = rad2deg($dist);
+    $miles = $dist * 60 * 1.1515;
+    
+    return round($miles * 1.609344, 2);
+}
+
+
 
 //INFO_EMPLEADOR
 function obtener_info_empleador($id, $conexion)

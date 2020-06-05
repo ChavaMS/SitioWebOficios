@@ -2,40 +2,43 @@
     <div class="align-self-center">
         <div class="card rounded" style="background-color: #f8f9fa ;">
             <div class="card-body">
-                <div class="text-center display-4">
-                    <p>Ingresa los datos para continuar</p>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">País</span>
+                <form action="inicio.php" method="GET">
+                    <div class="text-center display-4">
+                        <p>Ingresa los datos para continuar</p>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">País</span>
+                                    </div>
+                                    <input type="text" name="pais" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                 </div>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Estado</span>
+                            <div class="col-md-4">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">Estado</span>
+                                    </div>
+                                    <input type="text" class="form-control" name="estado" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                                 </div>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Ciudad</span>
+                            <div class="col-md-4">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">Ciudad</span>
+                                    </div>
+                                    <input type="text" name="ciudad" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                                 </div>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="text-center">
-                    <a href="inicio.php" class="btn btn-secondary">Buscar</a>
-                </div>
+                    <div class="text-center">
+                        <input class="btn btn-secondary" type="submit" value="Buscar">
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
