@@ -4,7 +4,7 @@
     <div class="col-md-6 px-0 h-100">
       <div class="fondoBlanco redondear my-5 justify-content-center border d-flex align-items-center">
         <div class="d-block my-4">
-          <form id="regiration_form" action="<?php echo RUTA . 'config/registro1.php'; ?>" enctype="multipart/form-data" method="POST">
+          <form onsubmit="validacion(event)" id="regiration_form" action="<?php echo RUTA . 'config/registro1.php'; ?>" enctype="multipart/form-data" method="POST">
             <!-----------------------novalidate-------------------PARTE 1------------------------------->
             <fieldset>
               <div class="text-center display-4 mb-3">
@@ -168,6 +168,21 @@
                 <label for="nombre" class="col-form-label col-md-4 my-2">Correo:</label>
                 <div class="col-md-8 my-2">
                   <input type="email" name="correo" id="correo" class="form-control" required>
+                </div>
+                <label for="turno" class="col-form-label col-md-4 my-2">Turnos:</label>
+                <div class="col-md-8 my-2">
+                  <div class="mr-2 d-md-inline">
+                    <input type="checkbox" name="turno[]" id="matutino" value="M" >
+                    <span>Matutino</span>
+                  </div>
+                  <div class="mx-2 d-md-inline">
+                    <input type="checkbox" name="turno[]" id="vespertino" value="V" >
+                    <span>Vespertino</span>
+                  </div>
+                  <div class="mx-2 d-md-inline">
+                    <input type="checkbox" name="turno[]" id="nocturno" value="N" >
+                    <span>Nocturno</span>
+                  </div>
                 </div>
                 <label for="nombre" class="col-form-label col-md-4 my-2">Imagen de perfil:</label>
                 <div class="col-md-8 my-2">

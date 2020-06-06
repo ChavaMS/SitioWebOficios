@@ -172,3 +172,45 @@ if (window.location.href.includes('inicio.php')) {
 if (window.location.href.includes('index.php')) {
     document.getElementById('home').classList.add('d-none');
 }
+
+if (window.location.href.includes('registroEmpleado.php')) {
+    function validacion(e) {
+        e.preventDefault();
+        var formRegistro = document.getElementById('regiration_form');
+        var matutino = document.getElementById('matutino');
+        var vespertino = document.getElementById('vespertino');
+        var nocturno = document.getElementById('nocturno');
+        var correo = document.getElementById('correo').value;
+        var oficio = document.getElementById('oficio0');
+
+        if (oficio != null) {
+            var xhr = new XMLHttpRequest();
+            var parametros = "correo=" + correo;
+            xhr.open("POST", ruta + "config/validaciones.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    respuesta = xhr.responseText;
+                    if (respuesta == 'existe') {
+                        alert('Correo ya registrado');
+                    } else if (respuesta == 'no existe') {
+                        if (matutino.checked) {
+                            formRegistro.submit();
+                        } else if (vespertino.checked) {
+                            formRegistro.submit();
+                        } else if (nocturno.checked) {
+                            formRegistro.submit();
+                        } else {
+                            alert("Seleccione al menos 1 turno");
+                        }
+                    }
+                }
+            }
+            xhr.send(parametros);
+
+        }else{
+            alert('Ingrese por lo menos 1 oficio');
+        }
+
+    }
+}

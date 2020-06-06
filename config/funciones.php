@@ -36,7 +36,7 @@ function obtener_rating($id, $conexion)
     return ($response[0][0]);
 }
 
-function obtener_empleados($post_por_pagina,$ciudad,$estado, $conexion)
+function obtener_empleados($post_por_pagina, $ciudad, $estado, $conexion)
 {
     $inicio = (pagina_actual() > 1) ? pagina_actual() * $post_por_pagina - $post_por_pagina : 0;
 
@@ -46,12 +46,12 @@ function obtener_empleados($post_por_pagina,$ciudad,$estado, $conexion)
 }
 
 function pagina_actual()
-{  
-    return isset($_GET['p']) ? (int)$_GET['p'] : 1;
+{
+    return isset($_GET['p']) ? (int) $_GET['p'] : 1;
 }
 
 
-function numero_paginas($post_por_pagina,$ciudad, $estado, $conexion)
+function numero_paginas($post_por_pagina, $ciudad, $estado, $conexion)
 {
     $total_post = $conexion->prepare('SELECT count(FOUND_ROWS()) as total FROM employees WHERE city = :ciudad AND state = :estado');
     $total_post->execute(array(':ciudad' => $ciudad, ':estado' => $estado));
@@ -194,26 +194,12 @@ function comprobar_usuario_empleador($email, $pass, $conexion)
     }
 }
 
-function comprobar_correo($email, $conexion)
-{
-    $sentencia = $conexion->prepare("SELECT usu_correo FROM usuario WHERE usu_correo LIKE '$email'");
-    $sentencia->execute();
-    $sentencia = $sentencia->fetchAll();
-
-    $correo =  isset($sentencia[0]['usu_correo']) ? $sentencia[0]['usu_correo'] : null;
-    if ($correo != null) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function crear_empleado($nombre, $correo, $pass1, $phone_number, $birthdate, $lat, $lon, $pais, $estado, $ciudad, $photo, $conexion)
+function crear_empleado($nombre, $correo, $pass1, $phone_number, $birthdate, $lat, $lon, $pais, $estado, $ciudad, $turnos_string, $photo, $conexion)
 {
 
-    $statement = $conexion->prepare("INSERT INTO employees (id,name,email,password,phone_number,birthdate, lat, lon, city, state, country, register_date, photo, active) VALUES (NULL,:nombre,:email,:pass,:phone_number,:birthdate,:lat, :lon, :ciudad, :estado, :pais,NOW(),:photo,1)");
+    $statement = $conexion->prepare("INSERT INTO employees (id,name,email,password,phone_number,birthdate, lat, lon, city, state, country, schedule, register_date, photo, active) VALUES (NULL,:nombre,:email,:pass,:phone_number,:birthdate,:lat, :lon, :ciudad, :estado, :pais, :turnos,NOW(),:photo,1)");
 
-    $statement->execute(array(':nombre' => $nombre, ':email' => $correo, ':pass' => $pass1, ':phone_number' => $phone_number, ':birthdate' => $birthdate, ':lat' => $lat,'lon' => $lon, ':ciudad' => $ciudad, ':estado' => $estado, ':pais' => $pais, ':photo' => $photo));
+    $statement->execute(array(':nombre' => $nombre, ':email' => $correo, ':pass' => $pass1, ':phone_number' => $phone_number, ':birthdate' => $birthdate, ':lat' => $lat, 'lon' => $lon, ':ciudad' => $ciudad, ':estado' => $estado, ':pais' => $pais, ':turnos' => $turnos_string, ':photo' => $photo));
 
     $usuario = comprobar_usuario_empleado($correo, $pass1, $conexion);
 
@@ -265,7 +251,8 @@ function obtener_oficios_disponibles($id, $conexion)
     return $statement->fetchAll();
 }
 
-function obtener_empleados_por_busqueda($post_por_pagina, $busqueda, $turnos_string ,$ciudad, $estado, $conexion){
+function obtener_empleados_por_busqueda($post_por_pagina, $busqueda, $turnos_string, $ciudad, $estado, $conexion)
+{
     $inicio = (pagina_actual() > 1) ? pagina_actual() * $post_por_pagina - $post_por_pagina : 0;
 
     $sentencia = $conexion->prepare("SELECT DISTINCT SQL_CALC_FOUND_ROWS emp.id, emp.name, emp.lat, emp.lon, emp.schedule FROM employees AS emp INNER JOIN employee_job AS ej ON (emp.id = ej.emp_id) INNER JOIN job AS j ON (j.id = ej.job_id) WHERE emp.city = '$ciudad' AND emp.state = '$estado' AND emp.schedule LIKE '%$turnos_string%' AND (j.nombre LIKE '%$busqueda%' OR emp.name LIKE '%$busqueda%') LIMIT $inicio, $post_por_pagina;");
@@ -275,7 +262,8 @@ function obtener_empleados_por_busqueda($post_por_pagina, $busqueda, $turnos_str
 }
 
 //UBICACION
-function obtener_coordenadas($id, $conexion){
+function obtener_coordenadas($id, $conexion)
+{
     $statement = $conexion->prepare("SELECT lat, lon FROM employees WHERE id = :empId ");
 
     $statement->execute(array(':empId' => $id));
@@ -283,7 +271,8 @@ function obtener_coordenadas($id, $conexion){
     return $statement->fetchAll()[0];
 }
 
-function obtener_coordenada_unica($id, $conexion){
+function obtener_coordenada_unica($id, $conexion)
+{
     $statement = $conexion->prepare("SELECT lat, lon FROM employees WHERE id = :empId ");
 
     $statement->execute(array(':empId' => $id));
@@ -292,19 +281,20 @@ function obtener_coordenada_unica($id, $conexion){
 }
 
 //CALCULOS
-function obtener_distancia($lat1, $lon1, $lat2, $lon2) {
- 
+function obtener_distancia($lat1, $lon1, $lat2, $lon2)
+{
+
     $theta = $lon1 - $lon2;
     $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
     $dist = acos($dist);
     $dist = rad2deg($dist);
     $miles = $dist * 60 * 1.1515;
-    $res = round(($miles * 1.609344),2);
+    $res = round(($miles * 1.609344), 2);
 
-    if($res < 1){
-        $res *= $res *1000;
+    if ($res < 1) {
+        $res *= $res * 1000;
         return $res . ' mts';
-    }else{
+    } else {
         return $res . ' km';
     }
     //return round(($miles * 1.609344),2);
@@ -348,11 +338,11 @@ function actualiza_imagen($imagen, $idEmp, $conexion)
     $statement->execute(array(':idEmp' => $idEmp, ':foto' => $imagen));
 }
 
-function actualizar_empleador($nombre, $correo, $pass,$idEmp, $conexion)
+function actualizar_empleador($nombre, $correo, $pass, $idEmp, $conexion)
 {
     $statement = $conexion->prepare("UPDATE employers SET name = :nombre, password = :pass, email = :email  WHERE id = :idEmp");
 
-    $statement->execute(array(':idEmp' => $idEmp, ':pass' => $pass, ':nombre' => $nombre,':email' => $correo));
+    $statement->execute(array(':idEmp' => $idEmp, ':pass' => $pass, ':nombre' => $nombre, ':email' => $correo));
 }
 
 //ELIMINAR
@@ -375,6 +365,20 @@ function asignar_oficios($id_oficios, $desc_oficios, $usu_id, $conexion)
         $statement = $conexion->prepare("INSERT INTO employee_job (emp_id,job_id,descripcion) VALUES (:emp_id,:job_id,:descr)");
 
         $statement->execute(array(':emp_id' => $usu_id, ':job_id' => $id_oficios[$i], ':descr' => $desc_oficios[$i]));
+    }
+}
+
+//COMPROBACIONES
+function comprobar_correo($correo, $conexion)
+{
+    $sentencia = $conexion->prepare("SELECT COUNT(*) FROM employees WHERE email LIKE :correo");
+    $sentencia->execute(array(':correo' => $correo));
+    $sentencia = $sentencia->fetchAll();
+
+    if($sentencia[0][0] > 0){
+        return false;
+    }else{
+        return true;
     }
 }
 

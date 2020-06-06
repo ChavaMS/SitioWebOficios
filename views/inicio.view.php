@@ -19,49 +19,39 @@
                                 <div class="dropdown-menu p-2" aria-labelledby="dropdownMenuButton">
                                     <!--SECCION 1-->
                                     <div class="dropdown-item">
-
                                         <input type="checkbox" name="turno[]" id="mat" value="M">
                                         <span>Matutino</span>
                                     </div>
-
                                     <div class="dropdown-item">
-
                                         <input type="checkbox" name="turno[]" id="ves" value="V">
                                         <span>Vespertino</span>
                                     </div>
-
                                     <div class="dropdown-item">
                                         <input type="checkbox" name="turno[]" id="noc" value="N">
                                         <span>Nocturno</span>
                                     </div>
                                     <!--SECCION 1-->
-
                                     <hr>
-
                                     <!--SECCION 2-->
                                     <div class="text-center">
                                         <span class="text-center">Ubicación</span>
                                     </div>
-
                                     <div class="dropdown-item">
                                         <input type="checkbox" name="automatica" id="automatica">
                                         <span>Automática</span>
                                     </div>
-
                                     <div class="input-group input-group-sm mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroup-sizing-sm">Calle</span>
                                         </div>
                                         <input type="text" class="form-control" id="calle" name="calle" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                                     </div>
-
                                     <div class="input-group input-group-sm mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroup-sizing-sm">Colonia</span>
                                         </div>
                                         <input type="text" class="form-control" name="colonia" id="colonia" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                                     </div>
-
                                     <div class="input-group input-group-sm mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroup-sizing-sm">CP</span>
@@ -69,9 +59,7 @@
                                         <input type="text" class="form-control" name="cp" id="cp" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                                     </div>
                                     <!--SECCION 2-->
-
                                     <hr>
-
                                     <!--SECCION 3-->
                                     <div class="text-center">
                                         <span class="text-center">Orden</span>
@@ -80,7 +68,6 @@
                                         <div class="row mx-1">
                                             <div class="col-md-4 text-right m-0 p-0">
                                                 <i class="fas fa-sort-amount-up-alt p-1 d-block"></i>
-
                                             </div>
                                             <div class="col-md-8 text-left m-0 p-0">
                                                 <span class="">Calificacón</span>
