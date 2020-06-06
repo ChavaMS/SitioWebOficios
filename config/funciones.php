@@ -40,7 +40,7 @@ function obtener_empleados($post_por_pagina,$ciudad,$estado, $conexion)
 {
     $inicio = (pagina_actual() > 1) ? pagina_actual() * $post_por_pagina - $post_por_pagina : 0;
 
-    $sentencia = $conexion->prepare("SELECT SQL_CALC_FOUND_ROWS id,name, lat,lon FROM employees WHERE city = :ciudad AND state = :estado LIMIT $inicio,$post_por_pagina");
+    $sentencia = $conexion->prepare("SELECT SQL_CALC_FOUND_ROWS id,name, lat,lon, schedule FROM employees WHERE city = :ciudad AND state = :estado LIMIT $inicio,$post_por_pagina");
     $sentencia->execute(array(':ciudad' => $ciudad, ':estado' => $estado));
     return $sentencia->fetchAll();
 }
@@ -208,12 +208,12 @@ function comprobar_correo($email, $conexion)
     }
 }
 
-function crear_empleado($nombre, $correo, $pass1, $phone_number, $birthdate, $address, $photo, $conexion)
+function crear_empleado($nombre, $correo, $pass1, $phone_number, $birthdate, $lat, $lon, $pais, $estado, $ciudad, $photo, $conexion)
 {
 
-    $statement = $conexion->prepare("INSERT INTO employees (id,name,email,password,phone_number,birthdate, address, register_date, photo, active) VALUES (NULL,:nombre,:email,:pass,:phone_number,:birthdate,:direccion,NOW(),:photo,1)");
+    $statement = $conexion->prepare("INSERT INTO employees (id,name,email,password,phone_number,birthdate, lat, lon, city, state, country, register_date, photo, active) VALUES (NULL,:nombre,:email,:pass,:phone_number,:birthdate,:lat, :lon, :ciudad, :estado, :pais,NOW(),:photo,1)");
 
-    $statement->execute(array(':nombre' => $nombre, ':email' => $correo, ':pass' => $pass1, ':phone_number' => $phone_number, ':birthdate' => $birthdate, ':direccion' => $address, ':photo' => $photo));
+    $statement->execute(array(':nombre' => $nombre, ':email' => $correo, ':pass' => $pass1, ':phone_number' => $phone_number, ':birthdate' => $birthdate, ':lat' => $lat,'lon' => $lon, ':ciudad' => $ciudad, ':estado' => $estado, ':pais' => $pais, ':photo' => $photo));
 
     $usuario = comprobar_usuario_empleado($correo, $pass1, $conexion);
 
@@ -265,10 +265,10 @@ function obtener_oficios_disponibles($id, $conexion)
     return $statement->fetchAll();
 }
 
-function obtener_empleados_por_busqueda($post_por_pagina, $nombre_oficio, $turnos_string ,$ciudad, $estado, $conexion){
+function obtener_empleados_por_busqueda($post_por_pagina, $busqueda, $turnos_string ,$ciudad, $estado, $conexion){
     $inicio = (pagina_actual() > 1) ? pagina_actual() * $post_por_pagina - $post_por_pagina : 0;
 
-    $sentencia = $conexion->prepare("SELECT DISTINCT SQL_CALC_FOUND_ROWS emp.id, emp.name, emp.lat, emp.lon, emp.schedule FROM employees AS emp INNER JOIN employee_job AS ej ON (emp.id = ej.emp_id) INNER JOIN job AS j ON (j.id = ej.job_id) WHERE emp.city = '$ciudad' AND emp.state = '$estado' AND emp.schedule LIKE '%$turnos_string%' AND j.nombre LIKE '%$nombre_oficio%' LIMIT $inicio, $post_por_pagina;");
+    $sentencia = $conexion->prepare("SELECT DISTINCT SQL_CALC_FOUND_ROWS emp.id, emp.name, emp.lat, emp.lon, emp.schedule FROM employees AS emp INNER JOIN employee_job AS ej ON (emp.id = ej.emp_id) INNER JOIN job AS j ON (j.id = ej.job_id) WHERE emp.city = '$ciudad' AND emp.state = '$estado' AND emp.schedule LIKE '%$turnos_string%' AND (j.nombre LIKE '%$busqueda%' OR emp.name LIKE '%$busqueda%') LIMIT $inicio, $post_por_pagina;");
     $sentencia->execute();
 
     return $sentencia->fetchAll();
@@ -292,24 +292,24 @@ function obtener_coordenada_unica($id, $conexion){
 }
 
 //CALCULOS
-function obtener_distancia($theta,$latFrom,$latTo){
-    $theta = floatval($theta);
-    $latFrom = floatval($latFrom);
-    $latTo = floatval($latTo);
-    /*echo $theta;
-    echo $latFrom;
-    echo $latTo;
-*/
-    $dist = sin(deg2rad($latFrom)) * sin(deg2rad($latTo)) + cos(deg2rad($latFrom)) * cos(deg2rad($latTo)) * cos(deg2rad($theta));
+function obtener_distancia($lat1, $lon1, $lat2, $lon2) {
+ 
+    $theta = $lon1 - $lon2;
+    $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
     $dist = acos($dist);
     $dist = rad2deg($dist);
     $miles = $dist * 60 * 1.1515;
-    
-    return round($miles * 1.609344, 2);
+    $res = round(($miles * 1.609344),2);
+
+    if($res < 1){
+        $res *= $res *1000;
+        return $res . ' mts';
+    }else{
+        return $res . ' km';
+    }
+    //return round(($miles * 1.609344),2);
+
 }
-
-
-
 //INFO_EMPLEADOR
 function obtener_info_empleador($id, $conexion)
 {

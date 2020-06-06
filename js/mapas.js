@@ -56,8 +56,22 @@ if (window.location.href.includes("inicio.php")) {
         var estado = window.location.href.split('?')[1].split('&')[1].split('=')[1];
         var ciudad = window.location.href.split('?')[1].split('&')[2].split('=')[1];
         var location;
-        if (calle != '' || colonia != '' || cp != '') {
-            location = cp + ' ' + calle + ' ' + colonia + ',' + ciudad +  ' ' + estado + ' Mexico';
+
+        if (document.getElementById('automatica').checked) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    lat.value = position.coords.latitude
+                    lon.value = position.coords.longitude;
+                    console.log(lat.value);
+                    console.log(lon.value);
+
+                    form.submit();
+                }, function () {
+                    alert('Debe permitir que accedamos a su ubicación');
+                });
+            }
+        } else if (calle != '' || colonia != '' || cp != '') {
+            location = cp + ' ' + calle + ' ' + colonia + ',' + ciudad + ' ' + estado + ' Mexico';
             axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
                 params: {
                     address: location,
@@ -66,13 +80,13 @@ if (window.location.href.includes("inicio.php")) {
             }).then(function (resp) {
                 //console.log(resp.data.results[0].geometry.location.lat);
                 lat.value = resp.data.results[0].geometry.location.lat;
-                lon.value = resp.data.results[0].geometry.location.lng;                
+                lon.value = resp.data.results[0].geometry.location.lng;
                 form.submit();
             }).catch(function (error) {
                 console.log(error);
 
             });
-        }else{
+        } else {
             form.submit();
         }
     }

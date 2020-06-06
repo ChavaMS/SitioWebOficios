@@ -44,7 +44,7 @@
                                     </div>
 
                                     <div class="dropdown-item">
-                                        <input type="checkbox" name="" id="automatica">
+                                        <input type="checkbox" name="automatica" id="automatica">
                                         <span>Automática</span>
                                     </div>
 
@@ -93,7 +93,7 @@
                         </div>
                         <div class="col-12 col-md-4">
                             <div class="d-flex justify-content-center my-1">
-                                <input class="form-control mr-sm-2" type="search" name="oficio" placeholder="Oficio" aria-label="Search">
+                                <input class="form-control mr-sm-2" type="search" name="busqueda" placeholder="Ingrese un nombre u oficio" aria-label="Search">
                             </div>
                         </div>
                         <div class="col-12 col-md-4 my-1">
@@ -130,13 +130,25 @@
                                         $NumOfic++;
                                         ?>
                                     </ul>
+                                    <p class="text-left pb-0 mb-0">Horarios:</p>
+                                    <ul>
+                                        <?php foreach($turnos_array[$j] AS $turn): ?>
+                                            <?php if($turn == 'M'): ?>
+                                                <li class="text-left"><?php echo 'Matutino'; ?></li>
+                                            <?php elseif($turn == 'V'): ?>
+                                                <li class="text-left"><?php echo 'Vespertino'; ?></li>
+                                            <?php elseif($turn == 'N'): ?>
+                                                <li class="text-left"><?php echo 'Nocturno'; ?></li>    
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </ul>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="map" id="<?php echo '-' . $id++; ?>">
 
                                     </div>
-                                    <div class="text-left">
-                                        <p class="mb-0" style="font-size: .85rem;">Distancia aproximada: <?php if($distancias != null){echo $distancias[$j] . 'km';}else{echo 'Se necesitan mas datos';} ?></p>
+                                    <div class="text-center">
+                                        <p class="mb-0" style="font-size: .85rem;">Distancia aproximada: <?php if($distancias != null){echo $distancias[$j];}else{echo 'Se necesitan mas datos';} ?></p>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">

@@ -60,35 +60,63 @@
                 </div>
               </div>
               <!--GENERO-->
+              <div>
+                <button class="next btn btn-secondary mb-2" type="button">Siguiente</button>
+              </div>
+            </fieldset>
+            <!----------------------------------PARTE 2------------------------------------------------->
+            <fieldset>
               <!--UBICACION-->
+              <div class="text-center display-4 mb-3">
+                <span>Empleado</span>
+              </div>
               <div class="text-left">
                 <span>Ubicación</span>
                 <img class="d-block mb-2 w-50" src="img/linea.jpg" alt="">
               </div>
               <div class="row form-group">
-                <label for="nombre" class="col-form-label col-md-4">Codigo postal:</label>
+                <label for="pais" class="col-form-label col-md-4">País:</label>
                 <div class="col-md-8">
-                  <input type="text" name="CP" id="nombre" class="form-control" required>
+                  <input type="text" name="pais" id="pais" class="form-control" required>
                 </div>
               </div>
               <div class="row form-group">
-                <label for="nombre" class="col-form-label col-md-4">Colonia:</label>
+                <label for="estado" class="col-form-label col-md-4">Estado:</label>
                 <div class="col-md-8">
-                  <select name="direccion" id="" class="form-control">
-                    <option value="Colonia 1">Colonia 1</option>
-                    <option value="Colonia 2">Colonia 2</option>
-                    <option value="Colonia 3">Colonia 3</option>
-                    <option value="Colonia 4">Colonia 4</option>
-                  </select>
+                  <input type="text" name="estado" id="estado" class="form-control" required>
+                </div>
+              </div>
+              <div class="row form-group">
+                <label for="ciudad" class="col-form-label col-md-4">Ciudad:</label>
+                <div class="col-md-8">
+                  <input type="text" name="ciudad" id="ciudad" class="form-control" required>
+                </div>
+              </div>
+              <div class="row form-group">
+                <label for="calle" class="col-form-label col-md-4">Calle:</label>
+                <div class="col-md-8">
+                  <input type="text" name="calle" id="calle" class="form-control" required>
+                </div>
+              </div>
+              <div class="row form-group">
+                <label for="colonia" class="col-form-label col-md-4">Colonia:</label>
+                <div class="col-md-8">
+                  <input type="text" name="colonia" id="colonia" class="form-control" required>
+                </div>
+              </div>
+              <div class="row form-group">
+                <label for="cp" class="col-form-label col-md-4">Codigo postal:</label>
+                <div class="col-md-8">
+                  <input type="text" name="cp" id="cp" class="form-control" required>
                 </div>
               </div>
               <!--UBICACION-->
               <div>
-                <button class="next btn btn-info mb-2" type="button">Siguiente</button>
+                <button type="button" name="previous" class="previous btn btn-secondary" value="Previous">Regresar</button>
+                <button class="next btn btn-secondary" type="button">Siguiente</button>
               </div>
 
             </fieldset>
-            <!----------------------------------PARTE 2------------------------------------------------->
             <fieldset>
               <div class="text-center display-4 mb-3">
                 <span>Empleado</span>
@@ -108,19 +136,19 @@
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <input type="button" class="btn btn-primary form-control mx-2" onclick="agregar()" value="+">
+                  <input type="button" class="btn btn-secondary form-control mx-2" onclick="agregar()" value="+">
                 </div>
                 <div class="col-md-3">
-                  <input type="button" class="btn btn-primary form-control mx-1" onclick="borrar()" value="-">
+                  <input type="button" class="btn btn-secondary form-control mx-1" onclick="borrar()" value="-">
                 </div>
               </div>
               <div id="padre">
                 <!--OPCIONES DE OFICIOS-->
               </div>
 
-              <div class="ml-5 mt-5">
-                <button type="button" name="previous" class="previous btn btn-info" value="Previous">Regresar</button>
-                <button class="next btn btn-info" type="button">Siguiente</button>
+              <div class=" mt-5">
+                <button type="button" name="previous" class="previous btn btn-secondary" value="Previous">Regresar</button>
+                <button class="next btn btn-secondary" type="button">Siguiente</button>
               </div>
             </fieldset>
             <!--------------------------------------------PARTE 3------------------------------------------->
@@ -151,8 +179,8 @@
                 </div>
               </div>
               <div class="ml-5">
-                <button type="button" name="previous" class="previous btn btn-info" value="Previous">Regresar</button>
-                <input class="btn btn-info" type="submit" value="Finalizar">
+                <button type="button" name="previous" class="previous btn btn-secondary" value="Previous">Regresar</button>
+                <input class="btn btn-secondary" type="submit" value="Finalizar">
               </div>
             </fieldset>
           </form>

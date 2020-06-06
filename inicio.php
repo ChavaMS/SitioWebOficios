@@ -23,18 +23,22 @@ if (isset($_POST['busqueda'])) {
     $id = 0;
     $tamano = array();
     $color = array();
-    $nombre_oficio = limpiarDatos($_POST['oficio']);
+    $busqueda = limpiarDatos($_POST['busqueda']);
     $ciudad = limpiardatos($_GET['ciudad']);
     $estado = limpiardatos($_GET['estado']);
     $latFrom = $_POST['lat'];
     $lonFrom = $_POST['lon'];
     $distancias = array();
-    $turnos = $_POST['turno'];
+    $turnos = isset($_POST['turno']) ? $_POST['turno'] : '';
     $turnos_string = "";
+    $turnos_array = array();
 
-    foreach($turnos AS $turno){
-        $turnos_string .= $turno;
+    if($turnos != ''){
+        foreach($turnos AS $turno){
+            $turnos_string .= $turno;
+        }
     }
+    
 
     $color[0] = "bg-success";
     $color[1] = "bg-info";
@@ -46,11 +50,17 @@ if (isset($_POST['busqueda'])) {
     }
 
     //PROCESOS
-    $usuarios = obtener_empleados_por_busqueda($blog_config['post_por_pagina'], $nombre_oficio, $turnos_string, $ciudad, $estado, $conexion);
+    $usuarios = obtener_empleados_por_busqueda($blog_config['post_por_pagina'], $busqueda, $turnos_string, $ciudad, $estado, $conexion);
     foreach ($usuarios as $usuario) {
         if ($latFrom != '' && $lonFrom != '') {
-            $distancias[$i] = obtener_distancia((floatval($lonFrom) - floatval($usuario['lon'])), $latFrom, $usuario['lat']);
+            $lat1 = floatval($latFrom);
+            $lon1 = floatval($lonFrom);
+            $lat2 = floatval($usuario['lat']);
+            $lon2 = floatval($usuario['lon']);
+            $distancias[$i] = obtener_distancia($lat1,$lon1, $lat2,$lon2);
         }
+        
+        $turnos_array[$i] = str_split($usuario['schedule']);
         $oficios[$i++] = obtener_empleos($usuario['id'], $conexion);
     }
 
@@ -72,7 +82,7 @@ if (isset($_POST['busqueda'])) {
     $ciudad = limpiardatos($_GET['ciudad']);
     $estado = limpiardatos($_GET['estado']);
     $distancias = array();
-
+    $turnos_array = array();
 
     $color[0] = "bg-success";
     $color[1] = "bg-info";
@@ -87,10 +97,9 @@ if (isset($_POST['busqueda'])) {
     $usuarios = obtener_empleados($blog_config['post_por_pagina'], $ciudad, $estado, $conexion);
 
     foreach ($usuarios as $usuario) {
+        $turnos_array[$i] = str_split($usuario['schedule']);
         $oficios[$i++] = obtener_empleos($usuario['id'], $conexion);
     }
-
-    
 
     require 'header.php';
     require 'views/inicio.view.php';
@@ -98,5 +107,3 @@ if (isset($_POST['busqueda'])) {
 } else {
     header("Location: index.php");
 }
-
-?>
