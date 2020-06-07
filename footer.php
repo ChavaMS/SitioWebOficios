@@ -6,7 +6,6 @@
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgRN1AR5CnGjgdcc3f93CzMho80a2yWog"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="js/rater.min.js"></script>
   <script src="js/rating.js"></script>
   <script src="js/sesion.js"></script>
   <script src="js/events.js"></script>

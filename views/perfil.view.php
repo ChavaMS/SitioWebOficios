@@ -28,7 +28,20 @@
                                 </div>
                                 <div class="col-6 text-right p-4">
                                     <div id="rate10" class="d-md-flex justify-content-center">
-                                        <span class="mt-3 mx-2">Calificación:</span>
+                                        <div class="align-self-center">
+                                            <div class="d-block">
+                                                <span class="mt-3 mx-2">Calificación:</span>
+                                            </div>
+                                            <div class="d-block">
+                                                <?php for ($x = 0; $x < 5; $x++) { ?>
+                                                    <?php if ($x < $rating) : ?>
+                                                        <i id="<?php echo 'r' . $x; ?>" onclick="valorar(<?php echo ($x + 1); ?>)" onmouseover="efecto(<?php echo $x; ?>)" onmouseout="reset(<?php echo $rating; ?>)" class="fas fa-star fa-mod" aria-hidden="true"></i>
+                                                    <?php else : ?>
+                                                        <i id="<?php echo 'r' . $x; ?>" onclick="valorar(<?php echo ($x + 1); ?>)" onmouseover="efecto(<?php echo $x; ?>)" onmouseout="reset(<?php echo $rating; ?>)" class="far fa-star fa-mod" aria-hidden="true"></i>
+                                                    <?php endif; ?>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +169,7 @@
                         echo '<div class="d-none" id="###' . ($i + 1) . '" >';
                     }
                     for ($j = 0; $j < sizeof($comments[$i]); $j++) {
-                        echo '<div class="card card-body mb-3" >' . '<p>' . $comments[$i][$j][1] . '</p>' . '</div>';
+                        echo '<div class="card card-body mb-3" >' . '<p class="p-0 mb-1">'.$comments[$i][$j][2].'</p><hr class="mt-0"><p>' . $comments[$i][$j][1] . '</p>' . '</div>';
                     }
                     echo '</div>';
                 }

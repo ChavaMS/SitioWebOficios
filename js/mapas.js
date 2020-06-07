@@ -101,7 +101,6 @@ if (window.location.href.includes("inicio.php")) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             respuesta = JSON.parse(xhr.responseText);
-            console.log(respuesta);
             initMap1();
         }
     }

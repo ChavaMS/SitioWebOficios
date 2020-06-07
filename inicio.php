@@ -21,6 +21,7 @@ if (isset($_POST['busqueda'])) {
     $puntuacion = array();
     $i = 0;
     $id = 0;
+    $x = 0;
     $tamano = array();
     $color = array();
     $busqueda = limpiarDatos($_POST['busqueda']);
@@ -61,6 +62,7 @@ if (isset($_POST['busqueda'])) {
         }
         
         $turnos_array[$i] = str_split($usuario['schedule']);
+        $rating[$i] = round(obtener_rating($usuario['id'],$conexion));
         $oficios[$i++] = obtener_empleos($usuario['id'], $conexion);
     }
 
@@ -71,6 +73,7 @@ if (isset($_POST['busqueda'])) {
     //VARIABLES
     $NumOfic = 0;
     $j = 0;
+    $x = 0;
     $indicePuntuacion = 0;
     $puntuacion_filtrada = array();
     $oficios = array();
@@ -83,6 +86,7 @@ if (isset($_POST['busqueda'])) {
     $estado = limpiardatos($_GET['estado']);
     $distancias = array();
     $turnos_array = array();
+    $rating = array();
 
     $color[0] = "bg-success";
     $color[1] = "bg-info";
@@ -98,7 +102,8 @@ if (isset($_POST['busqueda'])) {
 
     foreach ($usuarios as $usuario) {
         $turnos_array[$i] = str_split($usuario['schedule']);
-        $oficios[$i++] = obtener_empleos($usuario['id'], $conexion);
+        $oficios[$i] = obtener_empleos($usuario['id'], $conexion);
+        $rating[$i++] = round(obtener_rating($usuario['id'],$conexion));
     }
 
     require 'header.php';

@@ -89,7 +89,9 @@ body {
     background-color: #343a40;
 }
 
-
+.fa-mod{
+    cursor: pointer;
+}
 
 .clic {
     cursor: pointer;

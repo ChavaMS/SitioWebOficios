@@ -1,113 +1,64 @@
 //GLOBAL
 var ruta = "http://localhost/SitioWebOficios/";
-window.onload = function() {
 
-    if (window.location.href.includes('inicio.php')) {
-        rating();
-    }
-    if (window.location.href.includes('perfil.php')) {
-        ratinIndividual();
-    }
-}
+if (window.location.href.includes('perfil.php')) {
+    var estrellas = new Array();
 
-function ratinIndividual() {
-    var div = document.getElementById('rate10');
-    var id = localStorage.getItem("idUsu");
-    var xhr = new XMLHttpRequest();
-    //console.log(id);
-
-
-    xhr.open("POST", ruta + "config/rating.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            respuesta = JSON.parse(xhr.responseText);
-
-            var options = {
-                max_value: 5,
-                step_size: 1,
-                initial_value: respuesta.valor,
-                selected_symbol_type: 'fontawesome_star', // Must be a key from symbols
-                cursor: 'default',
-                readonly: true,
-                change_once: false, // Determines if the rating can only be set once
-            }
-
-            var element = '<span class="mt-3 mx-2">Calificación:</span><div class="rate mt-3"></div>';
-            div.innerHTML = element;
-            $(".rate").rate(options);
-
-
-        }
-    }
-    xhr.send("id=" + id);
-}
-
-
-function rating() {
-    var divs = new Array();
     for (let i = 0; i < 5; i++) {
-        divs[i] = document.getElementById('rate' + i);
+        estrellas[i] = document.getElementById('r' + i);
     }
 
-    var inicio = (getQueryVariable('p') > 1) ? getQueryVariable('p') * 5 - 5 : 0;
-    var respuesta;
-    var options = new Array();
-    var xhr = new XMLHttpRequest();
-    var parametros = 'inicio=' + inicio;
+    if (localStorage.getItem('tipo') != 'empleador' || localStorage.getItem('tipo') == null) {
+        for (let i = 0; i < 5; i++) {
+            estrellas[i].classList.remove('fa-mod');
+        }
+    }
 
 
-    xhr.open("POST", ruta + "config/rating.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            respuesta = JSON.parse(xhr.responseText);
-            var rating = new Array();
-            respuesta.valor0 != null ? rating[0] = respuesta.valor0 : '';
-            respuesta.valor1 != null ? rating[1] = respuesta.valor1 : '';
-            respuesta.valor2 != null ? rating[2] = respuesta.valor2 : '';
-            respuesta.valor3 != null ? rating[3] = respuesta.valor3 : '';
-            respuesta.valor4 != null ? rating[4] = respuesta.valor4 : '';
+    function efecto(indice) {
+        if (localStorage.getItem('tipo') == 'empleador') {
+            for (i = 0; i < 5; i++) {
+                estrellas[i].classList.remove('fas');
+                estrellas[i].classList.add('far');
+            }
+            for (i = 0; i <= indice; i++) {
+                estrellas[i].classList.remove('far');
+                estrellas[i].classList.add('fas');
+            }
+        }
+    }
 
-            for (let i = 0; i < rating.length; i++) {
-                options[i] = {
-                    max_value: 5,
-                    step_size: 1,
-                    initial_value: rating[i],
-                    selected_symbol_type: 'fontawesome_star', // Must be a key from symbols
-                    cursor: 'default',
-                    readonly: true,
-                    change_once: false, // Determines if the rating can only be set once
+    function reset(rating) {
+        if (localStorage.getItem('tipo') == 'empleador') {
+            for (i = 0; i < 5; i++) {
+                if (i < rating) {
+                    estrellas[i].classList.remove('far');
+                    estrellas[i].classList.add('fas');
+                } else {
+                    estrellas[i].classList.remove('fas');
+                    estrellas[i].classList.add('far');
                 }
-
-                var element = '<span class="mt-3 mx-2">Calificación:</span><div class="rate' + i + ' mt-3"></div>';
-                if(divs[i] == null)
-                    break;
-                
-                divs[i].innerHTML = element;
             }
-
-            $(".rate0").rate(options[0]);
-            $(".rate1").rate(options[1]);
-            $(".rate2").rate(options[2]);
-            $(".rate3").rate(options[3]);
-            $(".rate4").rate(options[4]);
-
         }
     }
-    xhr.send(parametros);
 
+    function valorar(calif) {
+        if (localStorage.getItem('tipo') == 'empleador') {
+            var idEmpleado = document.getElementById('usuaID').value;
+            var xhr = new XMLHttpRequest();
+            var parametro = 'rating=' + calif + "&idEmpleado=" + idEmpleado;
+            xhr.open("POST", ruta + "config/rating.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
 
-    function getQueryVariable(variable) {
-        // Estoy asumiendo que query es window.location.search.substring(1);
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i = 0; i < vars.length; i++) {
-            var pair = vars[i].split("=");
-            if (pair[0] == variable) {
-                return pair[1];
+                }
             }
+            xhr.send(parametro);
         }
-        return false;
+
     }
 }
+
+
+

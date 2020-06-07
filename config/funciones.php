@@ -65,7 +65,6 @@ function numero_paginas($post_por_pagina, $ciudad, $estado, $conexion)
 function obtener_empleado_completo($id, $conexion)
 {
     $sentencia = $conexion->prepare("SELECT * from employees WHERE id = $id");
-
     $sentencia->execute();
     return $sentencia->fetchAll();
 }
@@ -73,7 +72,6 @@ function obtener_empleado_completo($id, $conexion)
 function crear_empleador($nombre, $correo, $pass1, $fechaNac, $conexion)
 {
     $statement = $conexion->prepare("INSERT INTO employers (id,name,email,password,register_date, active) VALUES (NULL,:nombre,:email,:pass,NOW(),1)");
-
     $statement->execute(array(':nombre' => $nombre, ':email' => $correo, ':pass' => $pass1));
 
     $usuario = comprobar_usuario_empleador($correo, $pass1, $conexion);
@@ -91,14 +89,12 @@ function crear_empleador($nombre, $correo, $pass1, $fechaNac, $conexion)
 function insertar_comentario($idEmpleador, $idEmpleado, $idTrabajo, $mensaje, $conexion)
 {
     $statement = $conexion->prepare("INSERT INTO comment (id,emp_id,emy_id,job_id,comments) VALUES (NULL,:emp_id,:emy_id,:job_id,:comments)");
-
     $statement->execute(array(':emp_id' => $idEmpleador, ':emy_id' => $idEmpleado, ':job_id' => $idTrabajo, ':comments' => $mensaje));
 }
 
 function obtener_empleos($id, $conexion)
 {
     $sentencia = $conexion->prepare("SELECT nombre FROM job as j INNER JOIN employee_job as ej ON (j.id = ej.job_id) WHERE ej.emp_id = $id");
-
     $sentencia->execute();
     return $sentencia->fetchAll();
 }
@@ -106,15 +102,13 @@ function obtener_empleos($id, $conexion)
 function obtener_oficios_descripcion($id, $conexion)
 {
     $sentencia = $conexion->prepare("SELECT descripcion FROM employee_job WHERE emp_id = $id");
-
     $sentencia->execute();
     return $sentencia->fetchAll();
 }
 
 function obtener_comentarios($id_emp, $id_trabajo, $conexion)
 {
-    $sentencia = $conexion->prepare("SELECT emp_id,comments FROM comment WHERE emy_id = $id_emp AND job_id = $id_trabajo");
-
+    $sentencia = $conexion->prepare("SELECT co.emp_id,co.comments, emp.name AS 'nombre' FROM comment AS co INNER JOIN employers AS emp ON (emp.id = co.emp_id) WHERE co.emy_id = $id_emp AND co.job_id = $id_trabajo");
     $sentencia->execute();
     return $sentencia->fetchAll();
 }
@@ -122,7 +116,6 @@ function obtener_comentarios($id_emp, $id_trabajo, $conexion)
 function obtener_id_trabajos($id, $conexion)
 {
     $sentencia = $conexion->prepare("SELECT id FROM job AS j INNER JOIN employee_job AS emp_jo ON (j.id = emp_jo.job_id) WHERE emp_jo.emp_id = $id");
-
     $sentencia->execute();
     return $sentencia->fetchAll();
 }
@@ -131,7 +124,6 @@ function obtener_id_trabajos($id, $conexion)
 function obtener_puntuacion($id, $conexion)
 {
     $sentencia = $conexion->prepare("SELECT aprobacion from ratings as r INNER JOIN employees as em ON (em.id = r.emp_id) WHERE r.emp_id = $id");
-
     $sentencia->execute();
     return $sentencia->fetchAll();
 }
@@ -198,7 +190,6 @@ function crear_empleado($nombre, $correo, $pass1, $phone_number, $birthdate, $la
 {
 
     $statement = $conexion->prepare("INSERT INTO employees (id,name,email,password,phone_number,birthdate, lat, lon, city, state, country, schedule, register_date, photo, active) VALUES (NULL,:nombre,:email,:pass,:phone_number,:birthdate,:lat, :lon, :ciudad, :estado, :pais, :turnos,NOW(),:photo,1)");
-
     $statement->execute(array(':nombre' => $nombre, ':email' => $correo, ':pass' => $pass1, ':phone_number' => $phone_number, ':birthdate' => $birthdate, ':lat' => $lat, 'lon' => $lon, ':ciudad' => $ciudad, ':estado' => $estado, ':pais' => $pais, ':turnos' => $turnos_string, ':photo' => $photo));
 
     $usuario = comprobar_usuario_empleado($correo, $pass1, $conexion);
@@ -218,7 +209,6 @@ function crear_empleado($nombre, $correo, $pass1, $phone_number, $birthdate, $la
 function obtener_oficios($conexion)
 {
     $statement = $conexion->prepare("SELECT * FROM job");
-
     $statement->execute();
 
     return $statement->fetchAll();
@@ -227,7 +217,6 @@ function obtener_oficios($conexion)
 function obtener_oficios_empleado($id, $conexion)
 {
     $statement = $conexion->prepare("SELECT * FROM employee_job  WHERE emp_id = $id");
-
     $statement->execute();
 
     return $statement->fetchAll();
@@ -236,7 +225,6 @@ function obtener_oficios_empleado($id, $conexion)
 function obtener_nombre_oficio($id_oficio, $conexion)
 {
     $statement = $conexion->prepare("SELECT nombre FROM job WHERE id = $id_oficio");
-
     $statement->execute();
 
     return $statement->fetchAll();
@@ -245,7 +233,6 @@ function obtener_nombre_oficio($id_oficio, $conexion)
 function obtener_oficios_disponibles($id, $conexion)
 {
     $statement = $conexion->prepare("SELECT j.id, j.nombre FROM job AS j WHERE j.id NOT IN (SELECT job_id FROM employee_job WHERE emp_id = :empId); ");
-
     $statement->execute(array(':empId' => $id));
 
     return $statement->fetchAll();
@@ -265,7 +252,6 @@ function obtener_empleados_por_busqueda($post_por_pagina, $busqueda, $turnos_str
 function obtener_coordenadas($id, $conexion)
 {
     $statement = $conexion->prepare("SELECT lat, lon FROM employees WHERE id = :empId ");
-
     $statement->execute(array(':empId' => $id));
 
     return $statement->fetchAll()[0];
@@ -274,7 +260,6 @@ function obtener_coordenadas($id, $conexion)
 function obtener_coordenada_unica($id, $conexion)
 {
     $statement = $conexion->prepare("SELECT lat, lon FROM employees WHERE id = :empId ");
-
     $statement->execute(array(':empId' => $id));
 
     return $statement->fetchAll();
@@ -309,75 +294,96 @@ function obtener_info_empleador($id, $conexion)
     return $statement->fetchAll();
 }
 
-//UPDATES
+//----------------------UPDATES-------------------------------------
 function actualizar_oficios($descripcion, $oficio, $idEmpleado, $conexion)
 {
     $statement = $conexion->prepare("UPDATE employee_job SET descripcion = :descr WHERE emp_id = :idEmp AND job_id = :jobId");
-
     $statement->execute(array(':idEmp' => $idEmpleado, ':jobId' => $oficio, ':descr' => $descripcion));
 }
 
 function actualizar_info_personal($nombre, $pass, $idEmp, $conexion)
 {
     $statement = $conexion->prepare("UPDATE employees SET name = :nombre, password = :pass  WHERE id = :idEmp");
-
     $statement->execute(array(':idEmp' => $idEmp, ':pass' => $pass, ':nombre' => $nombre));
 }
 
 function actualizar_datos_contacto($tel, $correo, $idEmp, $conexion)
 {
     $statement = $conexion->prepare("UPDATE employees SET email = :correo, phone_number = :tel  WHERE id = :idEmp");
-
     $statement->execute(array(':idEmp' => $idEmp, ':tel' => $tel, ':correo' => $correo));
 }
 
 function actualiza_imagen($imagen, $idEmp, $conexion)
 {
     $statement = $conexion->prepare("UPDATE employees SET photo = :foto WHERE id = :idEmp");
-
     $statement->execute(array(':idEmp' => $idEmp, ':foto' => $imagen));
 }
 
 function actualizar_empleador($nombre, $correo, $pass, $idEmp, $conexion)
 {
     $statement = $conexion->prepare("UPDATE employers SET name = :nombre, password = :pass, email = :email  WHERE id = :idEmp");
-
     $statement->execute(array(':idEmp' => $idEmp, ':pass' => $pass, ':nombre' => $nombre, ':email' => $correo));
 }
 
-//ELIMINAR
+function actualizar_calificacion($rating, $idEmpleado, $idEmpleador, $conexion)
+{
+    $statement = $conexion->prepare("UPDATE ratings SET aprobacion = :aprob WHERE employee_id = :employee_id AND employers_id = :employers_id");
+    $statement->execute(array(':aprob' => $rating, ':employee_id' => $idEmpleado, ':employers_id' => $idEmpleador));
+}
+
+//---------------------ELIMINAR---------------------------------
 function eliminar_oficio($oficio, $id, $conexion)
 {
     $statement = $conexion->prepare("DELETE FROM employee_job WHERE emp_id = :idEmp AND job_id = :jobID");
     $statement->execute(array(':idEmp' => $id, ':jobID' => $oficio));
-
 
     //Borramos sus comentarios
     $statement = $conexion->prepare("DELETE FROM comment WHERE emp_id = :idEmp AND job_id = :jobID");
     $statement->execute(array(':idEmp' => $id, ':jobID' => $oficio));
 }
 
-//INSERTAR
+//---------------------INSERTAR----------------------------------
+//OFICIOS
 function asignar_oficios($id_oficios, $desc_oficios, $usu_id, $conexion)
 {
 
     for ($i = 0; $i < count($id_oficios); $i++) {
         $statement = $conexion->prepare("INSERT INTO employee_job (emp_id,job_id,descripcion) VALUES (:emp_id,:job_id,:descr)");
-
         $statement->execute(array(':emp_id' => $usu_id, ':job_id' => $id_oficios[$i], ':descr' => $desc_oficios[$i]));
     }
 }
 
-//COMPROBACIONES
+//RATING
+function agregar_calificacion($rating, $idEmpleado, $idEmpleador, $conexion)
+{
+    $statement = $conexion->prepare("INSERT INTO ratings (employers_id,employee_id, aprobacion) VALUES (:employer_id,:employee_id,:aprobacion)");
+    $statement->execute(array(':employer_id' => $idEmpleador, ':employee_id' => $idEmpleado, ':aprobacion' => $rating));
+}
+
+
+//-------------------------------COMPROBACIONES----------------------
 function comprobar_correo($correo, $conexion)
 {
     $sentencia = $conexion->prepare("SELECT COUNT(*) FROM employees WHERE email LIKE :correo");
     $sentencia->execute(array(':correo' => $correo));
     $sentencia = $sentencia->fetchAll();
 
-    if($sentencia[0][0] > 0){
+    if ($sentencia[0][0] > 0) {
         return false;
-    }else{
+    } else {
+        return true;
+    }
+}
+
+function comprobar_rating($idEmpleado, $idEmpleador, $conexion)
+{
+    $sentencia = $conexion->prepare("SELECT COUNT(*) FROM ratings WHERE employers_id = :employers_id AND employee_id = :employee_id");
+    $sentencia->execute(array(':employee_id' => $idEmpleado, ':employers_id' => $idEmpleador));
+    $sentencia = $sentencia->fetchAll();
+
+    if ($sentencia[0][0] > 0) {
+        return false;
+    } else {
         return true;
     }
 }

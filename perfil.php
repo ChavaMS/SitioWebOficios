@@ -26,6 +26,9 @@ if(ISSET($_SESSION['id']) && ISSET($_SESSION['session'])){
     for($i = 0; $i < sizeof($id_trabajos); $i++){
         $comments[$i] = obtener_comentarios($idUser,$id_trabajos[$i][0],$conexion);
     }
+
+    //RATING
+    $rating = round(obtener_rating($idUser,$conexion));
     
 }else if(ISSET($_GET['id'])){
     $idUser = $_GET['id'];
@@ -46,6 +49,9 @@ if(ISSET($_SESSION['id']) && ISSET($_SESSION['session'])){
     for($i = 0; $i < sizeof($id_trabajos); $i++){
         $comments[$i] = obtener_comentarios($idUser,$id_trabajos[$i][0],$conexion);
     }
+
+    //RATING
+    $rating = round(obtener_rating($idUser,$conexion));
 }else{
     header('Location: index.php');
 }

@@ -119,13 +119,13 @@
                                     </ul>
                                     <p class="text-left pb-0 mb-0">Horarios:</p>
                                     <ul>
-                                        <?php foreach($turnos_array[$j] AS $turn): ?>
-                                            <?php if($turn == 'M'): ?>
+                                        <?php foreach ($turnos_array[$j] as $turn) : ?>
+                                            <?php if ($turn == 'M') : ?>
                                                 <li class="text-left"><?php echo 'Matutino'; ?></li>
-                                            <?php elseif($turn == 'V'): ?>
+                                            <?php elseif ($turn == 'V') : ?>
                                                 <li class="text-left"><?php echo 'Vespertino'; ?></li>
-                                            <?php elseif($turn == 'N'): ?>
-                                                <li class="text-left"><?php echo 'Nocturno'; ?></li>    
+                                            <?php elseif ($turn == 'N') : ?>
+                                                <li class="text-left"><?php echo 'Nocturno'; ?></li>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                     </ul>
@@ -135,12 +135,24 @@
 
                                     </div>
                                     <div class="text-center">
-                                        <p class="mb-0" style="font-size: .85rem;">Distancia aproximada: <?php if($distancias != null){echo $distancias[$j];}else{echo 'Se necesitan mas datos';} ?></p>
+                                        <p class="mb-0" style="font-size: .85rem;">Distancia aproximada: <?php if ($distancias != null) {echo $distancias[$j];} else {echo 'Se necesitan mas datos';} ?></p>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-4">
-                                    <div id="rate<?php echo $j++; ?>" class="d-md-flex justify-content-center">
-                                        <span class="mt-3 mx-2">Calificación:</span>
+                                <div class="col-12 col-md-4 d-flex justify-content-center">
+                                    <div class="align-self-center">
+                                        <div class="d-block">
+                                            <span class="mt-3 mx-2">Calificación:</span>
+                                        </div>
+                                        <div class="d-block">
+                                            <?php for ($x = 0; $x < 5; $x++) { ?>
+                                                <?php if ($x < $rating[$j]) : ?>
+                                                    <i class="fas fa-star" aria-hidden="true"></i>
+                                                <?php else : ?>
+                                                    <i class="far fa-star" aria-hidden="true"></i>
+                                                <?php endif; ?>
+                                            <?php }
+                                            $j++; ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
