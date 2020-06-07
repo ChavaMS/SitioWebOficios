@@ -1,6 +1,13 @@
 <nav aria-label="...">
     <ul class="pagination">
-        <?php $numero_paginas = numero_paginas($blog_config['post_por_pagina'], $ciudad,$estado, $conexion); ?>
+        <?php 
+            if(isset($_POST['busqueda'])){
+                $numero_paginas = numero_paginas_busqueda($blog_config['post_por_pagina'], $busqueda, $turnos_string, $ciudad, $estado, $conexion);
+            }else{
+                $numero_paginas = numero_paginas($blog_config['post_por_pagina'], $ciudad,$estado, $conexion);
+            }
+        ?>
+        
 
         <?php if (pagina_actual() === 1) : ?>
             <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>

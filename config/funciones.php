@@ -360,6 +360,18 @@ function agregar_calificacion($rating, $idEmpleado, $idEmpleador, $conexion)
     $statement->execute(array(':employer_id' => $idEmpleador, ':employee_id' => $idEmpleado, ':aprobacion' => $rating));
 }
 
+//---------------------------CONSULTAS------------------------------
+function numero_paginas_busqueda($post_por_pagina, $busqueda, $turnos_string, $ciudad, $estado, $conexion){
+
+    $total_post = $conexion->prepare("SELECT DISTINCT COUNT(FOUND_ROWS()) as total FROM employees AS emp INNER JOIN employee_job AS ej ON (emp.id = ej.emp_id) INNER JOIN job AS j ON (j.id = ej.job_id) WHERE emp.city = '$ciudad' AND emp.state = '$estado' AND emp.schedule LIKE '%$turnos_string%' AND (j.nombre LIKE '%$busqueda%' OR emp.name LIKE '%$busqueda%');");
+    $total_post->execute();
+    $total_post = $total_post->fetch()['total'];
+
+    $numero_paginas = ceil($total_post / $post_por_pagina);
+
+    return $numero_paginas;
+}
+
 
 //-------------------------------COMPROBACIONES----------------------
 function comprobar_correo($correo, $conexion)
