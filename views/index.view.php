@@ -102,7 +102,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium, dolores? Dolorem vitae facilis molestiae! Aspernatur voluptatem numquam animi amet reiciendis.</p>
+                <p>Fomentar el empleo en Mexico y aumentar los ingresos de las familias mexicanas en todos los niveles.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -122,7 +122,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, eius dicta! Repudiandae ut quo, praesentium quisquam ex corporis doloremque. Autem!</p>
+                <p>Somos un grupo de alumnos con iniciativa que quieren buscan brindar una oportunidad de promocion gratuita para el publico en general que cuenta con un oficio.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -142,10 +142,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, adipisci eaque in aut quos corrupti voluptates! Necessitatibus exercitationem officia illum.</p>
+                <ol>
+                    <?php foreach ($oficios as $oficio) : ?>
+                        <li><?php echo $oficio[1]; ?></li>
+                    <?php endforeach; ?>
+                </ol>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary">¿No encuentras el tuyo? Solicitalo</button>
+                <a href="mailto:chava678ics@gmail.com?subject=SOLICITUD DE OFICIO" class="btn btn-secondary">¿No encuentras el tuyo? Solicitalo</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>

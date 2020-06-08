@@ -39,17 +39,17 @@
                         Usuarios
                     </a>
                     <div class="dropdown-menu" aria-labelledby="nombreUsuario">
-                        <a class="dropdown-item <?php if ($_SESSION['tipo'] == 'empleador') {
+                        <a class="dropdown-item <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] == 'empleador') {
                                                     echo 'd-none';
-                                                } ?>" href="perfil.php?id=<?php echo $_SESSION['id'] . '&session=t' ?>">Ver perfil</a>
-                        <?php if ($_SESSION['tipo'] == 'empleado') : ?>
-                            <a class="dropdown-item" href="datosPerfilEmpleado.php?id=<?php echo $_SESSION['id'] ?>">Mis datos</a>
+                                                } ?>" href="perfil.php?id=<?php if(isset($_SESSION['id'])){echo $_SESSION['id'] . '&session=t';} ?>">Ver perfil</a>
+                        <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] == 'empleado') : ?>
+                            <a class="dropdown-item" href="datosPerfilEmpleado.php?id=<?php if(isset($_SESSION['id'])){echo $_SESSION['id'];} ?>">Mis datos</a>
                         <?php else : ?>
-                            <a class="dropdown-item" href="datosPerfilEmpleador.php?id=<?php echo $_SESSION['id'] ?>">Mis datos</a>
+                            <a class="dropdown-item" href="datosPerfilEmpleador.php?id=<?php if(isset($_SESSION['id'])){echo $_SESSION['id'];} ?>">Mis datos</a>
                         <?php endif; ?>
                     </div>
                 </li>
-                <li class="nav-item <?php if(!($_SESSION['user'] == null) || ISSET($_SESSION['user'])){echo 'd-none';} ?>" id="initSesion">
+                <li class="nav-item <?php if(ISSET($_SESSION['user'])){echo 'd-none';} ?>" id="initSesion">
                     <a class="nav-link" href="iniciarSesion.php">Iniciar sesión</a>
                 </li>
                 <li class="nav-item" id="cerrarSesion">

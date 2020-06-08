@@ -14,7 +14,6 @@ if (!isset($_POST['cerrar'])) {
         $pass = limpiarDatos($pass);
 
         $usuario = comprobar_usuario_empleado($email, $pass, $conexion);
-
         if ($usuario != false) {
             session_start();
             $_SESSION['user'] = $usuario[0];

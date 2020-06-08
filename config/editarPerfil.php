@@ -60,7 +60,7 @@ if ($_POST) {
     } else if (isset($_POST['contacto'])) {
         $tel = limpiarDatos($_POST['tel']);
         $correo = limpiarDatos($_POST['correo']);
-        
+
 
         if ($_FILES['file']['name'] == "") {
             actualizar_datos_contacto($tel, $correo, $idEmpleado, $conexion);
@@ -71,23 +71,46 @@ if ($_POST) {
 
             if (copy($ruta, $destino)) {
                 actualizar_datos_contacto($tel, $correo, $idEmpleado, $conexion);
-                actualiza_imagen($nombreImg,$idEmpleado,$conexion);
+                actualiza_imagen($nombreImg, $idEmpleado, $conexion);
             }
         }
         header('Location: ' . RUTA . 'datosPerfilEmpleado.php');
-    }else if($_POST['perfilEmpleador']){
+    } else if (isset($_POST['perfilEmpleador'])) {
         $nombre = limpiarDatos($_POST['nombre']);
         $correo = limpiarDatos($_POST['correo']);
         $pass1 = limpiarDatos($_POST['contrasena1']);
         $pass2 = limpiarDatos($_POST['contrasena2']);
 
-        if($pass1 == $pass2){
-            actualizar_empleador($nombre,$correo,$pass1,$_SESSION['id'],$conexion);
+        if ($pass1 == $pass2) {
+            actualizar_empleador($nombre, $correo, $pass1, $_SESSION['id'], $conexion);
             header('Location: ' . RUTA . 'datosPerfilEmpleador.php');
-        }else{
+        } else {
             echo '<script type="text/javascript">alert("Las contraseñas no coinciden");</script>';
         }
+    } else if (isset($_POST['updateUbicacion'])) {
+        $calle = limpiarDatos($_POST['calle']);
+        $colonia = limpiarDatos($_POST['colonia']);
+        $cp = limpiarDatos($_POST['cp']);
+        $pais = limpiarDatos($_POST['pais']);
+        $estado = limpiarDatos($_POST['estado']);
+        $ciudad = limpiarDatos($_POST['ciudad']);
+
+        $addressFrom = $cp . '+' . $calle . '+' . $colonia . ',' . $ciudad . '+' . $estado . '+' . $pais;
+        $formattedAddrFrom = str_replace(' ', '+', $addressFrom);
+
+        //Geolocalizacion
+        $geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $formattedAddrFrom . '&key=AIzaSyDgRN1AR5CnGjgdcc3f93CzMho80a2yWog');
+        $datos = json_decode($geocode);
+        if (!empty($outputFrom->error_message)) {
+            echo '<script type="text/javascript"> alert("Error");';
+        }
+
+        $lat = $datos->results[0]->geometry->location->lat;
+        $lon = $datos->results[0]->geometry->location->lng;
+
+        actualzar_ubicacion($lat, $lon, $pais, $estado, $ciudad, $_SESSION['id'], $conexion);
+
+        header('Location: ' . RUTA . 'datosPerfilEmpleado.php');
     }
 }
-
 ?>

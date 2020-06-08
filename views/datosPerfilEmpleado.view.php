@@ -55,24 +55,46 @@
                         <span>Ubicación</span>
                         <img class="d-block mb-2 w-50" src="img/linea.jpg" alt="">
                     </div>
-                    <div class="row form-group">
-                        <label for="nombre" class="col-form-label col-md-4">Codigo postal:</label>
-                        <div class="col-md-8">
-                            <input type="text" name="CP" id="nombre" class="form-control" required>
+                    <form action="config/editarPerfil.php" method="POST">
+                        <input type="text" value="true" name="updateUbicacion" class="d-none">
+                        <div class="row form-group">
+                            <label for="pais" class="col-form-label col-md-4">País:</label>
+                            <div class="col-md-8">
+                                <input type="text" name="pais" id="pais" value="<?php echo $ubicacion[4]; ?>" class="form-control" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row form-group">
-                        <label for="nombre" class="col-form-label col-md-4">Colonia:</label>
-                        <div class="col-md-8">
-                            <select name="direccion" id="" class="form-control">
-                                <option value="Colonia 1">Colonia 1</option>
-                                <option value="Colonia 2">Colonia 2</option>
-                                <option value="Colonia 3">Colonia 3</option>
-                                <option value="Colonia 4">Colonia 4</option>
-                            </select>
+                        <div class="row form-group">
+                            <label for="estado" class="col-form-label col-md-4">Estado:</label>
+                            <div class="col-md-8">
+                                <input type="text" name="estado" id="estado" value="<?php echo $ubicacion[3]; ?>" class="form-control" required>
+                            </div>
                         </div>
-                    </div>
-                    <input class="btn btn-info" type="submit" value="Guardar">
+                        <div class="row form-group">
+                            <label for="ciudad" class="col-form-label col-md-4">Ciudad:</label>
+                            <div class="col-md-8">
+                                <input type="text" name="ciudad" id="ciudad" value="<?php echo $ubicacion[2]; ?>" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label for="calle" class="col-form-label col-md-4">Calle:</label>
+                            <div class="col-md-8">
+                                <input type="text" name="calle" id="calle" value="<?php echo $ubicacion[0]; ?>" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label for="colonia" class="col-form-label col-md-4">Colonia:</label>
+                            <div class="col-md-8">
+                                <input type="text" name="colonia" id="colonia" value="<?php echo $ubicacion[1]; ?>" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label for="cp" class="col-form-label col-md-4">Codigo postal:</label>
+                            <div class="col-md-8">
+                                <input type="text" name="cp" id="cp" value="<?php echo $ubicacion[5]; ?>" class="form-control" required>
+                            </div>
+                        </div>
+                        <input class="btn btn-secondary" type="submit" value="Guardar">
+                    </form>
                 </div>
                 <div id="3e" class="p-4 d-none">
                     <div class="text-left">
@@ -98,9 +120,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--                     <div id="padre">
-                        OPCIONES DE OFICIOS
-                    </div> -->
                     <input class="btn btn-secondary" data-toggle="modal" data-target="#editar" type="submit" value="Editar">
                     <input class="btn btn-secondary" data-toggle="modal" data-target="#eliminar" type="submit" value="Eliminar">
                     <input class="btn btn-secondary" data-toggle="modal" data-target="#agregar" type="submit" value="Agregar nuevo oficio">
@@ -190,13 +209,13 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-2 p-1">
-                                                <input type="button" class="btn btn-primary form-control mx-2" onclick="agregar()" value="+">
+                                                <input type="button" class="btn btn-secondary form-control mx-2" onclick="agregar()" value="+">
                                             </div>
                                             <div class="col-md-2 p-1">
-                                                <input type="button" class="btn btn-primary form-control mx-1" onclick="borrar()" value="-">
+                                                <input type="button" class="btn btn-secondary form-control mx-1" onclick="borrar()" value="-">
                                             </div>
                                             <div class="col-md-2 p-1">
-                                                <input type="submit" class="btn btn-primary form-control mx-0 p-0" value="Guardar">
+                                                <input type="submit" class="btn btn-secondary form-control mx-0 p-0" value="Guardar">
                                             </div>
                                         </div>
                                         <div id="padre">
@@ -233,7 +252,7 @@
                             <div class="col-md-8 my-2" id="preview">
                                 <!-- Se coloca la imagen momentaneamente -->
                             </div>
-                            <input class="btn btn-info" type="submit" value="Guardar">
+                            <input class="btn btn-secondary" type="submit" value="Guardar">
                         </div>
                     </form>
                 </div>

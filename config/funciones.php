@@ -268,22 +268,14 @@ function obtener_coordenada_unica($id, $conexion)
 //CALCULOS
 function obtener_distancia($lat1, $lon1, $lat2, $lon2)
 {
+    $origin = $lat1 . ',' . $lon1;
+    $destination = $lat2 . ',' . $lon2;
 
-    $theta = $lon1 - $lon2;
-    $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
-    $dist = acos($dist);
-    $dist = rad2deg($dist);
-    $miles = $dist * 60 * 1.1515;
-    $res = round(($miles * 1.609344), 2);
+    //Geolocalizacion
+    $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=km&origins=' . $origin . '&destinations=' . $destination . '&key=AIzaSyDgRN1AR5CnGjgdcc3f93CzMho80a2yWog');
+    $datos = json_decode($geocode);
 
-    if ($res < 1) {
-        $res *= $res * 1000;
-        return $res . ' mts';
-    } else {
-        return $res . ' km';
-    }
-    //return round(($miles * 1.609344),2);
-
+    return $datos->rows[0]->elements[0]->distance->text;
 }
 //INFO_EMPLEADOR
 function obtener_info_empleador($id, $conexion)
@@ -331,6 +323,12 @@ function actualizar_calificacion($rating, $idEmpleado, $idEmpleador, $conexion)
     $statement->execute(array(':aprob' => $rating, ':employee_id' => $idEmpleado, ':employers_id' => $idEmpleador));
 }
 
+function actualzar_ubicacion($lat, $lon, $pais, $estado, $ciudad, $idEmpleado, $conexion)
+{
+    $statement = $conexion->prepare("UPDATE employees SET lat = :lat, lon = :lon, city = :city, state = :state, country = :country WHERE id = :id");
+    $statement->execute(array(':lat' => $lat, ':lon' => $lon, ':city' => $ciudad, ':state' => $estado, ':country' => $pais, ':id' => $idEmpleado));
+}
+
 //---------------------ELIMINAR---------------------------------
 function eliminar_oficio($oficio, $id, $conexion)
 {
@@ -361,7 +359,8 @@ function agregar_calificacion($rating, $idEmpleado, $idEmpleador, $conexion)
 }
 
 //---------------------------CONSULTAS------------------------------
-function numero_paginas_busqueda($post_por_pagina, $busqueda, $turnos_string, $ciudad, $estado, $conexion){
+function numero_paginas_busqueda($post_por_pagina, $busqueda, $turnos_string, $ciudad, $estado, $conexion)
+{
 
     $total_post = $conexion->prepare("SELECT DISTINCT COUNT(FOUND_ROWS()) as total FROM employees AS emp INNER JOIN employee_job AS ej ON (emp.id = ej.emp_id) INNER JOIN job AS j ON (j.id = ej.job_id) WHERE emp.city = '$ciudad' AND emp.state = '$estado' AND emp.schedule LIKE '%$turnos_string%' AND (j.nombre LIKE '%$busqueda%' OR emp.name LIKE '%$busqueda%');");
     $total_post->execute();
