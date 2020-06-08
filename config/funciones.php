@@ -274,8 +274,9 @@ function obtener_distancia($lat1, $lon1, $lat2, $lon2)
     //Geolocalizacion
     $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=km&origins=' . $origin . '&destinations=' . $destination . '&key=AIzaSyDgRN1AR5CnGjgdcc3f93CzMho80a2yWog');
     $datos = json_decode($geocode);
-
-    return $datos->rows[0]->elements[0]->distance->text;
+    $res[0] = $datos->rows[0]->elements[0]->distance->text;
+    $res[1] = $datos->rows[0]->elements[0]->distance->value;
+    return $res;
 }
 //INFO_EMPLEADOR
 function obtener_info_empleador($id, $conexion)

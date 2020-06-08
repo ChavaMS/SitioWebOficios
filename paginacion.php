@@ -8,7 +8,6 @@
             }
         ?>
         
-
         <?php if (pagina_actual() === 1) : ?>
             <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
         <?php else : ?>

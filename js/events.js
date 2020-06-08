@@ -3,7 +3,7 @@ function empleado() {
     var estado = obtenerValorParametro('estado');
     var ciudad = obtenerValorParametro('ciudad');
     var parametros = '?pais=' + pais + '&estado=' + estado + '&ciudad=' + ciudad;
-    window.location = ruta + "registroEmpleado.php"  + parametros;
+    window.location = ruta + "registroEmpleado.php" + parametros;
 }
 
 function empleador() {
@@ -14,6 +14,13 @@ function empleador() {
     window.location = ruta + "registroEmpleador.php" + parametros;
 }
 
+
+function ordenar() {
+    var pais = obtenerValorParametro('pais');
+    var estado = obtenerValorParametro('estado');
+    var ciudad = obtenerValorParametro('ciudad');
+    var parametros = '?pais=' + pais + '&estado=' + estado + '&ciudad=' + ciudad;
+}
 
 function cambiar(id) {
     var pestana = new Array();
@@ -217,7 +224,7 @@ if (window.location.href.includes('registroEmpleado.php')) {
             }
             xhr.send(parametros);
 
-        }else{
+        } else {
             alert('Ingrese por lo menos 1 oficio');
         }
 

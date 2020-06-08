@@ -62,15 +62,16 @@
                                     <hr>
                                     <!--SECCION 3-->
                                     <div class="text-center">
-                                        <span class="text-center">Orden</span>
+                                        <span class="text-center">Orden por ubicación</span>
                                     </div>
                                     <div class="clic">
                                         <div class="row mx-1">
-                                            <div class="col-md-4 text-right m-0 p-0">
+                                            <!-- <div class="col-md-4 text-right m-0 p-0">
                                                 <i class="fas fa-sort-amount-up-alt p-1 d-block"></i>
-                                            </div>
-                                            <div class="col-md-8 text-left m-0 p-0">
-                                                <span class="">Calificacón</span>
+                                            </div> -->
+                                            <div class="col-md-12 text-center m-0 p-0">
+                                                <input type="checkbox" name="ordenarUbicacion" value="true">
+                                                <!--<span onclick="ordenar()" class="">Ubicación</span>-->
                                             </div>
                                         </div>
                                     </div>
@@ -135,7 +136,11 @@
 
                                     </div>
                                     <div class="text-center">
-                                        <p class="mb-0" style="font-size: .85rem;">Distancia aproximada: <?php if ($distancias != null) {echo $distancias[$j];} else {echo 'Se necesitan mas datos';} ?></p>
+                                        <p class="mb-0" style="font-size: .85rem;">Distancia aproximada: <?php if ($distancias != null) {
+                                                                                                                echo $distancias[$j][0];
+                                                                                                            } else {
+                                                                                                                echo 'Se necesitan mas datos';
+                                                                                                            } ?></p>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4 d-flex justify-content-center">
