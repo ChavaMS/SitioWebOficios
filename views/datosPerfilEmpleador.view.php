@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <!--CONTRASEÑA-->
-                        <button class="btn btn-info mb-3" type="submit">Guardar</button>
+                        <button class="btn btn-secondary mb-3" type="submit">Guardar</button>
                     </form>
                 </div>
             </div>

@@ -11,7 +11,7 @@
                         <span>Información personal</span>
                         <img class="d-block mb-2 w-50" src="img/linea.jpg" alt="">
                     </div>
-                    <form action="<?php echo RUTA . 'config/registro2.php'; ?>" enctype="multipart/form-data" method="POST" id="formulario" novalidate>
+                    <form action="<?php echo RUTA . 'config/registro2.php'; ?>" enctype="multipart/form-data" method="POST" id="formulario">
                         <!--NOMBRE-->
                         <div class="row form-group">
                             <label for="nombre" class="col-form-label col-md-4">Nombre:</label>
@@ -44,27 +44,12 @@
                         <div class="row form-group">
                             <label for="color" class="col-form-label col-md col-md-4">Fecha de nacimiento:</label>
                             <div class="col-md-8">
-                                <input type="date" name="fechaNac" class="form-control">
+                                <input type="date" name="fechaNac" class="form-control" required>
                             </div>
                         </div>
                         <!--FECHA DE NACIMIENTO-->
-                        <!--GENERO-->
-                        <div class="row form-group">
-                            <label for="" class="col-form-label col-md-4">Genero:</label>
-                            <div class="col-md-8 form-check form-check-inline m-0 pl-3">
-                                <label for="" class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="genero" value="hombre">
-                                    Hombre
-                                </label>
-                                <label for="genero" class="form-check-label ml-2">
-                                    <input type="radio" class="form-check-input" name="genero" value="mujer">
-                                    Mujer
-                                </label>
-                            </div>
-                        </div>
-                        <!--GENERO-->
 
-                        <button class="btn btn-info mb-3" type="submit">Siguiente</button>
+                        <input class="btn btn-secondary mb-3" type="submit" value="Finalizar"></input>
                     </form>
                 </div>
             </div>

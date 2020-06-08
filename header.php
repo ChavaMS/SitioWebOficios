@@ -17,10 +17,6 @@
     <title>Nombre de empresa</title>
 </head>
 
-<!--<body class="fondoAzul"-->
-
-<!--<body style="background-image: url('img/oficio5.jpg');">-->
-
 <body>
 
     <!--NAVBAR-->
