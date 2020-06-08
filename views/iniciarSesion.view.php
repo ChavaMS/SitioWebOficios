@@ -20,7 +20,7 @@
                     <div class="text-center">
                         <button onclick="crearSesion()" class="btn btn-secondary">Iniciar sesión</button>
                         <a class="text-dark d-block" href="#">¿Olvidaste tu contraseña?</a>
-                        <a class="text-dark d-block" href="registroOpcion.php">¿No tienes una cuenta? Registrate</a>
+                        <a class="text-dark d-block" href="registroOpcion.php?pais=<?php if(isset($_GET['pais'])){echo $_GET['pais'];}?>&estado=<?php if(isset($_GET['estado'])){echo $_GET['estado'];} ?>&ciudad=<?php if(isset($_GET['ciudad'])){echo $_GET['ciudad'];} ?>">¿No tienes una cuenta? Registrate</a>
                     </div>
                 </div>
             </div>

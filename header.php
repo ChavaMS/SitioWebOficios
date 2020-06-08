@@ -37,11 +37,11 @@
                     <div class="dropdown-menu" aria-labelledby="nombreUsuario">
                         <a class="dropdown-item <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] == 'empleador') {
                                                     echo 'd-none';
-                                                } ?>" href="perfil.php?id=<?php if(isset($_SESSION['id'])){echo $_SESSION['id'] . '&session=t';} ?>">Ver perfil</a>
+                                                } ?>" href="perfil.php?id=<?php if(isset($_SESSION['id'])){echo $_SESSION['id'] . '&session=t';} if(isset($_GET['pais'])){echo '&pais='. $_GET['pais'];} ?>&estado=<?php if(isset($_GET['estado'])){echo $_GET['estado'];} ?>&ciudad=<?php if(isset($_GET['ciudad'])){echo $_GET['ciudad'];} ?>">Ver perfil</a>
                         <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] == 'empleado') : ?>
-                            <a class="dropdown-item" href="datosPerfilEmpleado.php?id=<?php if(isset($_SESSION['id'])){echo $_SESSION['id'];} ?>">Mis datos</a>
+                            <a class="dropdown-item" href="datosPerfilEmpleado.php?id=<?php if(isset($_SESSION['id'])){echo $_SESSION['id'];} if(isset($_GET['pais'])){echo '&pais='. $_GET['pais'];} ?>&estado=<?php if(isset($_GET['estado'])){echo $_GET['estado'];} ?>&ciudad=<?php if(isset($_GET['ciudad'])){echo $_GET['ciudad'];} ?>">Mis datos</a>
                         <?php else : ?>
-                            <a class="dropdown-item" href="datosPerfilEmpleador.php?id=<?php if(isset($_SESSION['id'])){echo $_SESSION['id'];} ?>">Mis datos</a>
+                            <a class="dropdown-item" href="datosPerfilEmpleador.php?id=<?php if(isset($_SESSION['id'])){echo $_SESSION['id'];} if(isset($_GET['pais'])){echo '&pais='. $_GET['pais'];} ?>&estado=<?php if(isset($_GET['estado'])){echo $_GET['estado'];} ?>&ciudad=<?php if(isset($_GET['ciudad'])){echo $_GET['ciudad'];} ?>">Mis datos</a>
                         <?php endif; ?>
                     </div>
                 </li>
