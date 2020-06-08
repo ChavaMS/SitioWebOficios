@@ -1,10 +1,19 @@
 function empleado() {
-    window.location = ruta + "registroEmpleado.php";
+    var pais = obtenerValorParametro('pais');
+    var estado = obtenerValorParametro('estado');
+    var ciudad = obtenerValorParametro('ciudad');
+    var parametros = '?pais=' + pais + '&estado=' + estado + '&ciudad=' + ciudad;
+    window.location = ruta + "registroEmpleado.php"  + parametros;
 }
 
 function empleador() {
-    window.location = ruta + "registroEmpleador.php";
+    var pais = obtenerValorParametro('pais');
+    var estado = obtenerValorParametro('estado');
+    var ciudad = obtenerValorParametro('ciudad');
+    var parametros = '?pais=' + pais + '&estado=' + estado + '&ciudad=' + ciudad;
+    window.location = ruta + "registroEmpleador.php" + parametros;
 }
+
 
 function cambiar(id) {
     var pestana = new Array();
