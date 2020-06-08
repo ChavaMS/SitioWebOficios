@@ -6,7 +6,6 @@ require 'config/funciones.php';
 $conexion = conexion($bd_config);
 session_start();
 
-//comprobarSession();
 
 if (!$conexion) {
     header('Location: index.php');
