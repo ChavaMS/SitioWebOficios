@@ -29,7 +29,7 @@ if (window.location.href.includes("datosPerfilEmpleado.php")) {
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
-                //ren.classList.add("d-none");
+                ren.classList.add("d-none");
             }
         }
         xhr.send(parametro);
