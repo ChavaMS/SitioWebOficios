@@ -64,18 +64,25 @@
                                     <div class="text-center">
                                         <span class="text-center">Orden por ubicación</span>
                                     </div>
-                                    <div class="clic">
+                                    <div class="">
                                         <div class="row mx-1">
-                                            <!-- <div class="col-md-4 text-right m-0 p-0">
-                                                <i class="fas fa-sort-amount-up-alt p-1 d-block"></i>
-                                            </div> -->
                                             <div class="col-md-12 text-center m-0 p-0">
-                                                <input type="checkbox" name="ordenarUbicacion" value="true">
-                                                <!--<span onclick="ordenar()" class="">Ubicación</span>-->
+                                                <input type="radio" name="ordenamiento" value="ubicacion">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-center">Orden por rating</span>
+                                    </div>
+                                    <div class="">
+                                        <div class="row mx-1">
+                                            <div class="col-md-12 text-center m-0 p-0">
+                                                <input type="radio" name="ordenamiento" value="rating">
                                             </div>
                                         </div>
                                     </div>
                                     <!--SECCION 3-->
+
                                 </div>
                             </div>
                         </div>

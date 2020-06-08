@@ -38,7 +38,7 @@ if ($_GET) {
             $lonFrom = $_POST['lon'];
             $turnos = isset($_POST['turno']) ? $_POST['turno'] : '';
             $turnos_string = "";
-            $ordenamientoDistancia = isset($_POST['ordenarUbicacion']) ? $_POST['ordenarUbicacion'] : '';
+            $ordenamiento = isset($_POST['ordenamiento']) ? $_POST['ordenamiento'] : '';
 
             if ($turnos != '') {
                 foreach ($turnos as $turno) {
@@ -50,10 +50,10 @@ if ($_GET) {
             $latFrom = $_GET['lat'];
             $lonFrom = $_GET['lon'];
             $turnos_string = isset($_GET['turno']) ? $_GET['turno'] : '';
-            $ordenamientoDistancia = isset($_GET['ordenarUbicacion']) ? $_GET['ordenarUbicacion'] : '';
+            $ordenamiento = isset($_GET['ordenamiento']) ? $_GET['ordenamiento'] : '';
         }
 
-        $url = '&pags=true&busqueda=' . $busqueda . '&lat=' . $latFrom  . '&lon=' . $lonFrom . '&turno=' . $turnos_string . '&ordenarUbicacion=' . $ordenamientoDistancia;
+        $url = '&pags=true&busqueda=' . $busqueda . '&lat=' . $latFrom  . '&lon=' . $lonFrom . '&turno=' . $turnos_string . '&ordenamiento=' . $ordenamiento;
 
         $color[0] = "bg-success";
         $color[1] = "bg-info";
@@ -82,16 +82,31 @@ if ($_GET) {
             $oficios[$i++] = obtener_empleos($usuario['id'], $conexion);
         }
 
-        if ($ordenamientoDistancia != '') {
-            for ($h = 0; $h < sizeof($distancias); $h++) {
-                for ($t = 0; $t < sizeof($distancias) - 1; $t++) {
-                    if (intval($distancias[$t][1]) > intval($distancias[$t + 1][1])) {
-                        $aux = $distancias[$t];
-                        $aux2 = $usuarios[$t];
-                        $distancias[$t] = $distancias[$t + 1];
-                        $usuarios[$t] = $usuarios[$t + 1];
-                        $distancias[$t + 1] = $aux;
-                        $usuarios[$t + 1] = $aux2;
+        if ($ordenamiento != '') {
+            if ($ordenamiento == 'ubicacion') {
+                for ($h = 0; $h < sizeof($distancias); $h++) {
+                    for ($t = 0; $t < sizeof($distancias) - 1; $t++) {
+                        if (intval($distancias[$t][1]) > intval($distancias[$t + 1][1])) {
+                            $aux = $distancias[$t];
+                            $aux2 = $usuarios[$t];
+                            $distancias[$t] = $distancias[$t + 1];
+                            $usuarios[$t] = $usuarios[$t + 1];
+                            $distancias[$t + 1] = $aux;
+                            $usuarios[$t + 1] = $aux2;
+                        }
+                    }
+                }
+            } else if ($ordenamiento == 'rating') {
+                for ($h = 0; $h < sizeof($rating); $h++) {
+                    for ($t = 0; $t < sizeof($rating) - 1; $t++) {
+                        if (($rating[$t]) < ($rating[$t + 1])) {
+                            $aux = $rating[$t];
+                            $aux2 = $usuarios[$t];
+                            $rating[$t] = $rating[$t + 1];
+                            $usuarios[$t] = $usuarios[$t + 1];
+                            $rating[$t + 1] = $aux;
+                            $usuarios[$t + 1] = $aux2;
+                        }
                     }
                 }
             }
