@@ -9,7 +9,6 @@ $conexion = conexion($bd_config);
 
 $oficios = obtener_oficios($conexion);
 
-
 require 'header.php';
 require 'views/index.view.php';
 require 'footer.php';

@@ -85,6 +85,9 @@ if ($_GET) {
 
         //PROCESOS
         $usuarios = obtener_empleados($blog_config['post_por_pagina'], $ciudad, $estado, $conexion);
+        if($usuarios == null){
+            header("Location: index.php?err=true");
+        }
         foreach ($usuarios as $usuario) {
             $turnos_array[$i] = str_split($usuario['schedule']);
             $oficios[$i] = obtener_empleos($usuario['id'], $conexion);

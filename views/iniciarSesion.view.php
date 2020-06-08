@@ -6,6 +6,7 @@
         <div class="col-4 d-flex justify-content-md-center align-items-center min-vh-100">
             <div class="card rounded w-100">
                 <div class="card-body">
+                <div id="alerta" class="text-center bg-danger d-none"><p style="font-size: 1rem;">Correo o contraseña incorrectos</p></div>
                     <h5 class="card-title text-center">Iniciar sesión</h5>
                     <div class="form-group">
                         <label for="InputEmail1">Email address</label>
