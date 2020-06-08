@@ -28,20 +28,29 @@ if ($_GET) {
     $distancias = array();
     $turnos_array = array();
     $rating = array();
-    if (isset($_POST['busqueda'])) {
+    $url = '';
+    if (isset($_POST['busqueda']) || isset($_GET['busqueda'])) {
         //VARIABLES
-        $busqueda = limpiarDatos($_POST['busqueda']);
-        $latFrom = $_POST['lat'];
-        $lonFrom = $_POST['lon'];
-        $turnos = isset($_POST['turno']) ? $_POST['turno'] : '';
-        $turnos_string = "";
 
+        if (isset($_POST['busqueda'])) {
+            $busqueda = limpiarDatos($_POST['busqueda']);
+            $latFrom = $_POST['lat'];
+            $lonFrom = $_POST['lon'];
+            $turnos = isset($_POST['turno']) ? $_POST['turno'] : '';
+            $turnos_string = "";
 
-        if ($turnos != '') {
-            foreach ($turnos as $turno) {
-                $turnos_string .= $turno;
+            if ($turnos != '') {
+                foreach ($turnos as $turno) {
+                    $turnos_string .= $turno;
+                }
             }
+        } else if (isset($_GET['pags'])) {
+            $busqueda = limpiarDatos($_GET['busqueda']);
+            $latFrom = $_GET['lat'];
+            $lonFrom = $_GET['lon'];
+            $turnos_string = isset($_GET['turno']) ? $_GET['turno'] : '';
         }
+        $url = '&pags=true&busqueda='. $busqueda . '&lat=' . $latFrom  . '&lon=' . $lonFrom . '&turno=' . $turnos_string;
 
         $color[0] = "bg-success";
         $color[1] = "bg-info";
@@ -85,7 +94,7 @@ if ($_GET) {
 
         //PROCESOS
         $usuarios = obtener_empleados($blog_config['post_por_pagina'], $ciudad, $estado, $conexion);
-        if($usuarios == null){
+        if ($usuarios == null) {
             header("Location: index.php?err=true");
         }
         foreach ($usuarios as $usuario) {

@@ -28,7 +28,7 @@ if (window.location.href.includes("inicio.php")) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             respuesta = JSON.parse(xhr.responseText);
-            //console.log(respuesta.coordenadas.lat);
+            console.log();
             initMap();
         }
     }
@@ -78,7 +78,6 @@ if (window.location.href.includes("inicio.php")) {
                     key: 'AIzaSyDgRN1AR5CnGjgdcc3f93CzMho80a2yWog'
                 }
             }).then(function (resp) {
-                //console.log(resp.data.results[0].geometry.location.lat);
                 lat.value = resp.data.results[0].geometry.location.lat;
                 lon.value = resp.data.results[0].geometry.location.lng;
                 form.submit();
@@ -101,6 +100,7 @@ if (window.location.href.includes("inicio.php")) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             respuesta = JSON.parse(xhr.responseText);
+
             initMap1();
         }
     }
